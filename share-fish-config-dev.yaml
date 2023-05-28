@@ -1,0 +1,70 @@
+spring:
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: "Asia/Shanghai"
+  mvc:
+    log-request-details: true
+  datasource:
+    druid:
+      initial-size: 5
+      max-active: 30
+      min-idle: 10
+      max-wait: 60000
+      time-between-eviction-runs-millis: 100000
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://192.168.188.7:5432/postgres?currentSchema=feidi&stringtype=unspecified
+          username: postgres
+          password: postgres
+          type: com.alibaba.druid.pool.DruidDataSource
+        mysql:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.188.7:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+          type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: 192.168.188.7
+    port: 6379
+    username:
+    password:
+    database: 1
+    ssl: false
+    timeout: 1s
+    connect-timeout: 3s
+
+mybatis:
+  mapper-locations: "classpath*:/mapper/**/*.xml"
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    variables:
+      feidi: feidi
+
+logging:
+  level:
+    web: debug
+    org.springframework.web: debug
+    com.netflix: warn
+  file:
+    name: ./logs/${spring.application.name}/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      max-file-size: 20MB
+      max-history: 30
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
+  charset:
+    console: UTF-8
+    file: UTF-8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

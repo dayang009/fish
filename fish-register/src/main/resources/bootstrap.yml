@@ -1,0 +1,63 @@
+server:
+  port: @eureka.fish.port@
+
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: @profiles.active@
+  cloud:
+    nacos:
+      username: @nacos.fish.username@
+      password: @nacos.fish.password@
+      config:
+        enabled: true
+        server-addr: @nacos.fish.ip@:@nacos.fish.port@
+        file-extension: yaml
+        namespace: @nacos.fish.namespace@
+        group: @nacos.fish.group@
+        refresh-enabled: true
+        # 用于共享的配置文件
+        shared-configs:
+        - data-id: share-fish-config-@profiles.active@.yaml
+          refresh: true
+
+eureka:
+  instance:
+    # 不配置的话默认为电脑名
+    hostname: @eureka.fish.ip@
+    # 客户端向服务端发送心跳的时间间隔，默认 30 秒
+    lease-renewal-interval-in-seconds: 30
+    # 最后一次收到心跳后，超过 90 秒，则会把服务从清单中剔除，禁止服务调用发送到实例上，
+    # 需要设置为至少高于 lease-renewal-interval-in-seconds 的值，不然会被误移除了。
+    lease-expiration-duration-in-seconds: 90
+    # true：实例以 IP 的形式注册   false：实例以机器 HOSTNAME 形式注册
+    prefer-ip-address: true
+    # 注册到 Eureka 的实例ID
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+
+  server:
+    # 如果在 15 分钟内超过 85% 的客户端节点都没有正常的心跳，那么 Eureka 就认为客户端与注册中心出现了网络故障
+    enable-self-preservation: false
+    # 自我保护系数，默认 0.85
+    renewal-percent-threshold: 0.85
+    # 清理无效节点的频率
+    eviction-interval-timer-in-ms: 3000
+    # 不使用只读 Map 注册表
+    use-read-only-response-cache: false
+    # ReadWrite 到 ReadOnly 同步的频率，默认 30 秒
+    response-cache-update-interval-ms: 30000
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    # 从 Eureka 服务上获取注册的服务信息列表的间隔时间
+    registry-fetch-interval-seconds: 30
+    service-url:
+      #单机
+      defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
