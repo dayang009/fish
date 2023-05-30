@@ -1,0 +1,54 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: @profiles.active@
+  cloud:
+    nacos:
+      username: @nacos.fish.username@
+      password: @nacos.fish.password@
+      config:
+        enabled: true
+        server-addr: @nacos.fish.ip@:@nacos.fish.port@
+        file-extension: yaml
+        namespace: @nacos.fish.namespace@
+        group: @nacos.fish.group@
+        refresh-enabled: true
+        # 用于共享的配置文件
+        shared-configs:
+        - data-id: share-fish-config-@profiles.active@.yaml
+          refresh: true
+      discovery:
+        enabled: false
+        server-addr: @nacos.fish.ip@:@nacos.fish.port@
+        namespace: @nacos.fish.namespace@
+        group: @nacos.fish.group@
+
+eureka:
+  instance:
+    # 默认为电脑名
+    hostname: @eureka.fish.ip@
+    # 测主机名为IP形式
+    prefer-ip-address: true
+    # 默认值为主机名+服务名+端口
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
+
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8082/xxl-job-admin
+    accessToken: default_token
+    executor:
+      appname: xxl-job-executor-sample
+      address: 127.0.0.1
+      ip:
+      port: 9999
+      logpath: ./logs/xxl-job/jobhandler
+      logretentiondays: 30
