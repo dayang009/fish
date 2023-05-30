@@ -1,0 +1,97 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /xxl-job-admin
+
+
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: @profiles.active@
+  mvc:
+    servlet:
+      load-on-startup: 0
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations: classpath:/static/
+  cloud:
+    nacos:
+      username: @nacos.fish.username@
+      password: @nacos.fish.password@
+      config:
+        enabled: true
+        server-addr: @nacos.fish.ip@:@nacos.fish.port@
+        file-extension: yaml
+        namespace: @nacos.fish.namespace@
+        group: @nacos.fish.group@
+        refresh-enabled: true
+        # 用于共享的配置文件
+        shared-configs:
+        - data-id: share-fish-config-@profiles.active@.yaml
+          refresh: true
+      discovery:
+        enabled: false
+        server-addr: @nacos.fish.ip@:@nacos.fish.port@
+        namespace: @nacos.fish.namespace@
+        group: @nacos.fish.group@
+  freemarker:
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    charset: UTF-8
+    request-context-attribute: request
+    settings:
+      number_format: 0.##########
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: xxx@qq.com
+    password: xxx
+    from: xx@qq.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
+xxl:
+  job:
+    accessToken: default_token
+    i18n: zh_CN
+    triggerpool:
+      fast:
+        max: 200
+      slow:
+        max: 100
+    logretentiondays: 30
+
+
+
+eureka:
+  instance:
+    # 默认为电脑名
+    hostname: @eureka.fish.ip@
+    # 测主机名为IP形式
+    prefer-ip-address: true
+    # 默认值为主机名+服务名+端口
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    base-path: /actuator
+  health:
+    mail:
+      enabled: false

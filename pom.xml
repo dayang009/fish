@@ -19,6 +19,7 @@
         <module>fish-gateway</module>
         <module>fish-common</module>
         <module>fish-job-admin</module>
+        <module>fish-executor</module>
     </modules>
 
     <properties>
@@ -168,6 +169,11 @@
             <!--     <artifactId>xxl-job-core</artifactId> -->
             <!--     <version>${project.version}</version> -->
             <!-- </dependency> -->
+            <dependency>
+                <groupId>com.fish</groupId>
+                <artifactId>fish-common-job</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- ============= 项目内部模块版本定义 ============= -->
 
 

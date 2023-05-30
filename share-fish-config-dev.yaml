@@ -17,7 +17,7 @@ spring:
       datasource:
         master:
           driver-class-name: org.postgresql.Driver
-          url: jdbc:postgresql://192.168.188.7:5432/postgres?currentSchema=feidi&stringtype=unspecified
+          url: jdbc:postgresql://192.168.188.7:5432/postgres?currentSchema=fish&stringtype=unspecified
           username: postgres
           password: postgres
           type: com.alibaba.druid.pool.DruidDataSource
@@ -43,13 +43,13 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
     variables:
-      feidi: feidi
+      fish: fish
 
 logging:
   level:
     web: debug
     org.springframework.web: debug
-    com.netflix: warn
+    com.netflix.eureka.registry: warn
   file:
     name: ./logs/${spring.application.name}/${spring.application.name}.log
   logback:
@@ -68,3 +68,18 @@ management:
     web:
       exposure:
         include: "*"
+
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    accessToken: default_token
+    executor:
+      appname: xxl-job-executor-sample
+      address:
+      ip:
+      port: 9999
+      logpath: ./logs/xxl-job/jobhandler
+      logretentiondays: 30
+
+
