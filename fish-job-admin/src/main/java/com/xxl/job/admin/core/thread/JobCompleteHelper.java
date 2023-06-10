@@ -21,9 +21,9 @@ import java.util.concurrent.*;
  */
 public class JobCompleteHelper {
 
-	private static Logger logger = LoggerFactory.getLogger(JobCompleteHelper.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobCompleteHelper.class);
 
-	private static JobCompleteHelper instance = new JobCompleteHelper();
+	private static final JobCompleteHelper instance = new JobCompleteHelper();
 
 	public static JobCompleteHelper getInstance() {
 		return instance;
@@ -40,8 +40,8 @@ public class JobCompleteHelper {
 	public void start() {
 
 		// for callback
-		callbackThreadPool = new ThreadPoolExecutor(2, 20, 30L, TimeUnit.SECONDS,
-				new LinkedBlockingQueue<Runnable>(3000), new ThreadFactory() {
+		callbackThreadPool = new ThreadPoolExecutor(2, 20, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(3000),
+				new ThreadFactory() {
 					@Override
 					public Thread newThread(Runnable r) {
 						return new Thread(r, "xxl-job, admin JobLosedMonitorHelper-callbackThreadPool-" + r.hashCode());

@@ -12,6 +12,8 @@
     <artifactId>fish-common</artifactId>
     <packaging>pom</packaging>
 
+    <description>公共依赖聚合模块</description>
+
     <modules>
         <module>fish-common-core</module>
         <module>fish-common-job</module>

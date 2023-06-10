@@ -1,7 +1,8 @@
 package com.xxl.job.core.glue;
 
 /**
- * Created by xuxueli on 17/4/26.
+ * @author xuxueli
+ * @date 2017/04/26
  */
 public enum GlueTypeEnum {
 
@@ -10,15 +11,15 @@ public enum GlueTypeEnum {
 	GLUE_PHP("GLUE(PHP)", true, "php", ".php"), GLUE_NODEJS("GLUE(Nodejs)", true, "node", ".js"),
 	GLUE_POWERSHELL("GLUE(PowerShell)", true, "powershell", ".ps1");
 
-	private String desc;
+	private final String desc;
 
-	private boolean isScript;
+	private final boolean isScript;
 
-	private String cmd;
+	private final String cmd;
 
-	private String suffix;
+	private final String suffix;
 
-	private GlueTypeEnum(String desc, boolean isScript, String cmd, String suffix) {
+	GlueTypeEnum(String desc, boolean isScript, String cmd, String suffix) {
 		this.desc = desc;
 		this.isScript = isScript;
 		this.cmd = cmd;

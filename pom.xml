@@ -10,7 +10,7 @@
     <version>0.1.0</version>
     <packaging>pom</packaging>
 
-    <name>小鱼微服务</name>
+    <name>fish</name>
     <description>小鱼微服务</description>
     <url>https://dayang.plus</url>
 
@@ -23,27 +23,24 @@
     </modules>
 
     <properties>
-        <java.version>8</java.version>
+        <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.12</spring-boot.version>
+        <spring-boot.version>2.6.15</spring-boot.version>
         <spring-cloud.version>2021.0.7</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <skipTests>true</skipTests>
-        <jasypt.version>3.0.5</jasypt.version>
-        <fastjson.version>2.0.32</fastjson.version>
-        <hutool.version>5.8.18</hutool.version>
+        <fastjson.version>2.0.33</fastjson.version>
+        <hutool.version>5.8.19</hutool.version>
         <mybatis-starter.version>2.3.1</mybatis-starter.version>
         <mybatis-plus-starter.version>3.5.3.1</mybatis-plus-starter.version>
         <dynamic-datasource.version>3.6.1</dynamic-datasource.version>
         <druid-starter.version>1.2.18</druid-starter.version>
-        <pagehelper-starter.version>1.4.6</pagehelper-starter.version>
-        <rocketmq.version>4.9.5</rocketmq.version>
+        <pagehelper-starter.version>1.4.7</pagehelper-starter.version>
+        <rocketmq-starter.version>2.2.2</rocketmq-starter.version>
         <knife4j.version>4.1.0</knife4j.version>
         <openfeign-starter.version>3.1.7</openfeign-starter.version>
         <jjwt-api.version>0.11.5</jjwt-api.version>
@@ -64,11 +61,6 @@
         <!-- 配置文件处理器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure-processor</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -76,12 +68,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-        <!-- 配置文件加解密 -->
-        <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version>${jasypt.version}</version>
         </dependency>
         <!-- 监控 -->
         <dependency>
@@ -228,24 +214,10 @@
             <!-- RocketMQ 依赖 -->
             <dependency>
                 <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-client</artifactId>
-                <version>${rocketmq.version}</version>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq-starter.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-acl</artifactId>
-                <version>${rocketmq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-srvutil</artifactId>
-                <version>${rocketmq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-broker</artifactId>
-                <version>${rocketmq.version}</version>
-            </dependency>
+
 
             <dependency>
                 <groupId>commons-net</groupId>
@@ -355,6 +327,12 @@
                         <layers>
                             <enabled>true</enabled>
                         </layers>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
                     </configuration>
                     <executions>
                         <execution>
@@ -368,24 +346,6 @@
         </pluginManagement>
 
         <plugins>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <finalName>${project.build.finalName}</finalName>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
             <!-- 代码格式化插件，Spring源码风格，打包前执行 https://github.com/spring-io/spring-javaformat -->
             <plugin>
@@ -407,7 +367,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin.version}</version>
+                <version>3.2.1</version>
                 <!-- 绑定source插件到Maven的生命周期,并在生命周期后执行绑定的source的goal -->
                 <executions>
                     <execution>
@@ -434,7 +394,7 @@
                 <nacos.fish.port>8848</nacos.fish.port>
                 <nacos.fish.username>nacos</nacos.fish.username>
                 <nacos.fish.password>nacos</nacos.fish.password>
-                <nacos.fish.namespace></nacos.fish.namespace>
+                <nacos.fish.namespace/>
                 <nacos.fish.group>FISH</nacos.fish.group>
                 <eureka.fish.ip>127.0.0.1</eureka.fish.ip>
                 <eureka.fish.port>8761</eureka.fish.port>

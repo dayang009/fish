@@ -10,7 +10,6 @@ import com.xxl.job.core.biz.model.ReturnT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 
 import javax.mail.internet.MimeMessage;
 import java.text.MessageFormat;
@@ -23,10 +22,9 @@ import java.util.Set;
  *
  * @author xuxueli 2020-01-19
  */
-@Component
 public class EmailJobAlarm implements JobAlarm {
 
-	private static Logger logger = LoggerFactory.getLogger(EmailJobAlarm.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmailJobAlarm.class);
 
 	/**
 	 * fail alarm
@@ -49,9 +47,7 @@ public class EmailJobAlarm implements JobAlarm {
 			}
 
 			// email info
-			XxlJobGroup group = XxlJobAdminConfig.getAdminConfig()
-				.getXxlJobGroupDao()
-				.load(Integer.valueOf(info.getJobGroup()));
+			XxlJobGroup group = XxlJobAdminConfig.getAdminConfig().getXxlJobGroupDao().load(info.getJobGroup());
 			String personal = I18nUtil.getString("admin_name_full");
 			String title = I18nUtil.getString("jobconf_monitor");
 			String content = MessageFormat.format(loadEmailJobAlarmTemplate(),
@@ -89,7 +85,7 @@ public class EmailJobAlarm implements JobAlarm {
 	 * load email job alarm template
 	 * @return
 	 */
-	private static final String loadEmailJobAlarmTemplate() {
+	private static String loadEmailJobAlarmTemplate() {
 		String mailBodyTemplate = "<h5>" + I18nUtil.getString("jobconf_monitor_detail") + "：</span>"
 				+ "<table border=\"1\" cellpadding=\"3\" style=\"border-collapse:collapse; width:80%;\" >\n"
 				+ "   <thead style=\"font-weight: bold;color: #ffffff;background-color: #ff8c00;\" >" + "      <tr>\n"

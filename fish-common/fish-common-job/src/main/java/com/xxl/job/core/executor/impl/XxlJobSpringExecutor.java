@@ -67,7 +67,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor
 	 * = serviceBean.getClass().getAnnotation(JobHandler.class).value(); IJobHandler
 	 * handler = (IJobHandler) serviceBean; if (loadJobHandler(name) != null) { throw new
 	 * RuntimeException("xxl-job jobhandler[" + name + "] naming conflicts."); }
-	 * registJobHandler(name, handler); } } } }
+	 * registerJobHandler(name, handler); } } } }
 	 */
 
 	private void initJobHandlerMethodRepository(ApplicationContext applicationContext) {

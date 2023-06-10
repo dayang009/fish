@@ -12,6 +12,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +26,8 @@ import java.util.concurrent.TimeUnit;
  * 打印执行日志； 4、任务结果：默认任务结果为 "成功" 状态，不需要主动设置；如有诉求，比如设置任务结果为失败，可以通过
  * "XxlJobHelper.handleFail/handleSuccess" 自主设置任务结果；
  *
- * @author xuxueli 2019-12-11 21:52:51
+ * @author xuxueli
+ * @date 2019-12-11 21:52:51
  */
 @Component
 public class SampleXxlJob {
@@ -192,7 +194,7 @@ public class SampleXxlJob {
 			// data
 			if (isPostMethod && data != null && data.trim().length() > 0) {
 				DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
-				dataOutputStream.write(data.getBytes("UTF-8"));
+				dataOutputStream.write(data.getBytes(StandardCharsets.UTF_8));
 				dataOutputStream.flush();
 				dataOutputStream.close();
 			}
@@ -204,7 +206,8 @@ public class SampleXxlJob {
 			}
 
 			// result
-			bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			bufferedReader = new BufferedReader(
+					new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder result = new StringBuilder();
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {

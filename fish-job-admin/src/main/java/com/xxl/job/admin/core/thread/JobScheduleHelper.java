@@ -22,15 +22,16 @@ import java.util.concurrent.TimeUnit;
  */
 public class JobScheduleHelper {
 
-	private static Logger logger = LoggerFactory.getLogger(JobScheduleHelper.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobScheduleHelper.class);
 
-	private static JobScheduleHelper instance = new JobScheduleHelper();
+	private static final JobScheduleHelper instance = new JobScheduleHelper();
 
 	public static JobScheduleHelper getInstance() {
 		return instance;
 	}
 
-	public static final long PRE_READ_MS = 5000; // pre read
+	// 预读XX秒的任务
+	public static final long PRE_READ_MS = 5000;
 
 	private Thread scheduleThread;
 
@@ -40,7 +41,10 @@ public class JobScheduleHelper {
 
 	private volatile boolean ringThreadToStop = false;
 
-	private volatile static Map<Integer, List<Integer>> ringData = new ConcurrentHashMap<>();
+	/**
+	 * Key 是要触发的秒数 Value 是要触发的任务的列表
+	 */
+	private static final Map<Integer, List<Integer>> ringData = new ConcurrentHashMap<>();
 
 	public void start() {
 
@@ -68,6 +72,7 @@ public class JobScheduleHelper {
 
 					// Scan Job
 					long start = System.currentTimeMillis();
+					// 多数据源的xxl-job指定使用 MySQL 数据库
 					DynamicDataSourceContextHolder.push("mysql");
 					Connection conn = null;
 					Boolean connAutoCommit = null;
@@ -86,16 +91,16 @@ public class JobScheduleHelper {
 
 						// tx start
 
-						// 1、pre read
+						// 1、pre read 预读
 						long nowTime = System.currentTimeMillis();
 						List<XxlJobInfo> scheduleList = XxlJobAdminConfig.getAdminConfig()
 							.getXxlJobInfoDao()
 							.scheduleJobQuery(nowTime + PRE_READ_MS, preReadCount);
 						if (scheduleList != null && scheduleList.size() > 0) {
-							// 2、push time-ring
+							// 2、push time-ring 推送到时间轮
 							for (XxlJobInfo jobInfo : scheduleList) {
 
-								// time-ring jump
+								// time-ring jump 时间轮刻度计算
 								if (nowTime > jobInfo.getTriggerNextTime() + PRE_READ_MS) {
 									// 2.1、trigger-expire > 5s：pass && make
 									// next-trigger-time
@@ -177,7 +182,7 @@ public class JobScheduleHelper {
 					}
 					catch (Exception e) {
 						if (!scheduleThreadToStop) {
-							logger.error(">>>>>>>>>>> xxl-job, JobScheduleHelper#scheduleThread error:{}", e);
+							logger.error(">>>>> xxl-job, JobScheduleHelper#scheduleThread error:{}", e.getMessage());
 						}
 					}
 					finally {
@@ -294,7 +299,7 @@ public class JobScheduleHelper {
 					}
 					catch (Exception e) {
 						if (!ringThreadToStop) {
-							logger.error(">>>>>>>>>>> xxl-job, JobScheduleHelper#ringThread error:{}", e);
+							logger.error(">>>>>> xxl-job, JobScheduleHelper#ringThread error:{}", e.getMessage());
 						}
 					}
 				}
@@ -326,7 +331,7 @@ public class JobScheduleHelper {
 		// push async ring
 		List<Integer> ringItemData = ringData.get(ringSecond);
 		if (ringItemData == null) {
-			ringItemData = new ArrayList<Integer>();
+			ringItemData = new ArrayList<>();
 			ringData.put(ringSecond, ringItemData);
 		}
 		ringItemData.add(jobId);
@@ -356,7 +361,7 @@ public class JobScheduleHelper {
 			}
 		}
 
-		// if has ring data
+		// if it has ring data
 		boolean hasRingData = false;
 		if (!ringData.isEmpty()) {
 			for (int second : ringData.keySet()) {
