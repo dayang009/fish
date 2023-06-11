@@ -17,11 +17,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 /**
- * Created by xuxueli on 17/3/1.
+ * @author xuxueli
+ * @date 2017/3/1
  */
 public class ExecutorBizImpl implements ExecutorBiz {
 
-	private static Logger logger = LoggerFactory.getLogger(ExecutorBizImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ExecutorBizImpl.class);
 
 	@Override
 	public ReturnT<String> beat() {
@@ -169,7 +170,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 			return ReturnT.SUCCESS;
 		}
 
-		return new ReturnT<String>(ReturnT.SUCCESS_CODE, "job thread already killed.");
+		return new ReturnT<>(ReturnT.SUCCESS_CODE, "job thread already killed.");
 	}
 
 	@Override

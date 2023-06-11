@@ -71,6 +71,7 @@
         <dependency>
             <groupId>com.fish</groupId>
             <artifactId>fish-common-job</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <!-- Nacos 配置中心 -->
         <dependency>
