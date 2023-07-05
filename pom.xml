@@ -28,13 +28,13 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.12</spring-boot.version>
-        <spring-cloud.version>2021.0.7</spring-cloud.version>
+        <spring-boot.version>2.7.13</spring-boot.version>
+        <spring-cloud.version>2021.0.8</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <fastjson.version>2.0.33</fastjson.version>
-        <hutool.version>5.8.19</hutool.version>
+        <fastjson.version>2.0.34</fastjson.version>
+        <hutool.version>5.8.20</hutool.version>
         <mybatis-starter.version>2.3.1</mybatis-starter.version>
         <mybatis-plus-starter.version>3.5.3.1</mybatis-plus-starter.version>
         <dynamic-datasource.version>3.6.1</dynamic-datasource.version>
