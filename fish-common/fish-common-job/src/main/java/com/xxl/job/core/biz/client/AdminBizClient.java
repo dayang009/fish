@@ -15,6 +15,12 @@ import java.util.List;
  */
 public class AdminBizClient implements AdminBiz {
 
+	private final int timeout = 3;
+
+	private String addressUrl;
+
+	private String accessToken;
+
 	public AdminBizClient() {
 	}
 
@@ -27,12 +33,6 @@ public class AdminBizClient implements AdminBiz {
 			this.addressUrl = this.addressUrl + "/";
 		}
 	}
-
-	private String addressUrl;
-
-	private String accessToken;
-
-	private int timeout = 3;
 
 	@Override
 	public ReturnT<String> callback(List<HandleCallbackParam> callbackParamList) {

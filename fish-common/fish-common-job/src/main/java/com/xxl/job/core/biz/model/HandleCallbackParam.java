@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class HandleCallbackParam implements Serializable {
 
-	private static final long serialVersionUID = 42L;
+	private static final long serialVersionUID = 7017761588516096351L;
 
 	private long logId;
 

@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class XxlJobFileAppender {
 
-	private static Logger logger = LoggerFactory.getLogger(XxlJobFileAppender.class);
+	private static final Logger logger = LoggerFactory.getLogger(XxlJobFileAppender.class);
 
 	/**
 	 * log base path

@@ -11,6 +11,12 @@ import com.xxl.job.core.util.XxlJobRemotingUtil;
  */
 public class ExecutorBizClient implements ExecutorBiz {
 
+	private final int timeout = 3;
+
+	private String addressUrl;
+
+	private String accessToken;
+
 	public ExecutorBizClient() {
 	}
 
@@ -23,12 +29,6 @@ public class ExecutorBizClient implements ExecutorBiz {
 			this.addressUrl = this.addressUrl + "/";
 		}
 	}
-
-	private String addressUrl;
-
-	private String accessToken;
-
-	private int timeout = 3;
 
 	@Override
 	public ReturnT<String> beat() {

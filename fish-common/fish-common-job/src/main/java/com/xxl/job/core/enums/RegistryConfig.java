@@ -1,7 +1,7 @@
 package com.xxl.job.core.enums;
 
 /**
- * Created by xuxueli on 17/5/10.
+ * @author xuxueli
  */
 public class RegistryConfig {
 

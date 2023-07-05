@@ -10,18 +10,33 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.Map;
 
 /**
  * @author xuxueli 2018-11-25 00:55:31
  */
 public class XxlJobRemotingUtil {
 
-	private static Logger logger = LoggerFactory.getLogger(XxlJobRemotingUtil.class);
-
 	public static final String XXL_JOB_ACCESS_TOKEN = "XXL-JOB-ACCESS-TOKEN";
+
+	private static final Logger logger = LoggerFactory.getLogger(XxlJobRemotingUtil.class);
+
+	private static final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+		@Override
+		public X509Certificate[] getAcceptedIssuers() {
+			return new X509Certificate[] {};
+		}
+
+		@Override
+		public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+		}
+
+		@Override
+		public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+		}
+	} };
 
 	// trust-https start
 	private static void trustAllHosts(HttpsURLConnection connection) {
@@ -43,31 +58,16 @@ public class XxlJobRemotingUtil {
 		});
 	}
 
-	private static final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-		@Override
-		public X509Certificate[] getAcceptedIssuers() {
-			return new X509Certificate[] {};
-		}
-
-		@Override
-		public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-		}
-
-		@Override
-		public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-		}
-	} };
-
 	// trust-https end
 
 	/**
 	 * post
-	 * @param url
-	 * @param accessToken
-	 * @param timeout
-	 * @param requestObj
-	 * @param returnTargClassOfT
-	 * @return
+	 * @param url url
+	 * @param accessToken token
+	 * @param timeout timeout
+	 * @param requestObj req
+	 * @param returnTargClassOfT return
+	 * @return ReturnT
 	 */
 	public static ReturnT postBody(String url, String accessToken, int timeout, Object requestObj,
 			Class returnTargClassOfT) {
@@ -108,7 +108,7 @@ public class XxlJobRemotingUtil {
 				String requestBody = GsonTool.toJson(requestObj);
 
 				DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
-				dataOutputStream.write(requestBody.getBytes("UTF-8"));
+				dataOutputStream.write(requestBody.getBytes(StandardCharsets.UTF_8));
 				dataOutputStream.flush();
 				dataOutputStream.close();
 			}
@@ -129,7 +129,8 @@ public class XxlJobRemotingUtil {
 			}
 
 			// result
-			bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			bufferedReader = new BufferedReader(
+					new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder result = new StringBuilder();
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {

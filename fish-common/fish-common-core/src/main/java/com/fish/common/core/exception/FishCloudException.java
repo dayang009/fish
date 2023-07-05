@@ -5,7 +5,6 @@ import com.fish.common.core.util.ResponseEnum;
 
 /**
  * @author dayang
- * @date 2023/6/11
  */
 public class FishCloudException extends RuntimeException implements IResult {
 

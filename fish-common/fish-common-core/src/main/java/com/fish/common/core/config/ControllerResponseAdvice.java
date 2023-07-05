@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * @author dayang
- * @date 2023/6/11
  */
 @RestControllerAdvice(basePackages = { "com.fish" })
 public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {

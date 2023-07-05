@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <inceptionYear>2023</inceptionYear>
@@ -20,10 +20,11 @@
         <module>fish-common</module>
         <module>fish-job-admin</module>
         <module>fish-executor</module>
+        <module>fish-business</module>
     </modules>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,29 +32,10 @@
         <spring-boot.version>2.7.13</spring-boot.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
-        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <fastjson.version>2.0.34</fastjson.version>
-        <hutool.version>5.8.20</hutool.version>
-        <mybatis-starter.version>2.3.1</mybatis-starter.version>
-        <mybatis-plus-starter.version>3.5.3.1</mybatis-plus-starter.version>
-        <dynamic-datasource.version>3.6.1</dynamic-datasource.version>
-        <druid-starter.version>1.2.18</druid-starter.version>
-        <pagehelper-starter.version>1.4.7</pagehelper-starter.version>
-        <rocketmq-starter.version>2.2.2</rocketmq-starter.version>
         <knife4j.version>4.1.0</knife4j.version>
-        <openfeign-starter.version>3.1.7</openfeign-starter.version>
-        <jjwt-api.version>0.11.5</jjwt-api.version>
-        <java-jwt.version>3.19.4</java-jwt.version>
-        <guava.version>31.1-jre</guava.version>
-        <aliyun-sdk-oss.version>3.16.3</aliyun-sdk-oss.version>
-        <ons-client.version>1.8.8.8.Final</ons-client.version>
-        <commons-net.version>3.9.0</commons-net.version>
-        <commons-io.version>2.12.0</commons-io.version>
-        <commons-compress.version>1.23.0</commons-compress.version>
-        <xz.version>1.9</xz.version>
-        <dom4j.version>2.1.4</dom4j.version>
-        <groovy.version>4.0.12</groovy.version>
+        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <openfeign-starter.version>3.1.8</openfeign-starter.version>
     </properties>
 
     <dependencies>
@@ -146,57 +128,48 @@
 
             <!-- Json 序列化工具 -->
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
-                <version>${fastjson.version}</version>
+                <version>2.0.34</version>
             </dependency>
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2-extension</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
+
 
             <!-- Mybatis 依赖 -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-starter.version}</version>
+                <version>2.3.1</version>
             </dependency>
             <!-- Mybatis Plus 依赖 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-starter.version}</version>
+                <version>3.5.3.1</version>
             </dependency>
             <!-- dynamic 多数据源配置 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-                <version>${dynamic-datasource.version}</version>
+                <version>3.6.1</version>
             </dependency>
             <!-- 德鲁伊连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid-starter.version}</version>
+                <version>1.2.18</version>
             </dependency>
             <!-- Page-helper 分页插件 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper-starter.version}</version>
+                <version>1.4.7</version>
             </dependency>
 
-            <!-- RocketMQ 依赖 -->
+            <!-- if you use RocketMQ 5.X, donot update version great then 2.2.2 -->
             <dependency>
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
-                <version>${rocketmq-starter.version}</version>
+                <version>2.2.2</version>
             </dependency>
 
             <!-- Java Bean 拷贝框架 -->
@@ -219,19 +192,19 @@
             <dependency>
                 <groupId>commons-net</groupId>
                 <artifactId>commons-net</artifactId>
-                <version>${commons-net.version}</version>
+                <version>3.9.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
+                <version>2.12.0</version>
             </dependency>
 
             <!-- guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
+                <version>31.1-jre</version>
             </dependency>
 
 
@@ -239,64 +212,65 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
+                <version>5.8.20</version>
             </dependency>
 
             <!-- openfeign，需要单独引入，且指定版本号 -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-openfeign</artifactId>
-                <version>${openfeign-starter.version}</version>
-            </dependency>
+            <!-- <dependency> -->
+            <!--     <groupId>org.springframework.cloud</groupId> -->
+            <!--     <artifactId>spring-cloud-starter-openfeign</artifactId> -->
+            <!--     <version>${openfeign-starter.version}</version> -->
+            <!-- </dependency> -->
 
             <!-- Token 生成和解析 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-api</artifactId>
-                <version>${jjwt-api.version}</version>
+                <version>0.11.5</version>
             </dependency>
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>${java-jwt.version}</version>
+                <version>3.19.4</version>
             </dependency>
 
             <!-- 阿里云 -->
             <dependency>
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
-                <version>${aliyun-sdk-oss.version}</version>
+                <version>3.16.3</version>
             </dependency>
             <dependency>
                 <groupId>com.aliyun.openservices</groupId>
                 <artifactId>ons-client</artifactId>
-                <version>${ons-client.version}</version>
+                <version>1.8.8.8.Final</version>
             </dependency>
 
             <!-- 用 Java 中实现文件压缩和解压缩 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
-                <version>${commons-compress.version}</version>
+                <version>1.23.0</version>
             </dependency>
             <dependency>
                 <groupId>org.tukaani</groupId>
                 <artifactId>xz</artifactId>
-                <version>${xz.version}</version>
+                <version>1.9</version>
             </dependency>
 
             <!-- 解析、生成 xml 格式文件 -->
             <dependency>
                 <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
-                <version>${dom4j.version}</version>
+                <version>2.1.4</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy</artifactId>
-                <version>${groovy.version}</version>
+                <version>4.0.12</version>
             </dependency>
+
 
 
         </dependencies>
@@ -364,7 +338,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.3.0</version>
                 <!-- 绑定source插件到Maven的生命周期,并在生命周期后执行绑定的source的goal -->
                 <executions>
                     <execution>
@@ -386,6 +360,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
             </plugin>
             <plugin>
