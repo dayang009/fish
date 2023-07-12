@@ -1,5 +1,6 @@
 package com.fish.file.monitor;
 
+import cn.hutool.extra.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "aaa")
 public class DirtyRecordRunner implements CommandLineRunner {
 
-	// @Value("${aaa.filePath}")
 	public String filePath;
 
 	public String getFilePath() {
@@ -29,8 +29,9 @@ public class DirtyRecordRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info(this.getClass().getName() + " ==> 开启文件夹监听功能");
+		TempFileListener tempFileListener = SpringUtil.getBean(TempFileListener.class);
 		FileMonitor fileMonitor = new FileMonitor();
-		fileMonitor.monitor(filePath, new TempFileListener());
+		fileMonitor.monitor(filePath, tempFileListener);
 		fileMonitor.start();
 	}
 

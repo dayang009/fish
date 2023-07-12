@@ -30,10 +30,8 @@ spring:
       enabled: true
       discovery:
         locator:
-          # 服务名小写
-          lower-case-service-id: true
-          # 启动 DiscoveryClient 网关集成标志，服务自动映射
           enabled: true
+          lower-case-service-id: true
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -47,6 +45,13 @@ spring:
         uri: lb://fish-driver-user
         predicates:
         - Path=/drivers/**
+        - Method=GET,POST
+      - id: oauth2-service-routes
+        uri: lb://oauth2-service
+        predicates:
+        - Path=/**
+        filters:
+        - PrefixPath=0
 
 
 eureka:

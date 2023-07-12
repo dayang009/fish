@@ -21,6 +21,7 @@ import java.util.List;
 /**
  * Created by xuxueli on 17/5/10.
  */
+@SuppressWarnings("unchecked")
 @Controller
 @RequestMapping("/api")
 public class JobApiController {

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 public class ExecutorBizTest {
 
 	// admin-client
-	private static String addressUrl = "http://127.0.0.1:9999/";
+	private static final String addressUrl = "http://127.0.0.1:9999/";
 
-	private static String accessToken = null;
+	private static final String accessToken = null;
 
 	@Test
 	public void beat() throws Exception {

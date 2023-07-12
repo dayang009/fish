@@ -23,25 +23,24 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by xuxueli on 16/7/22.
  */
+@SuppressWarnings("unchecked")
 public class TriggerCallbackThread {
 
 	private static Logger logger = LoggerFactory.getLogger(TriggerCallbackThread.class);
 
 	private static TriggerCallbackThread instance = new TriggerCallbackThread();
 
-	public static TriggerCallbackThread getInstance() {
-		return instance;
-	}
+	private static String failCallbackFilePath = XxlJobFileAppender.getLogPath()
+		.concat(File.separator)
+		.concat("callbacklog")
+		.concat(File.separator);
+
+	private static String failCallbackFileName = failCallbackFilePath.concat("xxl-job-callback-{x}").concat(".log");
 
 	/**
 	 * job results callback queue
 	 */
 	private LinkedBlockingQueue<HandleCallbackParam> callBackQueue = new LinkedBlockingQueue<HandleCallbackParam>();
-
-	public static void pushCallBack(HandleCallbackParam callback) {
-		getInstance().callBackQueue.add(callback);
-		logger.debug(">>>>>>>>>>> xxl-job, push callback request, logId:{}", callback.getLogId());
-	}
 
 	/**
 	 * callback thread
@@ -51,6 +50,15 @@ public class TriggerCallbackThread {
 	private Thread triggerRetryCallbackThread;
 
 	private volatile boolean toStop = false;
+
+	public static TriggerCallbackThread getInstance() {
+		return instance;
+	}
+
+	public static void pushCallBack(HandleCallbackParam callback) {
+		getInstance().callBackQueue.add(callback);
+		logger.debug(">>>>>>>>>>> xxl-job, push callback request, logId:{}", callback.getLogId());
+	}
 
 	public void start() {
 
@@ -168,6 +176,8 @@ public class TriggerCallbackThread {
 
 	}
 
+	// ---------------------- fail-callback file ----------------------
+
 	/**
 	 * do callback, will retry if error
 	 * @param callbackParamList
@@ -209,15 +219,6 @@ public class TriggerCallbackThread {
 			XxlJobHelper.log(logContent);
 		}
 	}
-
-	// ---------------------- fail-callback file ----------------------
-
-	private static String failCallbackFilePath = XxlJobFileAppender.getLogPath()
-		.concat(File.separator)
-		.concat("callbacklog")
-		.concat(File.separator);
-
-	private static String failCallbackFileName = failCallbackFilePath.concat("xxl-job-callback-{x}").concat(".log");
 
 	private void appendFailCallbackFile(List<HandleCallbackParam> callbackParamList) {
 		// valid

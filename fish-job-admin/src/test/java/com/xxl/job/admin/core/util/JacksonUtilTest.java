@@ -8,6 +8,7 @@ import java.util.Map;
 import static com.xxl.job.admin.core.util.JacksonUtil.writeValueAsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SuppressWarnings("unchecked")
 public class JacksonUtilTest {
 
 	@Test
@@ -30,7 +31,7 @@ public class JacksonUtilTest {
 		String jsonString = "{\"aaa\":\"111\",\"bbb\":\"222\"}";
 
 		// when
-		Map result = JacksonUtil.readValue(jsonString, Map.class);
+		Map<String, String> result = JacksonUtil.readValue(jsonString, Map.class);
 
 		// then
 		assertEquals(result.get("aaa"), "111");

@@ -15,12 +15,12 @@
     <url>https://dayang.plus</url>
 
     <modules>
-        <module>fish-register</module>
-        <module>fish-gateway</module>
-        <module>fish-common</module>
-        <module>fish-job-admin</module>
-        <module>fish-executor</module>
         <module>fish-business</module>
+        <module>fish-common</module>
+        <module>fish-executor</module>
+        <module>fish-gateway</module>
+        <module>fish-job-admin</module>
+        <module>fish-register</module>
     </modules>
 
     <properties>
@@ -40,11 +40,11 @@
 
     <dependencies>
 
-        <!-- 配置文件处理器 -->
+        <!-- 配置注解处理器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- bootstrap 文件支持依赖 -->
         <dependency>
@@ -134,19 +134,19 @@
             </dependency>
 
 
-            <!-- Mybatis 依赖 -->
+            <!-- https://github.com/mybatis/spring-boot-starter -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>2.3.1</version>
             </dependency>
-            <!-- Mybatis Plus 依赖 -->
+            <!-- https://www.baomidou.com -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.5.3.1</version>
             </dependency>
-            <!-- dynamic 多数据源配置 -->
+            <!-- https://www.kancloud.cn/tracy5546/dynamic-datasource/2264611 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
@@ -398,22 +398,5 @@
 
     </profiles>
 
-    <licenses>
-        <license>
-            <name>Apache 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-        <license>
-            <name>996.ICU</name>
-            <url>https://github.com/996icu/996.ICU/blob/master/LICENSE</url>
-            <distribution>repo</distribution>
-            <comments>The name 996.ICU refers to "Work by '996', sick in ICU", an ironic saying among Chinese
-                developers, which means that by following the "996" work schedule, you are risking yourself getting into
-                the ICU (Intensive Care Unit).
-            </comments>
-        </license>
-    </licenses>
 
 </project>

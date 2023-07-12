@@ -30,3 +30,8 @@ Hello World!!!
 
 
 
+## Note
+
+yml 和 properties 配置文件格式在线转换网址：https://www.toyaml.com
+
+快速搜索依赖网址：https://mvn.coderead.cn/
