@@ -21,10 +21,11 @@
         <module>fish-gateway</module>
         <module>fish-job-admin</module>
         <module>fish-register</module>
+        <module>fish-user</module>
     </modules>
 
     <properties>
-        <java.version>8</java.version>
+        <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +35,6 @@
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <knife4j.version>4.1.0</knife4j.version>
         <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <openfeign-starter.version>3.1.8</openfeign-starter.version>
     </properties>
 
@@ -140,6 +140,12 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>2.3.1</version>
             </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter-test</artifactId>
+                <version>2.3.1</version>
+                <scope>test</scope>
+            </dependency>
             <!-- https://www.baomidou.com -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -158,7 +164,7 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>1.2.18</version>
             </dependency>
-            <!-- Page-helper 分页插件 -->
+            <!-- https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
@@ -352,10 +358,35 @@
                 </executions>
             </plugin>
 
+            <!-- https://www.cnblogs.com/qyf404/p/5070126.html -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <excludeDefaultDirectories>false</excludeDefaultDirectories>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}/logs</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
+                <version>3.11.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -370,6 +401,17 @@
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.1</version>
             </plugin>
 
         </plugins>

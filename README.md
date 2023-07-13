@@ -35,3 +35,163 @@ Hello World!!!
 yml 和 properties 配置文件格式在线转换网址：https://www.toyaml.com
 
 快速搜索依赖网址：https://mvn.coderead.cn/
+
+
+
+## 删除maven仓库中的无用文件
+
+
+
+delRepo.sh
+
+``` bash
+echo search ing ...
+find . -name "*lastUpdated" | xargs rm -rf
+find . -name "_remote.repositories" | xargs rm -rf
+echo The End.
+```
+
+
+
+delRepo.cmd
+
+``` bash
+set REPOSITORY_PATH=C:\repository
+rem Searching ...
+for /f "delims=" %%i in ('dir /b /s "%REPOSITORY_PATH%\*_remote.repositories*"') do (
+    del /s /q %%i
+)
+for /f "delims=" %%i in ('dir /b /s "%REPOSITORY_PATH%\*lastUpdated*"') do (
+    del /s /q %%i
+)
+rem Delete Success !!!
+pause 
+```
+
+
+
+下载Jar包导入离线环境，在pom文件所在的路径执行下面命令
+
+``` sh
+mvn -f pom.xml dependency:copy-dependencies
+```
+
+pom.xml
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>demo</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.32</version>
+        </dependency>
+
+
+    </dependencies>
+
+</project>
+```
+
+
+
+## PageHelper简单使用教程
+
+只有紧跟在`PageHelper.startPage`方法后的**第一个**Mybatis的**查询（Select）**方法会被分页。
+
+``` java
+//第一种，RowBounds方式的调用
+List<User> list = sqlSession.selectList("x.y.selectIf", null, new RowBounds(0, 10));
+
+//第二种，Mapper接口方式的调用，推荐这种使用方式。
+PageHelper.startPage(1, 10);
+List<User> list = userMapper.selectIf(1);
+
+//第三种，Mapper接口方式的调用，推荐这种使用方式。
+PageHelper.offsetPage(1, 10);
+List<User> list = userMapper.selectIf(1);
+
+//第四种，参数方法调用
+//存在以下 Mapper 接口方法，你不需要在 xml 处理后两个参数
+public interface CountryMapper {
+    List<User> selectByPageNumSize(
+            @Param("user") User user,
+            @Param("pageNum") int pageNum,
+            @Param("pageSize") int pageSize);
+}
+//配置supportMethodsArguments=true
+//在代码中直接调用：
+List<User> list = userMapper.selectByPageNumSize(user, 1, 10);
+
+//第五种，参数对象
+//如果 pageNum 和 pageSize 存在于 User 对象中，只要参数有值，也会被分页
+//有如下 User 对象
+public class User {
+    //其他fields
+    //下面两个参数名和 params 配置的名字一致
+    private Integer pageNum;
+    private Integer pageSize;
+}
+//存在以下 Mapper 接口方法，你不需要在 xml 处理后两个参数
+public interface CountryMapper {
+    List<User> selectByPageNumSize(User user);
+}
+//当 user 中的 pageNum!= null && pageSize!= null 时，会自动分页
+List<User> list = userMapper.selectByPageNumSize(user);
+
+//第六种，ISelect 接口方式
+//jdk6,7用法，创建接口
+Page<User> page = PageHelper.startPage(1, 10).doSelectPage(new ISelect() {
+    @Override
+    public void doSelect() {
+        userMapper.selectGroupBy();
+    }
+});
+//jdk8 lambda用法
+Page<User> page = PageHelper.startPage(1, 10).doSelectPage(()-> userMapper.selectGroupBy());
+
+//也可以直接返回PageInfo，注意doSelectPageInfo方法和doSelectPage
+pageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(new ISelect() {
+    @Override
+    public void doSelect() {
+        userMapper.selectGroupBy();
+    }
+});
+//对应的lambda用法
+pageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(() -> userMapper.selectGroupBy());
+
+//count查询，返回一个查询语句的count数
+long total = PageHelper.count(new ISelect() {
+    @Override
+    public void doSelect() {
+        userMapper.selectLike(user);
+    }
+});
+//lambda
+        total=PageHelper.count(()->userMapper.selectLike(user));
+```
+
+
+
+
+
+
+
