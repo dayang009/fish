@@ -1,6 +1,6 @@
 package com.fish.common.core.config;
 
-import com.fish.common.core.util.BaseResponse;
+import com.fish.common.core.util.RespResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -18,7 +18,7 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
 	public boolean supports(MethodParameter returnType, Class converterType) {
 		boolean isAdvice = true;
 		// 已经是包装过的类型就不需要再次包装了
-		if (returnType.getParameterType().isAssignableFrom(BaseResponse.class)) {
+		if (returnType.getParameterType().isAssignableFrom(RespResult.class)) {
 			isAdvice = false;
 		}
 		// 添加不需要包装的注解也不需要再次包装了
@@ -32,7 +32,7 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
 	@Override
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-		return new BaseResponse<>(body);
+		return new RespResult<>(body);
 	}
 
 }
