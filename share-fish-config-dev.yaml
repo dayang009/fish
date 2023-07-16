@@ -2,6 +2,10 @@ spring:
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
     time-zone: "Asia/Shanghai"
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8182
   mvc:
     log-request-details: true
   datasource:
@@ -21,12 +25,33 @@ spring:
           username: postgres
           password: postgres
           type: com.alibaba.druid.pool.DruidDataSource
+          druid:
+            initial-size: 5
+            validation-query: SELECT 1
         mysql:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://192.168.188.7:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
           username: root
           password: root
           type: com.alibaba.druid.pool.DruidDataSource
+        oracle:
+          driver-class-name: oracle.jdbc.OracleDriver
+          url: jdbc:oracle:thin:@127.0.0.1:1521/dbname
+          username: oracle
+          password: oracle
+          type: com.alibaba.druid.pool.DruidDataSource
+          druid:
+            initial-size: 5
+            validation-query: SELECT 1 FROM DUAL
+        oscar:
+          driver-class-name: com.oscar.Driver
+          url: jdbc:oscar://127.0.0.1:2003/osrdb
+          username: SYSDBA
+          password: szoscar55
+          type: com.alibaba.druid.pool.DruidDataSource
+          druid:
+            initial-size: 5
+            validation-query: SELECT 1
   redis:
     host: 192.168.188.7
     port: 6379
@@ -65,9 +90,13 @@ logging:
 
 management:
   endpoints:
+    enabled-by-default: true
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 xxl:
   job:

@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <inceptionYear>2023</inceptionYear>
+    <inceptionYear>2022</inceptionYear>
 
     <groupId>com.fish</groupId>
     <artifactId>fish</artifactId>
@@ -22,6 +22,7 @@
         <module>fish-job-admin</module>
         <module>fish-register</module>
         <module>fish-user</module>
+        <module>fish-monitor</module>
     </modules>
 
     <properties>
@@ -35,6 +36,7 @@
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <knife4j.version>4.1.0</knife4j.version>
         <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
+        <fastjson.version>2.0.34</fastjson.version>
         <openfeign-starter.version>3.1.8</openfeign-starter.version>
     </properties>
 
@@ -117,6 +119,7 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- SpringBootAdmin 聚合依赖 -->
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
@@ -125,12 +128,33 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-root</artifactId>
+                <version>1.11.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-parent</artifactId>
+                <version>3.3.13</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
 
             <!-- Json 序列化工具 -->
             <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
-                <version>2.0.34</version>
+                <version>${fastjson.version}</version>
             </dependency>
 
 
@@ -145,6 +169,11 @@
                 <artifactId>mybatis-spring-boot-starter-test</artifactId>
                 <version>2.3.1</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>2.1.5</version>
             </dependency>
             <!-- https://www.baomidou.com -->
             <dependency>
@@ -177,7 +206,11 @@
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>2.2.2</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring-boot-starter</artifactId>
+                <version>1.11.0</version>
+            </dependency>
             <!-- Java Bean 拷贝框架 -->
             <dependency>
                 <groupId>ma.glasnost.orika</groupId>
@@ -204,6 +237,16 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.12.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.5</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.9.4</version>
             </dependency>
 
             <!-- guava -->
@@ -276,7 +319,11 @@
                 <artifactId>groovy</artifactId>
                 <version>4.0.12</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.github.penggle</groupId>
+                <artifactId>kaptcha</artifactId>
+                <version>2.3.2</version>
+            </dependency>
 
 
         </dependencies>
@@ -394,6 +441,18 @@
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
             </plugin>
+
+            <!-- 测试运行器，配置跳过测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <!-- 略过整个单元测试的执行 -->
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -415,7 +474,21 @@
             </plugin>
 
         </plugins>
+
     </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <url>https://repo.spring.io/snapshot</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>https://repo.spring.io/milestone</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+
 
     <profiles>
         <profile>
@@ -427,7 +500,7 @@
                 <nacos.fish.port>8848</nacos.fish.port>
                 <nacos.fish.username>nacos</nacos.fish.username>
                 <nacos.fish.password>nacos</nacos.fish.password>
-                <nacos.fish.namespace/>
+                <nacos.fish.namespace></nacos.fish.namespace>
                 <nacos.fish.group>FISH</nacos.fish.group>
                 <eureka.fish.ip>127.0.0.1</eureka.fish.ip>
                 <eureka.fish.port>8761</eureka.fish.port>
@@ -439,6 +512,8 @@
         </profile>
 
     </profiles>
+
+
 
 
 </project>

@@ -13,9 +13,12 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@ConfigurationProperties(prefix = "aaa")
+@ConfigurationProperties(prefix = "monitor")
 public class DirtyRecordRunner implements CommandLineRunner {
 
+	/**
+	 * 监听的文件路径
+	 */
 	public String filePath;
 
 	public String getFilePath() {

@@ -11,7 +11,7 @@ spring:
       username: @nacos.fish.username@
       password: @nacos.fish.password@
       config:
-        enabled: false
+        enabled: true
         server-addr: @nacos.fish.ip@:@nacos.fish.port@
         file-extension: yaml
         namespace: @nacos.fish.namespace@
@@ -22,7 +22,7 @@ spring:
         - data-id: share-fish-config-@profiles.active@.yaml
           refresh: true
       discovery:
-        enabled: false
+        enabled: true
         server-addr: @nacos.fish.ip@:@nacos.fish.port@
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
@@ -40,5 +40,5 @@ eureka:
     service-url:
       defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
 
-aaa:
+monitor:
   file-path: D:/temp

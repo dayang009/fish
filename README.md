@@ -1,4 +1,4 @@
-## 微服务项目
+# 微服务项目
 
 Hello World!!!
 
@@ -113,6 +113,36 @@ pom.xml
 
 
 
+## 运行项目提示端口被占用
+
+``` bash
+## 根据端口找进程ID
+netstat -ano | findstr "8182"
+
+TCP    0.0.0.0:8182           0.0.0.0:0              LISTENING       18688
+TCP    [::]:8182              [::]:0                 LISTENING       18688
+
+## 杀掉对应进程
+taskkill /t /f /im 18688
+
+成功: 已终止 PID 22004 (属于 PID 18688 子进程)的进程。
+成功: 已终止 PID 18688 (属于 PID 15592 子进程)的进程。
+
+## 查看对应应用名称
+tasklist | findstr "PID号"
+tasklist | findstr "18688"
+
+java.exe                     18688 Console                    1    307244 K
+
+
+```
+
+
+
+
+
+
+
 ## PageHelper简单使用教程
 
 只有紧跟在`PageHelper.startPage`方法后的**第一个**Mybatis的**查询（Select）**方法会被分页。
@@ -191,7 +221,75 @@ long total = PageHelper.count(new ISelect() {
 
 
 
+## Navicat16下载地址
 
+http://download.navicat.com/download/navicat161_premium_cs_x64.exe
+
+reset.bat
+
+``` bash
+@echo off
+
+echo Delete HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium\Registration[version and language]
+for /f %%i in ('"REG QUERY "HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium" /s | findstr /L Registration"') do (
+    reg delete %%i /va /f
+)
+echo.
+
+echo Delete Info folder under HKEY_CURRENT_USER\Software\Classes\CLSID
+for /f %%i in ('"REG QUERY "HKEY_CURRENT_USER\Software\Classes\CLSID" /s | findstr /E Info"') do (
+    reg delete %%i /va /f
+)
+echo.
+
+echo Finish
+
+pause
+```
+
+
+
+## NodeJs Config
+
+官网网址：https://nodejs.org/zh-cn
+
+推荐使用16版本：https://nodejs.org/dist/latest-v16.x/
+
+选择后缀为`-win-x64.zip`,例如：`/node-v16.xx.x-win-x64.zip`
+
+配置`Path`环境变量(根据实际情况选择安装位置的路径):`D:\Develop\node-v16.20.1-win-x64`
+
+配置国内淘宝镜像源
+
+按照如下目录结构新建文件，注意：`npmrc`是文件，没有后缀。
+
+`cache`对应的值是`nodejs`实际的存放路径，注意修改，路径不要有中文和空格
+
+```txt
+node-v16.20.1-win-x64
+├─etc
+|  └─npmrc
+├─node_modules
+├─npm-cache
+
+```
+
+
+
+npmrc
+
+```
+registry=https://registry.npmmirror.com/
+cache=D:\\Develop\\node-v16.20.1-win-x64\\npm-cache
+```
+
+```
+## 关闭安全提示
+set-ExecutionPolicy RemoteSigned
+
+## 查看详细的node配置展示列表，可查看上述配置是否生效
+npm config ls -ls
+```
 
 
 

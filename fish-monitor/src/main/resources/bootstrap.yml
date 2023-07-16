@@ -1,60 +1,33 @@
 server:
-  port: 8888
+  port: 8182
 
 spring:
   application:
     name: @artifactId@
   profiles:
     active: @profiles.active@
+  thymeleaf:
+    check-template-location: false
   cloud:
     nacos:
       username: @nacos.fish.username@
       password: @nacos.fish.password@
       config:
-        enabled: true
+        enabled: false
         server-addr: @nacos.fish.ip@:@nacos.fish.port@
         file-extension: yaml
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
         refresh-enabled: true
+        # 用于共享的配置文件
         shared-configs:
         - data-id: share-fish-config-@profiles.active@.yaml
           refresh: true
       discovery:
-        enabled: true
+        enabled: false
         server-addr: @nacos.fish.ip@:@nacos.fish.port@
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
-
-    gateway:
-      enabled: true
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            # 注意这个设置只对 spring boot 2.4+ 有效，低版本 使用  allowedOrigins: "*" 属性
-            allowedOriginPatterns: "*"
-            allowed-methods: "*"
-            allowed-headers: "*"
-            allow-credentials: true
-            max-age: 3600
-            exposedHeaders: "Content-Disposition,Content-Type,Cache-Control"
-      routes:
-      - id: fish-driver-user
-        uri: lb://fish-driver-user
-        predicates:
-        - Path=/drivers/**
-        - Method=GET,POST
-      - id: oauth2-service-routes
-        uri: lb://oauth2-service
-        predicates:
-        - Path=/**
-        filters:
-        - PrefixPath=0
-
 
 eureka:
   instance:
@@ -71,7 +44,10 @@ eureka:
 
 management:
   endpoints:
+    enabled-by-default: true
     web:
       exposure:
         include: "*"
-
+  endpoint:
+    health:
+      show-details: always
