@@ -14,4 +14,6 @@ public interface FileService {
 
 	SatelliteFile analysisFile(@RequestParam File file);
 
+	void generateXmlFile();
+
 }

@@ -59,4 +59,9 @@ public class FileServiceImpl implements FileService {
 		return satelliteFile;
 	}
 
+	@Override
+	public void generateXmlFile() {
+
+	}
+
 }
