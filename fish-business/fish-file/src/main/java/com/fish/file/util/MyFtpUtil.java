@@ -1,8 +1,13 @@
 package com.fish.file.util;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.extra.ftp.Ftp;
+import cn.hutool.extra.ftp.FtpMode;
+import cn.hutool.extra.ftp.SimpleFtpServer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.ftpserver.usermanager.impl.BaseUser;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -50,6 +55,33 @@ public class MyFtpUtil {
 				}
 			}
 		}
+
+	}
+
+	public static boolean htUploda(String upLoadFilePath) throws IOException {
+
+		Ftp ftp = new Ftp("192.168.188.7", 21, "ftpuser", "123456", StandardCharsets.UTF_8);
+		// 设置为被动模式
+		ftp.setMode(FtpMode.Passive);
+		// 进入远程目录
+
+		// 上传本地文件
+		ftp.uploadFileOrDirectory(null, FileUtil.file(upLoadFilePath));
+		// 下载远程文件
+		// ftp.download("/opt/upload", "test.jpg", FileUtil.file("e:/test2.jpg"));
+
+		// 关闭连接
+		ftp.close();
+		return true;
+
+	}
+
+	public static void htFtpServer() {
+		BaseUser user = new BaseUser();
+		user.setName("ftpuser");
+		user.setPassword("123456");
+		user.setHomeDirectory("D:/remotetest");
+		SimpleFtpServer.create().setPort(21).addUser(user).start();
 
 	}
 

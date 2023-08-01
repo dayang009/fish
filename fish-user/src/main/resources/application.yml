@@ -4,6 +4,8 @@ spring:
     time-zone: "Asia/Shanghai"
   mvc:
     log-request-details: true
+  freemarker:
+    check-template-location: false
   datasource:
     druid:
       initial-size: 5

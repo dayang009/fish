@@ -1,6 +1,5 @@
 package com.xxl.job.admin.dao;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +11,6 @@ import java.util.List;
  *
  * @author xuxueli 2016-1-12 18:03:45
  */
-@DS("mysql")
 @Mapper
 public interface XxlJobInfoDao {
 

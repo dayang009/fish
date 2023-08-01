@@ -34,13 +34,13 @@ public class XxlJobServiceImpl implements XxlJobService {
 	private static Logger logger = LoggerFactory.getLogger(XxlJobServiceImpl.class);
 
 	@Resource
+	public XxlJobLogDao xxlJobLogDao;
+
+	@Resource
 	private XxlJobGroupDao xxlJobGroupDao;
 
 	@Resource
 	private XxlJobInfoDao xxlJobInfoDao;
-
-	@Resource
-	public XxlJobLogDao xxlJobLogDao;
 
 	@Resource
 	private XxlJobLogGlueDao xxlJobLogGlueDao;
@@ -378,12 +378,12 @@ public class XxlJobServiceImpl implements XxlJobService {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			return new ReturnT<String>(ReturnT.FAIL_CODE,
+			return new ReturnT<>(ReturnT.FAIL_CODE,
 					(I18nUtil.getString("schedule_type") + I18nUtil.getString("system_unvalid")));
 		}
 
 		xxlJobInfo.setTriggerStatus(1);
-		xxlJobInfo.setTriggerLastTime(0);
+		xxlJobInfo.setTriggerLastTime(0L);
 		xxlJobInfo.setTriggerNextTime(nextTriggerTime);
 
 		xxlJobInfo.setUpdateTime(new Date());
@@ -396,8 +396,8 @@ public class XxlJobServiceImpl implements XxlJobService {
 		XxlJobInfo xxlJobInfo = xxlJobInfoDao.loadById(id);
 
 		xxlJobInfo.setTriggerStatus(0);
-		xxlJobInfo.setTriggerLastTime(0);
-		xxlJobInfo.setTriggerNextTime(0);
+		xxlJobInfo.setTriggerLastTime(0L);
+		xxlJobInfo.setTriggerNextTime(0L);
 
 		xxlJobInfo.setUpdateTime(new Date());
 		xxlJobInfoDao.update(xxlJobInfo);

@@ -1,5 +1,10 @@
 package com.xxl.job.admin.core.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,13 +12,24 @@ import java.util.Date;
  *
  * @author xuxueli 2016-5-19 17:57:46
  */
-public class XxlJobLogGlue {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class XxlJobLogGlue implements Serializable {
 
-	private int id;
+	private static final long serialVersionUID = -5218976610810450584L;
 
-	private int jobId; // 任务主键ID
+	private Integer id;
 
-	private String glueType; // GLUE类型 #com.xxl.job.core.glue.GlueTypeEnum
+	/**
+	 * 任务主键ID
+	 */
+	private Integer jobId;
+
+	/**
+	 * GLUE类型 {@link com.xxl.job.core.glue.GlueTypeEnum}
+	 */
+	private String glueType;
 
 	private String glueSource;
 
@@ -22,61 +38,5 @@ public class XxlJobLogGlue {
 	private Date addTime;
 
 	private Date updateTime;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getJobId() {
-		return jobId;
-	}
-
-	public void setJobId(int jobId) {
-		this.jobId = jobId;
-	}
-
-	public String getGlueType() {
-		return glueType;
-	}
-
-	public void setGlueType(String glueType) {
-		this.glueType = glueType;
-	}
-
-	public String getGlueSource() {
-		return glueSource;
-	}
-
-	public void setGlueSource(String glueSource) {
-		this.glueSource = glueSource;
-	}
-
-	public String getGlueRemark() {
-		return glueRemark;
-	}
-
-	public void setGlueRemark(String glueRemark) {
-		this.glueRemark = glueRemark;
-	}
-
-	public Date getAddTime() {
-		return addTime;
-	}
-
-	public void setAddTime(Date addTime) {
-		this.addTime = addTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 
 }

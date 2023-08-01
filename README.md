@@ -38,6 +38,18 @@ yml 和 properties 配置文件格式在线转换网址：https://www.toyaml.com
 
 
 
+## Userful SQL
+
+``` sql
+-- 将已有的序列和主键ID关联的SQL语句
+alter table public.t_user
+    alter column id set default nextval('public.t_user_id_seq')
+```
+
+
+
+
+
 ## 删除maven仓库中的无用文件
 
 
@@ -290,6 +302,95 @@ set-ExecutionPolicy RemoteSigned
 ## 查看详细的node配置展示列表，可查看上述配置是否生效
 npm config ls -ls
 ```
+
+
+
+
+
+## Docker 搭建 FTP 服务器
+
+
+
+``` ini
+docker run  \
+-d \
+-p "20":"20" \
+-p "21":"21" \
+-p "21100":"21100" \
+-p "21101":"21101" \
+-p "21102":"21102" \
+-v /home/ftp:/home/vsftpd \
+-e FTP_USER=ftpuser \
+-e FTP_PASS=123456 \
+-e PASV_ADDRESS=127.0.0.1 \
+-e PASV_MIN_PORT=21100 \
+-e PASV_MAX_PORT=21102 \
+--name vsftpd \
+--restart=always \
+fauria/vsftpd
+```
+
+
+
+
+
+
+
+``` txt
+参数说明：
+/home/ftp:/home/vsftpd：映射 docker 容器 ftp 文件根目录（冒号前面是宿主机的目录）
+-p：映射 docker 端口（冒号前面是宿主机的端口）
+-e FTP_USER=ftpuser -e FTP_PASS=123456：设置默认的用户名密码
+PASV_ADDRESS：宿主机 ip，当需要使用被动模式时必须设置。
+PASV_MIN_PORT~ PASV_MAX_PORT：给客服端提供下载服务随机端口号范围，默认 21100-21110，与前面的 docker 端口映射设置成一样。
+
+以命令的方式创建用户与密码，会在容器中的/home/vsftpd 自动创建用户文件夹ftpuser和virtual_users.txt（存放用户名与密码）
+```
+
+
+
+创建新用户
+
+进入容器，新建用户名和密码
+
+```
+docker exec  -it 容器id /bin/bash
+```
+
+手动创建用户名文件夹，如test
+
+```
+mkdir /home/vsftpd/test
+```
+
+写入账号与密码：test 654321
+
+```
+vi /etc/vsftpd/virtual_users.txt
+```
+
+内容如下：
+
+``` txt
+ftpuser
+123456
+test
+654321
+```
+
+保存退出后执行如下命令，把登录的验证信息写入数据库。
+
+```
+/usr/bin/db_load -T -t hash -f /etc/vsftpd/virtual_users.txt /etc/vsftpd/virtual_users.db
+```
+
+最后退出容器，并重启容器可以使用新用户连接 FTP 服务了。
+
+```
+ docker restart 容器id
+```
+
+
 
 
 

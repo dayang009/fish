@@ -1,5 +1,6 @@
 package com.xxl.job.admin.core.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -8,7 +9,9 @@ import java.util.List;
 /**
  * Created by xuxueli on 16/9/30.
  */
-public class XxlJobGroup {
+public class XxlJobGroup implements Serializable {
+
+	private static final long serialVersionUID = 6349474431468224317L;
 
 	private int id;
 
@@ -68,16 +71,16 @@ public class XxlJobGroup {
 		return addressList;
 	}
 
+	public void setAddressList(String addressList) {
+		this.addressList = addressList;
+	}
+
 	public Date getUpdateTime() {
 		return updateTime;
 	}
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
-	}
-
-	public void setAddressList(String addressList) {
-		this.addressList = addressList;
 	}
 
 }

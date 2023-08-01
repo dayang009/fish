@@ -22,16 +22,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class JobScheduleHelper {
 
+	// 预读XX秒的任务
+	public static final long PRE_READ_MS = 5000;
+
 	private static final Logger logger = LoggerFactory.getLogger(JobScheduleHelper.class);
 
 	private static final JobScheduleHelper instance = new JobScheduleHelper();
 
-	public static JobScheduleHelper getInstance() {
-		return instance;
-	}
-
-	// 预读XX秒的任务
-	public static final long PRE_READ_MS = 5000;
+	/**
+	 * Key 是要触发的秒数 Value 是要触发的任务的列表
+	 */
+	private static final Map<Integer, List<Integer>> ringData = new ConcurrentHashMap<>();
 
 	private Thread scheduleThread;
 
@@ -41,10 +42,26 @@ public class JobScheduleHelper {
 
 	private volatile boolean ringThreadToStop = false;
 
-	/**
-	 * Key 是要触发的秒数 Value 是要触发的任务的列表
-	 */
-	private static final Map<Integer, List<Integer>> ringData = new ConcurrentHashMap<>();
+	public static JobScheduleHelper getInstance() {
+		return instance;
+	}
+
+	// ---------------------- tools ----------------------
+	public static Date generateNextValidTime(XxlJobInfo jobInfo, Date fromTime) throws Exception {
+		ScheduleTypeEnum scheduleTypeEnum = ScheduleTypeEnum.match(jobInfo.getScheduleType(), null);
+		if (ScheduleTypeEnum.CRON == scheduleTypeEnum) {
+			Date nextValidTime = new CronExpression(jobInfo.getScheduleConf()).getNextValidTimeAfter(fromTime);
+			return nextValidTime;
+		}
+		else if (ScheduleTypeEnum.FIX_RATE == scheduleTypeEnum /*
+																 * || ScheduleTypeEnum.
+																 * FIX_DELAY ==
+																 * scheduleTypeEnum
+																 */) {
+			return new Date(fromTime.getTime() + Integer.valueOf(jobInfo.getScheduleConf()) * 1000);
+		}
+		return null;
+	}
 
 	public void start() {
 
@@ -319,8 +336,8 @@ public class JobScheduleHelper {
 		}
 		else {
 			jobInfo.setTriggerStatus(0);
-			jobInfo.setTriggerLastTime(0);
-			jobInfo.setTriggerNextTime(0);
+			jobInfo.setTriggerLastTime(0L);
+			jobInfo.setTriggerNextTime(0L);
 			logger.warn(
 					">>>>>>>>>>> xxl-job, refreshNextValidTime fail for job: jobId={}, scheduleType={}, scheduleConf={}",
 					jobInfo.getId(), jobInfo.getScheduleType(), jobInfo.getScheduleConf());
@@ -401,23 +418,6 @@ public class JobScheduleHelper {
 		}
 
 		logger.info(">>>>>>>>>>> xxl-job, JobScheduleHelper stop");
-	}
-
-	// ---------------------- tools ----------------------
-	public static Date generateNextValidTime(XxlJobInfo jobInfo, Date fromTime) throws Exception {
-		ScheduleTypeEnum scheduleTypeEnum = ScheduleTypeEnum.match(jobInfo.getScheduleType(), null);
-		if (ScheduleTypeEnum.CRON == scheduleTypeEnum) {
-			Date nextValidTime = new CronExpression(jobInfo.getScheduleConf()).getNextValidTimeAfter(fromTime);
-			return nextValidTime;
-		}
-		else if (ScheduleTypeEnum.FIX_RATE == scheduleTypeEnum /*
-																 * || ScheduleTypeEnum.
-																 * FIX_DELAY ==
-																 * scheduleTypeEnum
-																 */) {
-			return new Date(fromTime.getTime() + Integer.valueOf(jobInfo.getScheduleConf()) * 1000);
-		}
-		return null;
 	}
 
 }

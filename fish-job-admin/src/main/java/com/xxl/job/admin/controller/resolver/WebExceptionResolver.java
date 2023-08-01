@@ -1,8 +1,8 @@
 package com.xxl.job.admin.controller.resolver;
 
 import com.xxl.job.admin.core.exception.XxlJobException;
-import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.admin.core.util.JacksonUtil;
+import com.xxl.job.core.biz.model.ReturnT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -23,14 +23,14 @@ import java.io.IOException;
 @Component
 public class WebExceptionResolver implements HandlerExceptionResolver {
 
-	private static transient Logger logger = LoggerFactory.getLogger(WebExceptionResolver.class);
+	private static final Logger logger = LoggerFactory.getLogger(WebExceptionResolver.class);
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
 
 		if (!(ex instanceof XxlJobException)) {
-			logger.error("WebExceptionResolver:{}", ex);
+			logger.error("WebExceptionResolver:{}", ex.getMessage());
 		}
 
 		// if json
@@ -44,7 +44,7 @@ public class WebExceptionResolver implements HandlerExceptionResolver {
 		}
 
 		// error result
-		ReturnT<String> errorResult = new ReturnT<String>(ReturnT.FAIL_CODE, ex.toString().replaceAll("\n", "<br/>"));
+		ReturnT<String> errorResult = new ReturnT<>(ReturnT.FAIL_CODE, ex.toString().replaceAll("\n", "<br/>"));
 
 		// response
 		ModelAndView mv = new ModelAndView();
