@@ -18,11 +18,10 @@
 		t.update_time
 	</sql>
 
-	<!-- todo 这里interval语法有问题 -->
 	<select id="findDead" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 		select t.id
 		from xxl_job_registry as t
-		where t.update_time &lt; (#{nowTime} + interval #{timeout} second)
+		where t.update_time &lt; #{nowTime}::timestamp - interval '1 second' * ${timeout}
 	</select>
 
 	<delete id="removeDead" parameterType="java.lang.Integer">
@@ -37,7 +36,7 @@
 		SELECT
 		<include refid="Base_Column_List"/>
 		FROM xxl_job_registry AS t
-		WHERE t.update_time &gt; #{nowTime} + @ interval ${timeout} second
+		WHERE t.update_time &gt; #{nowTime}::timestamp - interval '1 second' * ${timeout}
 	</select>
 
 	<update id="registryUpdate">

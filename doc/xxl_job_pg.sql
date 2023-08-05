@@ -55,7 +55,7 @@ comment on column "xxl_job_info"."trigger_status" is '调度状态：0-停止，
 comment on column "xxl_job_info"."trigger_last_time" is '上次调度时间';
 comment on column "xxl_job_info"."trigger_next_time" is '下次调度时间';
 
-comment on table "xxl_job_info" is '信息表';
+comment on table "xxl_job_info" is '存储任务调度信息的表';
 
 -- 日志表
 drop table if exists "xxl_job_log";
@@ -96,7 +96,7 @@ comment on column "xxl_job_log"."handle_code" is '执行-状态';
 comment on column "xxl_job_log"."handle_msg" is '执行-日志';
 comment on column "xxl_job_log"."alarm_status" is '告警状态：0-默认、1-无需告警、2-告警成功、3-告警失败';
 
-comment on table "xxl_job_log" is '调度日志表';
+comment on table "xxl_job_log" is '存储任务执行日志的表';
 
 create index I_handle_code
     on xxl_job_log (handle_code);
@@ -125,6 +125,7 @@ comment on column "xxl_job_log_report"."trigger_day" is '调度-时间';
 comment on column "xxl_job_log_report"."running_count" is '运行中-日志数量';
 comment on column "xxl_job_log_report"."suc_count" is '执行成功-日志数量';
 comment on column "xxl_job_log_report"."fail_count" is '执行失败-日志数量';
+comment on table "xxl_job_log_report" is '调度任务执行日志表';
 
 
 -- xxl_job_logglue
@@ -146,6 +147,7 @@ comment on column "xxl_job_logglue"."job_id" is '任务，主键ID';
 comment on column "xxl_job_logglue"."glue_type" is 'GLUE类型';
 comment on column "xxl_job_logglue"."glue_source" is 'GLUE源代码';
 comment on column "xxl_job_logglue"."glue_remark" is 'GLUE备注';
+comment on table "xxl_job_logglue" is 'XXL-JOB 调度任务 GLUE 代码表';
 
 
 -- xxl_job_registry
@@ -162,6 +164,13 @@ create table "xxl_job_registry"
 
 create index i_g_k_v
     on xxl_job_registry (registry_group, registry_key, registry_value);
+
+comment on column "xxl_job_registry".id is '自增ID';
+comment on column "xxl_job_registry".registry_group is '注册分组';
+comment on column "xxl_job_registry".registry_key is '注册键';
+comment on column "xxl_job_registry".registry_value is '注册值';
+comment on column "xxl_job_registry".update_time is '更新时间';
+comment on table "xxl_job_registry" is 'XXL-JOB 执行器注册信息表';
 
 -- xxl_job_group
 drop table if exists "xxl_job_group";
@@ -181,7 +190,7 @@ comment on column "xxl_job_group"."app_name" is '执行器AppName';
 comment on column "xxl_job_group"."title" is '执行器名称';
 comment on column "xxl_job_group"."address_type" is '执行器地址类型：0=自动注册、1=手动录入';
 comment on column "xxl_job_group"."address_list" is '执行器地址列表，多地址逗号分隔';
-
+comment on table "xxl_job_group" is 'XXL-JOB 执行器注册信息表';
 
 -- xxl_job_lock
 drop table if exists "xxl_job_lock";
@@ -191,6 +200,7 @@ create table "xxl_job_lock"
 );
 
 comment on column "xxl_job_lock"."lock_name" is '锁名称';
+comment on table "xxl_job_lock" is '分布式锁表';
 
 
 -- xxl_job_user
@@ -212,6 +222,7 @@ comment on column "xxl_job_user"."username" is '账号';
 comment on column "xxl_job_user"."password" is '密码';
 comment on column "xxl_job_user"."role" is '角色：0-普通用户、1-管理员';
 comment on column "xxl_job_user"."permission" is '权限：执行器ID列表，多个逗号分割';
+comment on table "xxl_job_user" is 'XXL-JOB 用户信息表';
 
 -- 插入初始化语句
 insert into xxl_job_group(id, app_name, title, address_type, address_list, update_time)

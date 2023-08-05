@@ -75,7 +75,7 @@
 			</if>
 		</trim>
 		ORDER BY t.trigger_time DESC
-		LIMIT #{offset}, #{pagesize}
+		LIMIT #{pagesize} OFFSET #{offset}
 	</select>
 	
 	<select id="pageListCount" resultType="int">
@@ -226,14 +226,13 @@
 		</foreach>
 	</delete>
 
-	<!-- todo where后边的！不识别 -->
 	<select id="findFailJobLogIds" resultType="java.lang.Long" >
 		SELECT id FROM xxl_job_log
 		WHERE (
 			(trigger_code in (0, 200) and handle_code = 0)
 			OR
 			(handle_code = 200)
-		)
+		) = false
 		AND alarm_status = 0
 		ORDER BY id
 		LIMIT #{pagesize}

@@ -26,7 +26,7 @@
     </modules>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,9 +34,8 @@
         <spring-boot.version>2.7.14</spring-boot.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
-        <knife4j.version>4.1.0</knife4j.version>
+        <knife4j.version>4.2.0</knife4j.version>
         <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
-        <fastjson.version>2.0.36</fastjson.version>
         <openfeign-starter.version>3.1.8</openfeign-starter.version>
     </properties>
 
@@ -145,19 +144,6 @@
             </dependency>
 
 
-            <!-- Json 序列化工具 -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-
-
             <!-- https://github.com/mybatis/spring-boot-starter -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
@@ -181,7 +167,19 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.5.3.1</version>
             </dependency>
-            <!-- https://www.kancloud.cn/tracy5546/dynamic-datasource/2264611 -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter-test</artifactId>
+				<version>3.5.3.1</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- 代码生成器 -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-generator</artifactId>
+				<version>3.5.3.1</version>
+			</dependency>
+			<!-- https://www.kancloud.cn/tracy5546/dynamic-datasource/2264611 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
@@ -273,7 +271,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>31.1-jre</version>
+                <version>32.1.2-jre</version>
             </dependency>
 
 
@@ -281,7 +279,7 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>5.8.20</version>
+                <version>5.8.21</version>
             </dependency>
 
             <!-- Token 生成和解析 -->
@@ -466,9 +464,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+					<!-- 这些后缀结尾的文件不进行编译 -->
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+						<nonFilteredFileExtension>xls</nonFilteredFileExtension>
+						<nonFilteredFileExtension>zip</nonFilteredFileExtension>
+						<nonFilteredFileExtension>eot</nonFilteredFileExtension>
+						<nonFilteredFileExtension>svg</nonFilteredFileExtension>
+						<nonFilteredFileExtension>ftl</nonFilteredFileExtension>
+						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+						<nonFilteredFileExtension>woff</nonFilteredFileExtension>
+						<nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
                 </configuration>
             </plugin>
             <plugin>

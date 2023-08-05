@@ -63,6 +63,7 @@ spring:
 
 xxl:
   job:
+    # 调度中心通讯 TOKEN [选填]：非空时启用
     accessToken: default_token
     i18n: zh_CN
     triggerpool:
@@ -70,6 +71,7 @@ xxl:
         max: 200
       slow:
         max: 100
+    # 调度中心日志表数据保存天数
     logretentiondays: 30
 
 
