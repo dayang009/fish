@@ -107,13 +107,13 @@ public class XxlJobContext {
 
 	// ---------------------- tool ----------------------
 
-	private static InheritableThreadLocal<XxlJobContext> contextHolder = new InheritableThreadLocal<XxlJobContext>(); // support
-																														// for
-																														// child
-																														// thread
-																														// of
-																														// job
-																														// handler)
+	private static InheritableThreadLocal<XxlJobContext> contextHolder = new InheritableThreadLocal<>(); // support
+																											// for
+																											// child
+																											// thread
+																											// of
+																											// job
+																											// handler)
 
 	public static void setXxlJobContext(XxlJobContext xxlJobContext) {
 		contextHolder.set(xxlJobContext);

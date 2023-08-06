@@ -2,6 +2,7 @@ package com.fish.executor.service.jobhandler;
 
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,7 @@ import java.util.concurrent.TimeUnit;
  * @author xuxueli
  * @date 2019-12-11 21:52:51
  */
+@Slf4j
 @Component
 public class SampleXxlJob {
 
@@ -39,8 +41,9 @@ public class SampleXxlJob {
 	 */
 	@XxlJob("demoJobHandler")
 	public void demoJobHandler() throws Exception {
-		XxlJobHelper.log("XXL-JOB, Hello World.");
-		System.out.println("XXL-JOB, Hello World.");
+		XxlJobHelper.log("XxlJobHelper --- XXL-JOB, Hello World.");
+		log.info("log info xxl job");
+		System.out.println("sout --- XXL-JOB, Hello World.");
 		for (int i = 0; i < 5; i++) {
 			XxlJobHelper.log("beat at:" + i);
 			System.out.println("XXL-JOB, Hello World." + i + "===" + LocalDateTime.now());
@@ -131,7 +134,7 @@ public class SampleXxlJob {
 
 		// param parse
 		String param = XxlJobHelper.getJobParam();
-		if (param == null || param.trim().length() == 0) {
+		if (param == null || param.trim().isEmpty()) {
 			XxlJobHelper.log("param[" + param + "] invalid.");
 
 			XxlJobHelper.handleFail();

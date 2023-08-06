@@ -20,7 +20,8 @@ import java.util.List;
 /**
  * job code controller
  *
- * @author xuxueli 2015-12-19 16:13:16
+ * @author xuxueli
+ * @date 2015-12-19 16:13:16
  */
 @Controller
 @RequestMapping("/jobcode")
@@ -60,15 +61,15 @@ public class JobCodeController {
 	public ReturnT<String> save(Model model, int id, String glueSource, String glueRemark) {
 		// valid
 		if (glueRemark == null) {
-			return new ReturnT<String>(500,
+			return new ReturnT<>(500,
 					(I18nUtil.getString("system_please_input") + I18nUtil.getString("jobinfo_glue_remark")));
 		}
 		if (glueRemark.length() < 4 || glueRemark.length() > 100) {
-			return new ReturnT<String>(500, I18nUtil.getString("jobinfo_glue_remark_limit"));
+			return new ReturnT<>(500, I18nUtil.getString("jobinfo_glue_remark_limit"));
 		}
 		XxlJobInfo exists_jobInfo = xxlJobInfoDao.loadById(id);
 		if (exists_jobInfo == null) {
-			return new ReturnT<String>(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
+			return new ReturnT<>(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
 		}
 
 		// update new code

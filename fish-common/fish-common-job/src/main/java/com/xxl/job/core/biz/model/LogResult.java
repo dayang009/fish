@@ -3,11 +3,20 @@ package com.xxl.job.core.biz.model;
 import java.io.Serializable;
 
 /**
- * Created by xuxueli on 17/3/23.
+ * @author xuxueli
+ * @date 2017/3/23
  */
 public class LogResult implements Serializable {
 
-	private static final long serialVersionUID = 42L;
+	private static final long serialVersionUID = 8612358856586962197L;
+
+	private Integer fromLineNum;
+
+	private Integer toLineNum;
+
+	private String logContent;
+
+	private Boolean isEnd;
 
 	public LogResult() {
 	}
@@ -18,14 +27,6 @@ public class LogResult implements Serializable {
 		this.logContent = logContent;
 		this.isEnd = isEnd;
 	}
-
-	private int fromLineNum;
-
-	private int toLineNum;
-
-	private String logContent;
-
-	private boolean isEnd;
 
 	public int getFromLineNum() {
 		return fromLineNum;

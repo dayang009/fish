@@ -10,13 +10,14 @@ import org.slf4j.LoggerFactory;
 /**
  * ftl util
  *
- * @author xuxueli 2018-01-17 20:37:48
+ * @author xuxueli
+ * @date 2018-01-17 20:37:48
  */
 public class FtlUtil {
 
-	private static Logger logger = LoggerFactory.getLogger(FtlUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(FtlUtil.class);
 
-	private static BeansWrapper wrapper = new BeansWrapperBuilder(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS)
+	private static final BeansWrapper wrapper = new BeansWrapperBuilder(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS)
 		.build(); // BeansWrapper.getDefaultInstance();
 
 	public static TemplateHashModel generateStaticModel(String packageName) {

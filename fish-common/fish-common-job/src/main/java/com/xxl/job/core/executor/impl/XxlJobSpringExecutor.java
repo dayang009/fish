@@ -20,12 +20,16 @@ import java.util.Map;
 /**
  * xxl-job executor (for spring)
  *
- * @author xuxueli 2018-11-01 09:24:52
+ * @author xuxueli
+ * @date 2018-11-01 09:24:52
  */
 public class XxlJobSpringExecutor extends XxlJobExecutor
 		implements ApplicationContextAware, SmartInitializingSingleton, DisposableBean {
 
 	private static final Logger logger = LoggerFactory.getLogger(XxlJobSpringExecutor.class);
+
+	// ---------------------- applicationContext ----------------------
+	private static ApplicationContext applicationContext;
 
 	// start
 	@Override
@@ -55,21 +59,6 @@ public class XxlJobSpringExecutor extends XxlJobExecutor
 		super.destroy();
 	}
 
-	/*
-	 * private void initJobHandlerRepository(ApplicationContext applicationContext) { if
-	 * (applicationContext == null) { return; }
-	 *
-	 * // init job handler action Map<String, Object> serviceBeanMap =
-	 * applicationContext.getBeansWithAnnotation(JobHandler.class);
-	 *
-	 * if (serviceBeanMap != null && serviceBeanMap.size() > 0) { for (Object serviceBean
-	 * : serviceBeanMap.values()) { if (serviceBean instanceof IJobHandler) { String name
-	 * = serviceBean.getClass().getAnnotation(JobHandler.class).value(); IJobHandler
-	 * handler = (IJobHandler) serviceBean; if (loadJobHandler(name) != null) { throw new
-	 * RuntimeException("xxl-job jobhandler[" + name + "] naming conflicts."); }
-	 * registerJobHandler(name, handler); } } } }
-	 */
-
 	private void initJobHandlerMethodRepository(ApplicationContext applicationContext) {
 		if (applicationContext == null) {
 			return;
@@ -90,16 +79,12 @@ public class XxlJobSpringExecutor extends XxlJobExecutor
 			}
 
 			// filter method
-			Map<Method, XxlJob> annotatedMethods = null; // referred to
-															// ：org.springframework.context.event.EventListenerMethodProcessor.processBean
+			Map<Method, XxlJob> annotatedMethods = null;
+
 			try {
 				annotatedMethods = MethodIntrospector.selectMethods(bean.getClass(),
-						new MethodIntrospector.MetadataLookup<XxlJob>() {
-							@Override
-							public XxlJob inspect(Method method) {
-								return AnnotatedElementUtils.findMergedAnnotation(method, XxlJob.class);
-							}
-						});
+						(MethodIntrospector.MetadataLookup<XxlJob>) method -> AnnotatedElementUtils
+							.findMergedAnnotation(method, XxlJob.class));
 			}
 			catch (Throwable ex) {
 				logger.error("xxl-job method-jobhandler resolve error for bean[" + beanDefinitionName + "].", ex);
@@ -119,9 +104,6 @@ public class XxlJobSpringExecutor extends XxlJobExecutor
 		}
 	}
 
-	// ---------------------- applicationContext ----------------------
-	private static ApplicationContext applicationContext;
-
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		XxlJobSpringExecutor.applicationContext = applicationContext;
@@ -130,12 +112,5 @@ public class XxlJobSpringExecutor extends XxlJobExecutor
 	public static ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
-
-	/*
-	 * BeanDefinitionRegistryPostProcessor registry.getBeanDefine()
-	 *
-	 * @Override public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry
-	 * registry) throws BeansException { this.registry = registry; }
-	 */
 
 }

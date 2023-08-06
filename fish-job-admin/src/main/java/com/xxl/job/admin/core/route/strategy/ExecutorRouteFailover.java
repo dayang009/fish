@@ -10,7 +10,8 @@ import com.xxl.job.core.biz.model.TriggerParam;
 import java.util.List;
 
 /**
- * Created by xuxueli on 17/3/10.
+ * @author xuxueli
+ * @date 17/3/10.
  */
 public class ExecutorRouteFailover extends ExecutorRouter {
 
@@ -46,7 +47,7 @@ public class ExecutorRouteFailover extends ExecutorRouter {
 				return beatResult;
 			}
 		}
-		return new ReturnT<String>(ReturnT.FAIL_CODE, beatResultSB.toString());
+		return new ReturnT<>(ReturnT.FAIL_CODE, beatResultSB.toString());
 
 	}
 

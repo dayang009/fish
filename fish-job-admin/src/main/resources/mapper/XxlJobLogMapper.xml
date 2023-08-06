@@ -194,7 +194,7 @@
 				AND job_id = #{jobId}
 			</if>
 			<if test="clearBeforeTime != null">
-				AND trigger_time <![CDATA[ <= ]]> #{clearBeforeTime}
+				AND trigger_time &lt;= #{clearBeforeTime}
 			</if>
 			<if test="clearBeforeNum gt 0">
 				AND id NOT in(
@@ -254,7 +254,7 @@
 		WHERE
 			t.trigger_code = 200
 				AND t.handle_code = 0
-				AND t.trigger_time <![CDATA[ <= ]]> #{losedTime}
+				AND t.trigger_time &lt;= #{losedTime}
 				AND t2.id IS NULL;
 	</select>
 	<!--

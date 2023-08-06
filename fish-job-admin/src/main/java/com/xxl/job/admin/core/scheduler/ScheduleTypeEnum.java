@@ -3,7 +3,8 @@ package com.xxl.job.admin.core.scheduler;
 import com.xxl.job.admin.core.util.I18nUtil;
 
 /**
- * @author xuxueli 2020-10-29 21:11:23
+ * @author xuxueli
+ * @date 2020-10-29 21:11:23
  */
 public enum ScheduleTypeEnum {
 
@@ -24,7 +25,7 @@ public enum ScheduleTypeEnum {
 	 */
 	/* FIX_DELAY(I18nUtil.getString("schedule_type_fix_delay")) */;
 
-	private String title;
+	private final String title;
 
 	ScheduleTypeEnum(String title) {
 		this.title = title;

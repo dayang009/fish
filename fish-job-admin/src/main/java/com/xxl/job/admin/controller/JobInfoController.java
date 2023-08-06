@@ -1,6 +1,5 @@
 package com.xxl.job.admin.controller;
 
-import com.xxl.job.admin.core.cron.CronExpression;
 import com.xxl.job.admin.core.exception.XxlJobException;
 import com.xxl.job.admin.core.model.XxlJobGroup;
 import com.xxl.job.admin.core.model.XxlJobInfo;
@@ -29,19 +28,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
 import java.util.*;
 
 /**
  * index controller
  *
- * @author xuxueli 2015-12-19 16:13:16
+ * @author xuxueli
+ * @date 2015-12-19 16:13:16
  */
 @Controller
 @RequestMapping("/jobinfo")
 public class JobInfoController {
 
-	private static Logger logger = LoggerFactory.getLogger(JobInfoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobInfoController.class);
 
 	@Resource
 	private XxlJobGroupDao xxlJobGroupDao;
@@ -65,7 +64,7 @@ public class JobInfoController {
 
 		// filter group
 		List<XxlJobGroup> jobGroupList = filterJobGroupByRole(request, jobGroupList_all);
-		if (jobGroupList == null || jobGroupList.size() == 0) {
+		if (jobGroupList == null || jobGroupList.isEmpty()) {
 			throw new XxlJobException(I18nUtil.getString("jobgroup_empty"));
 		}
 
@@ -78,14 +77,14 @@ public class JobInfoController {
 	public static List<XxlJobGroup> filterJobGroupByRole(HttpServletRequest request,
 			List<XxlJobGroup> jobGroupList_all) {
 		List<XxlJobGroup> jobGroupList = new ArrayList<>();
-		if (jobGroupList_all != null && jobGroupList_all.size() > 0) {
+		if (jobGroupList_all != null && !jobGroupList_all.isEmpty()) {
 			XxlJobUser loginUser = (XxlJobUser) request.getAttribute(LoginService.LOGIN_IDENTITY_KEY);
 			if (loginUser.getRole() == 1) {
 				jobGroupList = jobGroupList_all;
 			}
 			else {
 				List<String> groupIdStrs = new ArrayList<>();
-				if (loginUser.getPermission() != null && loginUser.getPermission().trim().length() > 0) {
+				if (loginUser.getPermission() != null && !loginUser.getPermission().trim().isEmpty()) {
 					groupIdStrs = Arrays.asList(loginUser.getPermission().trim().split(","));
 				}
 				for (XxlJobGroup groupItem : jobGroupList_all) {
@@ -181,10 +180,10 @@ public class JobInfoController {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			return new ReturnT<List<String>>(ReturnT.FAIL_CODE,
+			return new ReturnT<>(ReturnT.FAIL_CODE,
 					(I18nUtil.getString("schedule_type") + I18nUtil.getString("system_unvalid")) + e.getMessage());
 		}
-		return new ReturnT<List<String>>(result);
+		return new ReturnT<>(result);
 
 	}
 

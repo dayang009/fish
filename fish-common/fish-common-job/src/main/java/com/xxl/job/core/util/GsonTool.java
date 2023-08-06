@@ -9,7 +9,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * @author xuxueli 2020-04-11 20:56:31
+ * @author xuxueli
+ * @date 2020-04-11 20:56:31
  */
 public class GsonTool {
 

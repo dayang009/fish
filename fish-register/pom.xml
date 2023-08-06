@@ -12,6 +12,8 @@
     <artifactId>fish-register</artifactId>
     <packaging>jar</packaging>
 
+	<description>Eureka 注册中心服务</description>
+
     <properties>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>

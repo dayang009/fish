@@ -6,11 +6,13 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * local cache tool
  *
- * @author xuxueli 2018-01-22 21:37:34
+ * @author xuxueli
+ * @date 2018-01-22 21:37:34
  */
 public class LocalCacheUtil {
 
-	private static ConcurrentMap<String, LocalCacheData> cacheRepository = new ConcurrentHashMap<String, LocalCacheData>(); // 类型建议用抽象父类，兼容性更好；
+	// 类型建议用抽象父类，兼容性更好；
+	private static final ConcurrentMap<String, LocalCacheData> cacheRepository = new ConcurrentHashMap<>();
 
 	private static class LocalCacheData {
 
@@ -68,7 +70,7 @@ public class LocalCacheUtil {
 		cleanTimeoutCache();
 
 		// set new cache
-		if (key == null || key.trim().length() == 0) {
+		if (key == null || key.trim().isEmpty()) {
 			return false;
 		}
 		if (val == null) {
@@ -89,7 +91,7 @@ public class LocalCacheUtil {
 	 * @return
 	 */
 	public static boolean remove(String key) {
-		if (key == null || key.trim().length() == 0) {
+		if (key == null || key.trim().isEmpty()) {
 			return false;
 		}
 		cacheRepository.remove(key);
@@ -102,7 +104,7 @@ public class LocalCacheUtil {
 	 * @return
 	 */
 	public static Object get(String key) {
-		if (key == null || key.trim().length() == 0) {
+		if (key == null || key.trim().isEmpty()) {
 			return null;
 		}
 		LocalCacheData localCacheData = cacheRepository.get(key);

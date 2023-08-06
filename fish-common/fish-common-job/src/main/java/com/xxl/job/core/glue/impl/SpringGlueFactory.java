@@ -13,11 +13,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * @author xuxueli 2018-11-01
+ * @author xuxueli
+ * @date 2018-11-01
  */
 public class SpringGlueFactory extends GlueFactory {
 
-	private static Logger logger = LoggerFactory.getLogger(SpringGlueFactory.class);
+	private static final Logger logger = LoggerFactory.getLogger(SpringGlueFactory.class);
 
 	/**
 	 * inject action of spring
@@ -46,14 +47,15 @@ public class SpringGlueFactory extends GlueFactory {
 			if (AnnotationUtils.getAnnotation(field, Resource.class) != null) {
 				try {
 					Resource resource = AnnotationUtils.getAnnotation(field, Resource.class);
-					if (resource.name() != null && resource.name().length() > 0) {
+					assert resource != null;
+					if (resource.name() != null && !resource.name().isEmpty()) {
 						fieldBean = XxlJobSpringExecutor.getApplicationContext().getBean(resource.name());
 					}
 					else {
 						fieldBean = XxlJobSpringExecutor.getApplicationContext().getBean(field.getName());
 					}
 				}
-				catch (Exception e) {
+				catch (Exception ignored) {
 				}
 				if (fieldBean == null) {
 					fieldBean = XxlJobSpringExecutor.getApplicationContext().getBean(field.getType());
@@ -61,7 +63,7 @@ public class SpringGlueFactory extends GlueFactory {
 			}
 			else if (AnnotationUtils.getAnnotation(field, Autowired.class) != null) {
 				Qualifier qualifier = AnnotationUtils.getAnnotation(field, Qualifier.class);
-				if (qualifier != null && qualifier.value() != null && qualifier.value().length() > 0) {
+				if (qualifier != null && !qualifier.value().isEmpty()) {
 					fieldBean = XxlJobSpringExecutor.getApplicationContext().getBean(qualifier.value());
 				}
 				else {
@@ -74,10 +76,7 @@ public class SpringGlueFactory extends GlueFactory {
 				try {
 					field.set(instance, fieldBean);
 				}
-				catch (IllegalArgumentException e) {
-					logger.error(e.getMessage(), e);
-				}
-				catch (IllegalAccessException e) {
+				catch (IllegalArgumentException | IllegalAccessException e) {
 					logger.error(e.getMessage(), e);
 				}
 			}

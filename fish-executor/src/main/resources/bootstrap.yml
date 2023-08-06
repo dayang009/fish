@@ -40,15 +40,8 @@ eureka:
     service-url:
       defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
 
-xxl:
-  job:
-    admin:
-      addresses: http://127.0.0.1:8082/xxl-job-admin
-    accessToken: default_token
-    executor:
-      appname: xxl-job-executor-sample
-      address: 127.0.0.1
-      ip:
-      port: 9999
-      logpath: ./logs/xxl-job/jobhandler
-      logretentiondays: 30
+
+xxljob:
+  admin-addresses: http://127.0.0.1:8083/xxl-job-admin
+  appname: fish-executor
+  port: 9998

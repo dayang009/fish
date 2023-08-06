@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 
 logs/
+transaction-logs/
 *.class
 *.log
 *.ctxt

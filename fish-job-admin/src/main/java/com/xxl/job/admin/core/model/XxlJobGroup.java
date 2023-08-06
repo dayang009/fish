@@ -1,5 +1,10 @@
 package com.xxl.job.admin.core.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,80 +12,45 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by xuxueli on 16/9/30.
+ * @author xuxueli
+ * @date 2016/9/30
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class XxlJobGroup implements Serializable {
 
 	private static final long serialVersionUID = 6349474431468224317L;
 
-	private int id;
+	private Integer id;
 
 	private String appname;
 
 	private String title;
 
-	private int addressType; // 执行器地址类型：0=自动注册、1=手动录入
+	/**
+	 * 执行器地址类型：0=自动注册、1=手动录入
+	 */
+	private Integer addressType;
 
-	private String addressList; // 执行器地址列表，多地址逗号分隔(手动录入)
+	/**
+	 * 执行器地址列表，多地址逗号分隔(手动录入)
+	 */
+	private String addressList;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
 	private Date updateTime;
 
-	// registry list
-	private List<String> registryList; // 执行器地址列表(系统注册)
+	/**
+	 * registry list 执行器地址列表(系统注册)
+	 */
+	private List<String> registryList;
 
 	public List<String> getRegistryList() {
-		if (addressList != null && addressList.trim().length() > 0) {
-			registryList = new ArrayList<String>(Arrays.asList(addressList.split(",")));
+		if (addressList != null && !addressList.trim().isEmpty()) {
+			registryList = new ArrayList<>(Arrays.asList(addressList.split(",")));
 		}
 		return registryList;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getAppname() {
-		return appname;
-	}
-
-	public void setAppname(String appname) {
-		this.appname = appname;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public int getAddressType() {
-		return addressType;
-	}
-
-	public void setAddressType(int addressType) {
-		this.addressType = addressType;
-	}
-
-	public String getAddressList() {
-		return addressList;
-	}
-
-	public void setAddressList(String addressList) {
-		this.addressList = addressList;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 
 }

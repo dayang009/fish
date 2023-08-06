@@ -8,7 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by xuxueli on 16/9/30.
+ * @author xuxueli
+ * @date 2016/9/30
  */
 @Data
 @NoArgsConstructor

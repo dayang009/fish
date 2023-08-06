@@ -11,11 +11,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
- * @author xuxueli 2018-11-25 00:55:31
+ * @author xuxueli
+ * @date 2018-11-25 00:55:31
  */
 public class XxlJobRemotingUtil {
 
@@ -30,11 +30,11 @@ public class XxlJobRemotingUtil {
 		}
 
 		@Override
-		public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+		public void checkClientTrusted(X509Certificate[] chain, String authType) {
 		}
 
 		@Override
-		public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+		public void checkServerTrusted(X509Certificate[] chain, String authType) {
 		}
 	} };
 
@@ -50,12 +50,7 @@ public class XxlJobRemotingUtil {
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-		connection.setHostnameVerifier(new HostnameVerifier() {
-			@Override
-			public boolean verify(String hostname, SSLSession session) {
-				return true;
-			}
-		});
+		connection.setHostnameVerifier((hostname, session) -> true);
 	}
 
 	// trust-https end
@@ -96,7 +91,7 @@ public class XxlJobRemotingUtil {
 			connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
 			connection.setRequestProperty("Accept-Charset", "application/json;charset=UTF-8");
 
-			if (accessToken != null && accessToken.trim().length() > 0) {
+			if (accessToken != null && !accessToken.trim().isEmpty()) {
 				connection.setRequestProperty(XXL_JOB_ACCESS_TOKEN, accessToken);
 			}
 

@@ -9,10 +9,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * 单个JOB对应的每个执行器，使用频率最低的优先被选举 a(*)、LFU(Least Frequently Used)：最不经常使用，频率/次数 b、LRU(Least
- * Recently Used)：最近最久未使用，时间
+ * 单个JOB对应的每个执行器，使用频率最低的优先被选举 a(*)、LFU(Least Frequently Used)：最不经常使用，频率/次数
+ * b、LRU(LeastRecently Used)：最近最久未使用，时间
  *
- * Created by xuxueli on 17/3/10.
+ * @author xuxueli
+ * @date 17/3/10
  */
 public class ExecutorRouteLFU extends ExecutorRouter {
 
@@ -31,7 +32,7 @@ public class ExecutorRouteLFU extends ExecutorRouter {
 		// lfu item init
 		HashMap<String, Integer> lfuItemMap = jobLfuMap.get(jobId); // Key排序可以用TreeMap+构造入参Compare；Value排序暂时只能通过ArrayList；
 		if (lfuItemMap == null) {
-			lfuItemMap = new HashMap<String, Integer>();
+			lfuItemMap = new HashMap<>();
 			jobLfuMap.putIfAbsent(jobId, lfuItemMap); // 避免重复覆盖
 		}
 
@@ -48,7 +49,7 @@ public class ExecutorRouteLFU extends ExecutorRouter {
 				delKeys.add(existKey);
 			}
 		}
-		if (delKeys.size() > 0) {
+		if (!delKeys.isEmpty()) {
 			for (String delKey : delKeys) {
 				lfuItemMap.remove(delKey);
 			}
@@ -73,7 +74,7 @@ public class ExecutorRouteLFU extends ExecutorRouter {
 	@Override
 	public ReturnT<String> route(TriggerParam triggerParam, List<String> addressList) {
 		String address = route(triggerParam.getJobId(), addressList);
-		return new ReturnT<String>(address);
+		return new ReturnT<>(address);
 	}
 
 }

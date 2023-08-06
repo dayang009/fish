@@ -5,10 +5,13 @@ import java.io.Serializable;
 /**
  * common return
  *
- * @author xuxueli 2015-12-4 16:32:31
  * @param <T>
+ * @author xuxueli
+ * @date 2015-12-4 16:32:31
  */
 public class ReturnT<T> implements Serializable {
+
+	private static final long serialVersionUID = -2149301035770816301L;
 
 	public static final int SUCCESS_CODE = 200;
 
@@ -17,8 +20,6 @@ public class ReturnT<T> implements Serializable {
 	public static final ReturnT<String> SUCCESS = new ReturnT<>(null);
 
 	public static final ReturnT<String> FAIL = new ReturnT<>(FAIL_CODE, null);
-
-	private static final long serialVersionUID = -2149301035770816301L;
 
 	private int code;
 

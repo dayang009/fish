@@ -14,21 +14,21 @@ import java.util.Map;
 /**
  * date util
  *
- * @author xuxueli 2018-08-19 01:24:11
+ * @author xuxueli
+ * @date 2018-08-19 01:24:11
  */
 public class DateUtil {
 
-	// ---------------------- format parse ----------------------
-	private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
 
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
 	private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-	private static final ThreadLocal<Map<String, DateFormat>> dateFormatThreadLocal = new ThreadLocal<Map<String, DateFormat>>();
+	private static final ThreadLocal<Map<String, DateFormat>> dateFormatThreadLocal = new ThreadLocal<>();
 
 	private static DateFormat getDateFormat(String pattern) {
-		if (pattern == null || pattern.trim().length() == 0) {
+		if (pattern == null || pattern.trim().isEmpty()) {
 			throw new IllegalArgumentException("pattern cannot be empty.");
 		}
 
@@ -39,7 +39,7 @@ public class DateUtil {
 
 		synchronized (dateFormatThreadLocal) {
 			if (dateFormatMap == null) {
-				dateFormatMap = new HashMap<String, DateFormat>();
+				dateFormatMap = new HashMap<>();
 			}
 			dateFormatMap.put(pattern, new SimpleDateFormat(pattern));
 			dateFormatThreadLocal.set(dateFormatMap);
@@ -117,8 +117,6 @@ public class DateUtil {
 			return null;
 		}
 	}
-
-	// ---------------------- add date ----------------------
 
 	public static Date addYears(final Date date, final int amount) {
 		return add(date, Calendar.YEAR, amount);

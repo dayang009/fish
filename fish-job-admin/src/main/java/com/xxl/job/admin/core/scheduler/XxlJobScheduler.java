@@ -13,9 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * @author xuxueli 2018-10-28 00:18:17
+ * @author xuxueli
+ * @date 2018-10-28 00:18:17
  */
-
 public class XxlJobScheduler {
 
 	private static final Logger logger = LoggerFactory.getLogger(XxlJobScheduler.class);

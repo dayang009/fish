@@ -11,10 +11,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * 单个JOB对应的每个执行器，最久为使用的优先被选举 a、LFU(Least Frequently Used)：最不经常使用，频率/次数 b(*)、LRU(Least
- * Recently Used)：最近最久未使用，时间
+ * 单个JOB对应的每个执行器，最久为使用的优先被选举 a、LFU(Least Frequently Used)：最不经常使用，频率/次数
+ * b(*)、LRU(LeastRecently Used)：最近最久未使用，时间
  *
- * Created by xuxueli on 17/3/10.
+ * @author xuxueli
+ * @date 17/3/10
  */
 public class ExecutorRouteLRU extends ExecutorRouter {
 
@@ -54,7 +55,7 @@ public class ExecutorRouteLRU extends ExecutorRouter {
 				delKeys.add(existKey);
 			}
 		}
-		if (delKeys.size() > 0) {
+		if (!delKeys.isEmpty()) {
 			for (String delKey : delKeys) {
 				lruItem.remove(delKey);
 			}
@@ -69,7 +70,7 @@ public class ExecutorRouteLRU extends ExecutorRouter {
 	@Override
 	public ReturnT<String> route(TriggerParam triggerParam, List<String> addressList) {
 		String address = route(triggerParam.getJobId(), addressList);
-		return new ReturnT<String>(address);
+		return new ReturnT<>(address);
 	}
 
 }

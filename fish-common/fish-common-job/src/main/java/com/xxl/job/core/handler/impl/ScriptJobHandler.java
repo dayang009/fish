@@ -10,17 +10,18 @@ import com.xxl.job.core.util.ScriptUtil;
 import java.io.File;
 
 /**
- * Created by xuxueli on 17/4/27.
+ * @author xuxueli
+ * @date 2017/4/27
  */
 public class ScriptJobHandler extends IJobHandler {
 
-	private int jobId;
+	private final int jobId;
 
-	private long glueUpdatetime;
+	private final long glueUpdatetime;
 
-	private String gluesource;
+	private final String gluesource;
 
-	private GlueTypeEnum glueType;
+	private final GlueTypeEnum glueType;
 
 	public ScriptJobHandler(int jobId, long glueUpdatetime, String gluesource, GlueTypeEnum glueType) {
 		this.jobId = jobId;
@@ -32,9 +33,9 @@ public class ScriptJobHandler extends IJobHandler {
 		File glueSrcPath = new File(XxlJobFileAppender.getGlueSrcPath());
 		if (glueSrcPath.exists()) {
 			File[] glueSrcFileList = glueSrcPath.listFiles();
-			if (glueSrcFileList != null && glueSrcFileList.length > 0) {
+			if (glueSrcFileList != null) {
 				for (File glueSrcFileItem : glueSrcFileList) {
-					if (glueSrcFileItem.getName().startsWith(String.valueOf(jobId) + "_")) {
+					if (glueSrcFileItem.getName().startsWith(jobId + "_")) {
 						glueSrcFileItem.delete();
 					}
 				}

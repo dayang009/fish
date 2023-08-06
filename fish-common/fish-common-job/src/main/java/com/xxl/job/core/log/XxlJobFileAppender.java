@@ -5,13 +5,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * store trigger log in each log-file
  *
- * @author xuxueli 2016-3-12 19:25:12
+ * @author xuxueli
+ * @date 2016-3-12 19:25:12
  */
 public class XxlJobFileAppender {
 
@@ -31,7 +34,7 @@ public class XxlJobFileAppender {
 
 	public static void initLogPath(String logPath) {
 		// init
-		if (logPath != null && logPath.trim().length() > 0) {
+		if (logPath != null && !logPath.trim().isEmpty()) {
 			logBasePath = logPath;
 		}
 		// mk base dir
@@ -66,9 +69,8 @@ public class XxlJobFileAppender {
 	public static String makeLogFileName(Date triggerDate, long logId) {
 
 		// filePath/yyyy-MM-dd
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // avoid concurrent
-																	// problem, can not be
-																	// static
+		// avoid concurrent problem, can not be static
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		File logFilePath = new File(getLogPath(), sdf.format(triggerDate));
 		if (!logFilePath.exists()) {
 			logFilePath.mkdir();
@@ -87,7 +89,7 @@ public class XxlJobFileAppender {
 	public static void appendLog(String logFileName, String appendLog) {
 
 		// log file
-		if (logFileName == null || logFileName.trim().length() == 0) {
+		if (logFileName == null || logFileName.trim().isEmpty()) {
 			return;
 		}
 		File logFile = new File(logFileName);
@@ -112,7 +114,7 @@ public class XxlJobFileAppender {
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(logFile, true);
-			fos.write(appendLog.getBytes("utf-8"));
+			fos.write(appendLog.getBytes(StandardCharsets.UTF_8));
 			fos.flush();
 		}
 		catch (Exception e) {
@@ -139,7 +141,7 @@ public class XxlJobFileAppender {
 	public static LogResult readLog(String logFileName, int fromLineNum) {
 
 		// valid log file
-		if (logFileName == null || logFileName.trim().length() == 0) {
+		if (logFileName == null || logFileName.trim().isEmpty()) {
 			return new LogResult(fromLineNum, 0, "readLog fail, logFile not found", true);
 		}
 		File logFile = new File(logFileName);
@@ -149,12 +151,13 @@ public class XxlJobFileAppender {
 		}
 
 		// read file
-		StringBuffer logContentBuffer = new StringBuffer();
+		StringBuilder logContentBuffer = new StringBuilder();
 		int toLineNum = 0;
 		LineNumberReader reader = null;
 		try {
 			// reader = new LineNumberReader(new FileReader(logFile));
-			reader = new LineNumberReader(new InputStreamReader(new FileInputStream(logFile), "utf-8"));
+			reader = new LineNumberReader(
+					new InputStreamReader(Files.newInputStream(logFile.toPath()), StandardCharsets.UTF_8));
 			String line = null;
 
 			while ((line = reader.readLine()) != null) {
@@ -197,15 +200,14 @@ public class XxlJobFileAppender {
 	public static String readLines(File logFile) {
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new InputStreamReader(new FileInputStream(logFile), "utf-8"));
-			if (reader != null) {
-				StringBuilder sb = new StringBuilder();
-				String line = null;
-				while ((line = reader.readLine()) != null) {
-					sb.append(line).append("\n");
-				}
-				return sb.toString();
+			reader = new BufferedReader(
+					new InputStreamReader(Files.newInputStream(logFile.toPath()), StandardCharsets.UTF_8));
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line).append("\n");
 			}
+			return sb.toString();
 		}
 		catch (IOException e) {
 			logger.error(e.getMessage(), e);

@@ -40,7 +40,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 		}
 
 		if (isRunningOrHasQueue) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "job thread is running or has trigger queue.");
+			return new ReturnT<>(ReturnT.FAIL_CODE, "job thread is running or has trigger queue.");
 		}
 		return ReturnT.SUCCESS;
 	}
@@ -72,7 +72,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 			if (jobHandler == null) {
 				jobHandler = newJobHandler;
 				if (jobHandler == null) {
-					return new ReturnT<String>(ReturnT.FAIL_CODE,
+					return new ReturnT<>(ReturnT.FAIL_CODE,
 							"job handler [" + triggerParam.getExecutorHandler() + "] not found.");
 				}
 			}
@@ -100,7 +100,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 				}
 				catch (Exception e) {
 					logger.error(e.getMessage(), e);
-					return new ReturnT<String>(ReturnT.FAIL_CODE, e.getMessage());
+					return new ReturnT<>(ReturnT.FAIL_CODE, e.getMessage());
 				}
 			}
 		}
@@ -124,7 +124,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 			}
 		}
 		else {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "glueType[" + triggerParam.getGlueType() + "] is not valid.");
+			return new ReturnT<>(ReturnT.FAIL_CODE, "glueType[" + triggerParam.getGlueType() + "] is not valid.");
 		}
 
 		// executor block strategy
@@ -180,7 +180,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 				logParam.getLogId());
 
 		LogResult logResult = XxlJobFileAppender.readLog(logFileName, logParam.getFromLineNum());
-		return new ReturnT<LogResult>(logResult);
+		return new ReturnT<>(logResult);
 	}
 
 }

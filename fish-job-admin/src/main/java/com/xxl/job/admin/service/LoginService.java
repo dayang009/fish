@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 
 /**
- * @author xuxueli 2019-05-04 22:13:264
+ * @author xuxueli
+ * @date 2019-05-04 22:13:26
  */
 @Configuration
 public class LoginService {
@@ -27,6 +28,7 @@ public class LoginService {
 
 	private String makeToken(XxlJobUser xxlJobUser) {
 		String tokenJson = JacksonUtil.writeValueAsString(xxlJobUser);
+		assert tokenJson != null;
 		String tokenHex = new BigInteger(tokenJson.getBytes()).toString(16);
 		return tokenHex;
 	}
@@ -44,18 +46,18 @@ public class LoginService {
 			String password, boolean ifRemember) {
 
 		// param
-		if (username == null || username.trim().length() == 0 || password == null || password.trim().length() == 0) {
-			return new ReturnT<String>(500, I18nUtil.getString("login_param_empty"));
+		if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+			return new ReturnT<>(500, I18nUtil.getString("login_param_empty"));
 		}
 
 		// valid passowrd
 		XxlJobUser xxlJobUser = xxlJobUserDao.loadByUserName(username);
 		if (xxlJobUser == null) {
-			return new ReturnT<String>(500, I18nUtil.getString("login_param_unvalid"));
+			return new ReturnT<>(500, I18nUtil.getString("login_param_unvalid"));
 		}
 		String passwordMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
 		if (!passwordMd5.equals(xxlJobUser.getPassword())) {
-			return new ReturnT<String>(500, I18nUtil.getString("login_param_unvalid"));
+			return new ReturnT<>(500, I18nUtil.getString("login_param_unvalid"));
 		}
 
 		String loginToken = makeToken(xxlJobUser);

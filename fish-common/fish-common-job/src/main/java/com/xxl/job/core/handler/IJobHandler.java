@@ -3,7 +3,8 @@ package com.xxl.job.core.handler;
 /**
  * job handler
  *
- * @author xuxueli 2015-12-19 19:06:38
+ * @author xuxueli
+ * @date 2015-12-19 19:06:38
  */
 public abstract class IJobHandler {
 
@@ -12,10 +13,6 @@ public abstract class IJobHandler {
 	 * @throws Exception e
 	 */
 	public abstract void execute() throws Exception;
-
-	/*
-	 * @Deprecated public abstract ReturnT<String> execute(String param) throws Exception;
-	 */
 
 	/**
 	 * init handler, invoked when JobThread init

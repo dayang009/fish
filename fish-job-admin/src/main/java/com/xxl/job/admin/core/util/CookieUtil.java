@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Cookie.Util
  *
- * @author xuxueli 2015-12-12 18:01:06
+ * @author xuxueli
+ * @date 2015-12-12 18:01:06
  */
 public class CookieUtil {
 
@@ -69,7 +70,7 @@ public class CookieUtil {
 	 */
 	private static Cookie get(HttpServletRequest request, String key) {
 		Cookie[] arr_cookie = request.getCookies();
-		if (arr_cookie != null && arr_cookie.length > 0) {
+		if (arr_cookie != null) {
 			for (Cookie cookie : arr_cookie) {
 				if (cookie.getName().equals(key)) {
 					return cookie;

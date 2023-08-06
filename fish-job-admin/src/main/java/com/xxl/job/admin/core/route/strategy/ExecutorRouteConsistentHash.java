@@ -4,7 +4,7 @@ import com.xxl.job.admin.core.route.ExecutorRouter;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -12,9 +12,14 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * 分组下机器地址相同，不同JOB均匀散列在不同机器上，保证分组下机器分配JOB平均；且每个JOB固定调度其中一台机器； a、virtual node：解决不均衡问题
- * b、hash method replace hashCode：String的hashCode可能重复，需要进一步扩大hashCode的取值范围 Created by
- * xuxueli on 17/3/10.
+ * 分组下机器地址相同，不同JOB均匀散列在不同机器上，保证分组下机器分配JOB平均；且每个JOB固定调度其中一台机器；
+ * <p/>
+ * a、virtual node：解决不均衡问题
+ * <p/>
+ * b、hash method replace hashCode：String的hashCode可能重复，需要进一步扩大hashCode的取值范围
+ *
+ * @author xuxueli
+ * @date 2017/3/10
  */
 public class ExecutorRouteConsistentHash extends ExecutorRouter {
 
@@ -37,12 +42,7 @@ public class ExecutorRouteConsistentHash extends ExecutorRouter {
 		}
 		md5.reset();
 		byte[] keyBytes = null;
-		try {
-			keyBytes = key.getBytes("UTF-8");
-		}
-		catch (UnsupportedEncodingException e) {
-			throw new RuntimeException("Unknown string :" + key, e);
-		}
+		keyBytes = key.getBytes(StandardCharsets.UTF_8);
 
 		md5.update(keyBytes);
 		byte[] digest = md5.digest();
@@ -78,7 +78,7 @@ public class ExecutorRouteConsistentHash extends ExecutorRouter {
 	@Override
 	public ReturnT<String> route(TriggerParam triggerParam, List<String> addressList) {
 		String address = hashJob(triggerParam.getJobId(), addressList);
-		return new ReturnT<String>(address);
+		return new ReturnT<>(address);
 	}
 
 }

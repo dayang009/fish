@@ -12,11 +12,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * job trigger thread pool helper
  *
- * @author xuxueli 2018-07-03 21:08:07
+ * @author xuxueli
+ * @date 2018-07-03 21:08:07
  */
 public class JobTriggerPoolHelper {
 
-	private static Logger logger = LoggerFactory.getLogger(JobTriggerPoolHelper.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobTriggerPoolHelper.class);
 
 	// ---------------------- trigger pool ----------------------
 
@@ -61,56 +62,55 @@ public class JobTriggerPoolHelper {
 	public void addTrigger(final int jobId, final TriggerTypeEnum triggerType, final int failRetryCount,
 			final String executorShardingParam, final String executorParam, final String addressList) {
 
-		// choose thread pool
+		// choose thread pool，队列长度是 1000
 		ThreadPoolExecutor triggerPool_ = fastTriggerPool;
 		AtomicInteger jobTimeoutCount = jobTimeoutCountMap.get(jobId);
-		if (jobTimeoutCount != null && jobTimeoutCount.get() > 10) { // job-timeout 10
-																		// times in 1 min
+		// 1 min 执行超过 10 次，就放到慢线程池，队列长度是 2000
+		if (jobTimeoutCount != null && jobTimeoutCount.get() > 10) {
 			triggerPool_ = slowTriggerPool;
 		}
 
 		// trigger
-		triggerPool_.execute(new Runnable() {
-			@Override
-			public void run() {
+		triggerPool_.execute(() -> {
 
-				long start = System.currentTimeMillis();
+			long start = System.currentTimeMillis();
 
-				try {
-					// do trigger
-					XxlJobTrigger.trigger(jobId, triggerType, failRetryCount, executorShardingParam, executorParam,
-							addressList);
+			try {
+				// do trigger
+				XxlJobTrigger.trigger(jobId, triggerType, failRetryCount, executorShardingParam, executorParam,
+						addressList);
+			}
+			catch (Exception e) {
+				logger.error(e.getMessage(), e);
+			}
+			finally {
+
+				// check timeout-count-map，只统计一分钟内的
+				long minTim_now = System.currentTimeMillis() / 60000;
+				if (minTim != minTim_now) {
+					minTim = minTim_now;
+					jobTimeoutCountMap.clear();
 				}
-				catch (Exception e) {
-					logger.error(e.getMessage(), e);
-				}
-				finally {
 
-					// check timeout-count-map
-					long minTim_now = System.currentTimeMillis() / 60000;
-					if (minTim != minTim_now) {
-						minTim = minTim_now;
-						jobTimeoutCountMap.clear();
+				// incr timeout-count-map
+				long cost = System.currentTimeMillis() - start;
+				// ob-timeout threshold 500ms
+				if (cost > 500) {
+					// putIfAbsent() 没有值的话才会 put 进去，有值的话直接返回旧的
+					AtomicInteger timeoutCount = jobTimeoutCountMap.putIfAbsent(jobId, new AtomicInteger(1));
+					if (timeoutCount != null) {
+						timeoutCount.incrementAndGet();
 					}
-
-					// incr timeout-count-map
-					long cost = System.currentTimeMillis() - start;
-					if (cost > 500) { // ob-timeout threshold 500ms
-						AtomicInteger timeoutCount = jobTimeoutCountMap.putIfAbsent(jobId, new AtomicInteger(1));
-						if (timeoutCount != null) {
-							timeoutCount.incrementAndGet();
-						}
-					}
-
 				}
 
 			}
+
 		});
 	}
 
 	// ---------------------- helper ----------------------
 
-	private static JobTriggerPoolHelper helper = new JobTriggerPoolHelper();
+	private static final JobTriggerPoolHelper helper = new JobTriggerPoolHelper();
 
 	public static void toStart() {
 		helper.start();

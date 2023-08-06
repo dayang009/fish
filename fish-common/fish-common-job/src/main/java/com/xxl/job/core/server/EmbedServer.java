@@ -20,12 +20,16 @@ import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
- * Copy from : https://github.com/xuxueli/xxl-rpc
+ * Copy from :
+ * <a href="https://github.com/xuxueli/xxl-rpc">https://github.com/xuxueli/xxl-rpc</a>
  *
- * @author xuxueli 2020-04-11 21:25
+ * @author xuxueli
+ * @date 2020-04-11 21:25
  */
 public class EmbedServer {
 
@@ -37,78 +41,59 @@ public class EmbedServer {
 
 	public void start(final String address, final int port, final String appname, final String accessToken) {
 		executorBiz = new ExecutorBizImpl();
-		thread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// param
-				EventLoopGroup bossGroup = new NioEventLoopGroup();
-				EventLoopGroup workerGroup = new NioEventLoopGroup();
-				ThreadPoolExecutor bizThreadPool = new ThreadPoolExecutor(0, 200, 60L, TimeUnit.SECONDS,
-						new LinkedBlockingQueue<Runnable>(2000), new ThreadFactory() {
-							@Override
-							public Thread newThread(Runnable r) {
-								return new Thread(r, "xxl-job, EmbedServer bizThreadPool-" + r.hashCode());
-							}
-						}, new RejectedExecutionHandler() {
-							@Override
-							public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-								throw new RuntimeException("xxl-job, EmbedServer bizThreadPool is EXHAUSTED!");
-							}
-						});
+		thread = new Thread(() -> {
+			// param
+			EventLoopGroup bossGroup = new NioEventLoopGroup();
+			EventLoopGroup workerGroup = new NioEventLoopGroup();
+			ThreadPoolExecutor bizThreadPool = new ThreadPoolExecutor(0, 200, 60L, TimeUnit.SECONDS,
+					new LinkedBlockingQueue<>(2000),
+					r -> new Thread(r, "xxl-job, EmbedServer bizThreadPool-" + r.hashCode()), (r, executor) -> {
+						throw new RuntimeException("xxl-job, EmbedServer bizThreadPool is EXHAUSTED!");
+					});
+			try {
+				// start server
+				ServerBootstrap bootstrap = new ServerBootstrap();
+				bootstrap.group(bossGroup, workerGroup)
+					.channel(NioServerSocketChannel.class)
+					.childHandler(new ChannelInitializer<SocketChannel>() {
+						@Override
+						public void initChannel(SocketChannel channel) {
+							channel.pipeline()
+								.addLast(new IdleStateHandler(0, 0, 30 * 3, TimeUnit.SECONDS))
+								.addLast(new HttpServerCodec())
+								.addLast(new HttpObjectAggregator(5 * 1024 * 1024))
+								.addLast(new EmbedHttpServerHandler(executorBiz, accessToken, bizThreadPool));
+						}
+					})
+					.childOption(ChannelOption.SO_KEEPALIVE, true);
+
+				// bind
+				ChannelFuture future = bootstrap.bind(port).sync();
+
+				logger.info(">>>>>>>>>>> xxl-job remoting server start success, nettype = {}, port = {}",
+						EmbedServer.class, port);
+
+				// start registry
+				startRegistry(appname, address);
+
+				// wait util stop
+				future.channel().closeFuture().sync();
+
+			}
+			catch (InterruptedException e) {
+				logger.info(">>>>>>>>>>> xxl-job remoting server stop.");
+			}
+			catch (Exception e) {
+				logger.error(">>>>>>>>>>> xxl-job remoting server error.", e);
+			}
+			finally {
+				// stop
 				try {
-					// start server
-					ServerBootstrap bootstrap = new ServerBootstrap();
-					bootstrap.group(bossGroup, workerGroup)
-						.channel(NioServerSocketChannel.class)
-						.childHandler(new ChannelInitializer<SocketChannel>() {
-							@Override
-							public void initChannel(SocketChannel channel) throws Exception {
-								channel.pipeline()
-									.addLast(new IdleStateHandler(0, 0, 30 * 3, TimeUnit.SECONDS)) // beat
-																									// 3N,
-																									// close
-																									// if
-																									// idle
-									.addLast(new HttpServerCodec())
-									.addLast(new HttpObjectAggregator(5 * 1024 * 1024)) // merge
-																						// request
-																						// &
-																						// reponse
-																						// to
-																						// FULL
-									.addLast(new EmbedHttpServerHandler(executorBiz, accessToken, bizThreadPool));
-							}
-						})
-						.childOption(ChannelOption.SO_KEEPALIVE, true);
-
-					// bind
-					ChannelFuture future = bootstrap.bind(port).sync();
-
-					logger.info(">>>>>>>>>>> xxl-job remoting server start success, nettype = {}, port = {}",
-							EmbedServer.class, port);
-
-					// start registry
-					startRegistry(appname, address);
-
-					// wait util stop
-					future.channel().closeFuture().sync();
-
-				}
-				catch (InterruptedException e) {
-					logger.info(">>>>>>>>>>> xxl-job remoting server stop.");
+					workerGroup.shutdownGracefully();
+					bossGroup.shutdownGracefully();
 				}
 				catch (Exception e) {
-					logger.error(">>>>>>>>>>> xxl-job remoting server error.", e);
-				}
-				finally {
-					// stop
-					try {
-						workerGroup.shutdownGracefully();
-						bossGroup.shutdownGracefully();
-					}
-					catch (Exception e) {
-						logger.error(e.getMessage(), e);
-					}
+					logger.error(e.getMessage(), e);
 				}
 			}
 		});
@@ -141,11 +126,11 @@ public class EmbedServer {
 
 		private static final Logger logger = LoggerFactory.getLogger(EmbedHttpServerHandler.class);
 
-		private ExecutorBiz executorBiz;
+		private final ExecutorBiz executorBiz;
 
-		private String accessToken;
+		private final String accessToken;
 
-		private ThreadPoolExecutor bizThreadPool;
+		private final ThreadPoolExecutor bizThreadPool;
 
 		public EmbedHttpServerHandler(ExecutorBiz executorBiz, String accessToken, ThreadPoolExecutor bizThreadPool) {
 			this.executorBiz = executorBiz;
@@ -154,7 +139,7 @@ public class EmbedServer {
 		}
 
 		@Override
-		protected void channelRead0(final ChannelHandlerContext ctx, FullHttpRequest msg) throws Exception {
+		protected void channelRead0(final ChannelHandlerContext ctx, FullHttpRequest msg) {
 			// request parse
 			// final byte[] requestBytes = ByteBufUtil.getBytes(msg.content()); //
 			// byteBuf.toString(io.netty.util.CharsetUtil.UTF_8);
@@ -165,18 +150,15 @@ public class EmbedServer {
 			String accessTokenReq = msg.headers().get(XxlJobRemotingUtil.XXL_JOB_ACCESS_TOKEN);
 
 			// invoke
-			bizThreadPool.execute(new Runnable() {
-				@Override
-				public void run() {
-					// do invoke
-					Object responseObj = process(httpMethod, uri, requestData, accessTokenReq);
+			bizThreadPool.execute(() -> {
+				// do invoke
+				Object responseObj = process(httpMethod, uri, requestData, accessTokenReq);
 
-					// to json
-					String responseJson = GsonTool.toJson(responseObj);
+				// to json
+				String responseJson = GsonTool.toJson(responseObj);
 
-					// write response
-					writeResponse(ctx, keepAlive, responseJson);
-				}
+				// write response
+				writeResponse(ctx, keepAlive, responseJson);
 			});
 		}
 
@@ -185,10 +167,10 @@ public class EmbedServer {
 			if (HttpMethod.POST != httpMethod) {
 				return new ReturnT<String>(ReturnT.FAIL_CODE, "invalid request, HttpMethod not support.");
 			}
-			if (uri == null || uri.trim().length() == 0) {
+			if (uri == null || uri.trim().isEmpty()) {
 				return new ReturnT<String>(ReturnT.FAIL_CODE, "invalid request, uri-mapping empty.");
 			}
-			if (accessToken != null && accessToken.trim().length() > 0 && !accessToken.equals(accessTokenReq)) {
+			if (accessToken != null && !accessToken.trim().isEmpty() && !accessToken.equals(accessTokenReq)) {
 				return new ReturnT<String>(ReturnT.FAIL_CODE, "The access token is wrong.");
 			}
 
@@ -236,7 +218,7 @@ public class EmbedServer {
 		}
 
 		@Override
-		public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+		public void channelReadComplete(ChannelHandlerContext ctx) {
 			ctx.flush();
 		}
 

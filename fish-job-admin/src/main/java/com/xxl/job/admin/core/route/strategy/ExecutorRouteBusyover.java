@@ -11,7 +11,8 @@ import com.xxl.job.core.biz.model.TriggerParam;
 import java.util.List;
 
 /**
- * Created by xuxueli on 17/3/10.
+ * @author xuxueli
+ * @date 2017/3/10
  */
 public class ExecutorRouteBusyover extends ExecutorRouter {
 
@@ -46,7 +47,7 @@ public class ExecutorRouteBusyover extends ExecutorRouter {
 			}
 		}
 
-		return new ReturnT<String>(ReturnT.FAIL_CODE, idleBeatResultSB.toString());
+		return new ReturnT<>(ReturnT.FAIL_CODE, idleBeatResultSB.toString());
 	}
 
 }

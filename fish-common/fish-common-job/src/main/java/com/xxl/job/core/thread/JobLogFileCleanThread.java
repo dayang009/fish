@@ -15,13 +15,14 @@ import java.util.concurrent.TimeUnit;
 /**
  * job file clean thread
  *
- * @author xuxueli 2017-12-29 16:23:43
+ * @author xuxueli
+ * @date 2017-12-29 16:23:43
  */
 public class JobLogFileCleanThread {
 
-	private static Logger logger = LoggerFactory.getLogger(JobLogFileCleanThread.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobLogFileCleanThread.class);
 
-	private static JobLogFileCleanThread instance = new JobLogFileCleanThread();
+	private static final JobLogFileCleanThread instance = new JobLogFileCleanThread();
 
 	public static JobLogFileCleanThread getInstance() {
 		return instance;
@@ -38,75 +39,72 @@ public class JobLogFileCleanThread {
 			return;
 		}
 
-		localThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (!toStop) {
-					try {
-						// clean log dir, over logRetentionDays
-						File[] childDirs = new File(XxlJobFileAppender.getLogPath()).listFiles();
-						if (childDirs != null && childDirs.length > 0) {
+		localThread = new Thread(() -> {
+			while (!toStop) {
+				try {
+					// clean log dir, over logRetentionDays
+					File[] childDirs = new File(XxlJobFileAppender.getLogPath()).listFiles();
+					if (childDirs != null && childDirs.length > 0) {
 
-							// today
-							Calendar todayCal = Calendar.getInstance();
-							todayCal.set(Calendar.HOUR_OF_DAY, 0);
-							todayCal.set(Calendar.MINUTE, 0);
-							todayCal.set(Calendar.SECOND, 0);
-							todayCal.set(Calendar.MILLISECOND, 0);
+						// today
+						Calendar todayCal = Calendar.getInstance();
+						todayCal.set(Calendar.HOUR_OF_DAY, 0);
+						todayCal.set(Calendar.MINUTE, 0);
+						todayCal.set(Calendar.SECOND, 0);
+						todayCal.set(Calendar.MILLISECOND, 0);
 
-							Date todayDate = todayCal.getTime();
+						Date todayDate = todayCal.getTime();
 
-							for (File childFile : childDirs) {
+						for (File childFile : childDirs) {
 
-								// valid
-								if (!childFile.isDirectory()) {
-									continue;
-								}
-								if (childFile.getName().indexOf("-") == -1) {
-									continue;
-								}
-
-								// file create date
-								Date logFileCreateDate = null;
-								try {
-									SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-									logFileCreateDate = simpleDateFormat.parse(childFile.getName());
-								}
-								catch (ParseException e) {
-									logger.error(e.getMessage(), e);
-								}
-								if (logFileCreateDate == null) {
-									continue;
-								}
-
-								if ((todayDate.getTime() - logFileCreateDate.getTime()) >= logRetentionDays
-										* (24 * 60 * 60 * 1000)) {
-									FileUtil.deleteRecursively(childFile);
-								}
-
+							// valid
+							if (!childFile.isDirectory()) {
+								continue;
 							}
-						}
+							if (!childFile.getName().contains("-")) {
+								continue;
+							}
 
-					}
-					catch (Exception e) {
-						if (!toStop) {
-							logger.error(e.getMessage(), e);
-						}
+							// file create date
+							Date logFileCreateDate = null;
+							try {
+								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+								logFileCreateDate = simpleDateFormat.parse(childFile.getName());
+							}
+							catch (ParseException e) {
+								logger.error(e.getMessage(), e);
+							}
+							if (logFileCreateDate == null) {
+								continue;
+							}
 
+							if ((todayDate.getTime() - logFileCreateDate.getTime()) >= logRetentionDays
+									* (24 * 60 * 60 * 1000)) {
+								FileUtil.deleteRecursively(childFile);
+							}
+
+						}
 					}
 
-					try {
-						TimeUnit.DAYS.sleep(1);
+				}
+				catch (Exception e) {
+					if (!toStop) {
+						logger.error(e.getMessage(), e);
 					}
-					catch (InterruptedException e) {
-						if (!toStop) {
-							logger.error(e.getMessage(), e);
-						}
+
+				}
+
+				try {
+					TimeUnit.DAYS.sleep(1);
+				}
+				catch (InterruptedException e) {
+					if (!toStop) {
+						logger.error(e.getMessage(), e);
 					}
 				}
-				logger.info(">>>>>>>>>>> xxl-job, executor JobLogFileCleanThread thread destroy.");
-
 			}
+			logger.info(">>>>>>>>>>> xxl-job, executor JobLogFileCleanThread thread destroy.");
+
 		});
 		localThread.setDaemon(true);
 		localThread.setName("xxl-job, executor JobLogFileCleanThread");

@@ -8,7 +8,8 @@ import org.springframework.util.StringUtils;
 import java.io.Serializable;
 
 /**
- * @author xuxueli 2019-05-04 16:43:12
+ * @author xuxueli
+ * @date 2019-05-04 16:43:12
  */
 @Data
 @NoArgsConstructor

@@ -22,7 +22,8 @@ import java.util.*;
 /**
  * job group controller
  *
- * @author xuxueli 2016-10-02 20:52:56
+ * @author xuxueli
+ * @date 2016-10-02 20:52:56
  */
 @Controller
 @RequestMapping("/jobgroup")
@@ -68,7 +69,7 @@ public class JobGroupController {
 	public ReturnT<String> save(XxlJobGroup xxlJobGroup) {
 
 		// valid
-		if (xxlJobGroup.getAppname() == null || xxlJobGroup.getAppname().trim().length() == 0) {
+		if (xxlJobGroup.getAppname() == null || xxlJobGroup.getAppname().trim().isEmpty()) {
 			return new ReturnT<String>(500, (I18nUtil.getString("system_please_input") + "AppName"));
 		}
 		if (xxlJobGroup.getAppname().length() < 4 || xxlJobGroup.getAppname().length() > 64) {
@@ -77,7 +78,7 @@ public class JobGroupController {
 		if (xxlJobGroup.getAppname().contains(">") || xxlJobGroup.getAppname().contains("<")) {
 			return new ReturnT<String>(500, "AppName" + I18nUtil.getString("system_unvalid"));
 		}
-		if (xxlJobGroup.getTitle() == null || xxlJobGroup.getTitle().trim().length() == 0) {
+		if (xxlJobGroup.getTitle() == null || xxlJobGroup.getTitle().trim().isEmpty()) {
 			return new ReturnT<String>(500,
 					(I18nUtil.getString("system_please_input") + I18nUtil.getString("jobgroup_field_title")));
 		}
@@ -86,7 +87,7 @@ public class JobGroupController {
 					I18nUtil.getString("jobgroup_field_title") + I18nUtil.getString("system_unvalid"));
 		}
 		if (xxlJobGroup.getAddressType() != 0) {
-			if (xxlJobGroup.getAddressList() == null || xxlJobGroup.getAddressList().trim().length() == 0) {
+			if (xxlJobGroup.getAddressList() == null || xxlJobGroup.getAddressList().trim().isEmpty()) {
 				return new ReturnT<String>(500, I18nUtil.getString("jobgroup_field_addressType_limit"));
 			}
 			if (xxlJobGroup.getAddressList().contains(">") || xxlJobGroup.getAddressList().contains("<")) {
@@ -96,7 +97,7 @@ public class JobGroupController {
 
 			String[] addresss = xxlJobGroup.getAddressList().split(",");
 			for (String item : addresss) {
-				if (item == null || item.trim().length() == 0) {
+				if (item == null || item.trim().isEmpty()) {
 					return new ReturnT<String>(500, I18nUtil.getString("jobgroup_field_registryList_unvalid"));
 				}
 			}
@@ -114,39 +115,40 @@ public class JobGroupController {
 	@PermissionLimit(adminuser = true)
 	public ReturnT<String> update(XxlJobGroup xxlJobGroup) {
 		// valid
-		if (xxlJobGroup.getAppname() == null || xxlJobGroup.getAppname().trim().length() == 0) {
-			return new ReturnT<String>(500, (I18nUtil.getString("system_please_input") + "AppName"));
+		if (xxlJobGroup.getAppname() == null || xxlJobGroup.getAppname().trim().isEmpty()) {
+			return new ReturnT<>(500, (I18nUtil.getString("system_please_input") + "AppName"));
 		}
 		if (xxlJobGroup.getAppname().length() < 4 || xxlJobGroup.getAppname().length() > 64) {
-			return new ReturnT<String>(500, I18nUtil.getString("jobgroup_field_appname_length"));
+			return new ReturnT<>(500, I18nUtil.getString("jobgroup_field_appname_length"));
 		}
-		if (xxlJobGroup.getTitle() == null || xxlJobGroup.getTitle().trim().length() == 0) {
-			return new ReturnT<String>(500,
+		if (xxlJobGroup.getTitle() == null || xxlJobGroup.getTitle().trim().isEmpty()) {
+			return new ReturnT<>(500,
 					(I18nUtil.getString("system_please_input") + I18nUtil.getString("jobgroup_field_title")));
 		}
 		if (xxlJobGroup.getAddressType() == 0) {
 			// 0=自动注册
 			List<String> registryList = findRegistryByAppName(xxlJobGroup.getAppname());
-			String addressListStr = null;
+			StringBuilder addressListStr = null;
 			if (registryList != null && !registryList.isEmpty()) {
 				Collections.sort(registryList);
-				addressListStr = "";
+				addressListStr = new StringBuilder();
 				for (String item : registryList) {
-					addressListStr += item + ",";
+					addressListStr.append(item).append(",");
 				}
-				addressListStr = addressListStr.substring(0, addressListStr.length() - 1);
+				addressListStr = new StringBuilder(addressListStr.substring(0, addressListStr.length() - 1));
 			}
-			xxlJobGroup.setAddressList(addressListStr);
+			assert addressListStr != null;
+			xxlJobGroup.setAddressList(addressListStr.toString());
 		}
 		else {
 			// 1=手动录入
-			if (xxlJobGroup.getAddressList() == null || xxlJobGroup.getAddressList().trim().length() == 0) {
-				return new ReturnT<String>(500, I18nUtil.getString("jobgroup_field_addressType_limit"));
+			if (xxlJobGroup.getAddressList() == null || xxlJobGroup.getAddressList().trim().isEmpty()) {
+				return new ReturnT<>(500, I18nUtil.getString("jobgroup_field_addressType_limit"));
 			}
 			String[] addresss = xxlJobGroup.getAddressList().split(",");
 			for (String item : addresss) {
-				if (item == null || item.trim().length() == 0) {
-					return new ReturnT<String>(500, I18nUtil.getString("jobgroup_field_registryList_unvalid"));
+				if (item == null || item.trim().isEmpty()) {
+					return new ReturnT<>(500, I18nUtil.getString("jobgroup_field_registryList_unvalid"));
 				}
 			}
 		}
@@ -159,7 +161,7 @@ public class JobGroupController {
 	}
 
 	private List<String> findRegistryByAppName(String appnameParam) {
-		HashMap<String, List<String>> appAddressMap = new HashMap<String, List<String>>();
+		HashMap<String, List<String>> appAddressMap = new HashMap<>();
 		List<XxlJobRegistry> list = xxlJobRegistryDao.findAll(RegistryConfig.DEAD_TIMEOUT, new Date());
 		if (list != null) {
 			for (XxlJobRegistry item : list) {
@@ -167,7 +169,7 @@ public class JobGroupController {
 					String appname = item.getRegistryKey();
 					List<String> registryList = appAddressMap.get(appname);
 					if (registryList == null) {
-						registryList = new ArrayList<String>();
+						registryList = new ArrayList<>();
 					}
 
 					if (!registryList.contains(item.getRegistryValue())) {
@@ -205,8 +207,7 @@ public class JobGroupController {
 	@PermissionLimit(adminuser = true)
 	public ReturnT<XxlJobGroup> loadById(int id) {
 		XxlJobGroup jobGroup = xxlJobGroupDao.load(id);
-		return jobGroup != null ? new ReturnT<XxlJobGroup>(jobGroup)
-				: new ReturnT<XxlJobGroup>(ReturnT.FAIL_CODE, null);
+		return jobGroup != null ? new ReturnT<>(jobGroup) : new ReturnT<>(ReturnT.FAIL_CODE, null);
 	}
 
 }

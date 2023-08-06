@@ -62,7 +62,7 @@ public class ExecutorBizTest {
 		triggerParam.setGlueType(GlueTypeEnum.BEAN.name());
 		triggerParam.setGlueSource(null);
 		triggerParam.setGlueUpdatetime(System.currentTimeMillis());
-		triggerParam.setLogId(1);
+		triggerParam.setLogId(1L);
 		triggerParam.setLogDateTime(System.currentTimeMillis());
 
 		// Act

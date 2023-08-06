@@ -17,38 +17,51 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * handler thread
  *
- * @author xuxueli 2016-1-16 19:52:47
+ * @author xuxueli
+ * @date 2016-1-16 19:52:47
  */
 public class JobThread extends Thread {
 
-	private static Logger logger = LoggerFactory.getLogger(JobThread.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobThread.class);
 
-	private int jobId;
+	private final int jobId;
 
-	private IJobHandler handler;
+	private final IJobHandler handler;
 
-	private LinkedBlockingQueue<TriggerParam> triggerQueue;
+	private final LinkedBlockingQueue<TriggerParam> triggerQueue;
 
-	private Set<Long> triggerLogIdSet; // avoid repeat trigger for the same TRIGGER_LOG_ID
+	/**
+	 * avoid repeat trigger for the same TRIGGER_LOG_ID
+	 */
+	private final Set<Long> triggerLogIdSet;
 
 	private volatile boolean toStop = false;
 
 	private String stopReason;
 
-	private boolean running = false; // if running job
+	/**
+	 * if running job
+	 */
+	private boolean running = false;
 
-	private int idleTimes = 0; // idel times
+	/**
+	 * idel times
+	 */
+	private int idleTimes = 0;
 
 	public JobThread(int jobId, IJobHandler handler) {
 		this.jobId = jobId;
 		this.handler = handler;
-		this.triggerQueue = new LinkedBlockingQueue<TriggerParam>();
-		this.triggerLogIdSet = Collections.synchronizedSet(new HashSet<Long>());
+		this.triggerQueue = new LinkedBlockingQueue<>();
+		this.triggerLogIdSet = Collections.synchronizedSet(new HashSet<>());
 
 		// assign job thread name
 		this.setName("xxl-job, JobThread-" + jobId + "-" + System.currentTimeMillis());
@@ -93,7 +106,7 @@ public class JobThread extends Thread {
 	 * @return
 	 */
 	public boolean isRunningOrHasQueue() {
-		return running || triggerQueue.size() > 0;
+		return running || !triggerQueue.isEmpty();
 	}
 
 	@Override
@@ -140,16 +153,13 @@ public class JobThread extends Thread {
 						// limit timeout
 						Thread futureThread = null;
 						try {
-							FutureTask<Boolean> futureTask = new FutureTask<Boolean>(new Callable<Boolean>() {
-								@Override
-								public Boolean call() throws Exception {
+							FutureTask<Boolean> futureTask = new FutureTask<>(() -> {
 
-									// init job context
-									XxlJobContext.setXxlJobContext(xxlJobContext);
+								// init job context
+								XxlJobContext.setXxlJobContext(xxlJobContext);
 
-									handler.execute();
-									return true;
-								}
+								handler.execute();
+								return true;
 							});
 							futureThread = new Thread(futureTask);
 							futureThread.start();
@@ -165,6 +175,7 @@ public class JobThread extends Thread {
 							XxlJobHelper.handleTimeout("job execute timeout ");
 						}
 						finally {
+							assert futureThread != null;
 							futureThread.interrupt();
 						}
 					}
@@ -191,8 +202,8 @@ public class JobThread extends Thread {
 				}
 				else {
 					if (idleTimes > 30) {
-						if (triggerQueue.size() == 0) { // avoid concurrent trigger causes
-														// jobId-lost
+						// avoid concurrent trigger causes jobId-lost
+						if (triggerQueue.isEmpty()) {
 							XxlJobExecutor.removeJobThread(jobId, "excutor idel times over limit.");
 						}
 					}
@@ -233,7 +244,7 @@ public class JobThread extends Thread {
 		}
 
 		// callback trigger request in queue
-		while (triggerQueue != null && triggerQueue.size() > 0) {
+		while (triggerQueue != null && !triggerQueue.isEmpty()) {
 			TriggerParam triggerParam = triggerQueue.poll();
 			if (triggerParam != null) {
 				// is killed

@@ -14,7 +14,8 @@ import java.util.regex.Pattern;
 /**
  * ip tool
  *
- * @author xuxueli 2016-5-22 11:38:05
+ * @author xuxueli
+ * @date 2016-5-22 11:38:05
  */
 public class IpUtil {
 

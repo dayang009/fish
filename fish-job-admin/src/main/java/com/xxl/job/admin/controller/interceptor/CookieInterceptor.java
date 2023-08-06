@@ -14,18 +14,19 @@ import java.util.HashMap;
 /**
  * push cookies to model as cookieMap
  *
- * @author xuxueli 2015-12-12 18:09:04
+ * @author xuxueli
+ * @date 2015-12-12 18:09:04
  */
 @Component
 public class CookieInterceptor implements AsyncHandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
+			ModelAndView modelAndView) {
 
 		// cookie
 		if (modelAndView != null && request.getCookies() != null && request.getCookies().length > 0) {
-			HashMap<String, Cookie> cookieMap = new HashMap<String, Cookie>();
+			HashMap<String, Cookie> cookieMap = new HashMap<>();
 			for (Cookie ck : request.getCookies()) {
 				cookieMap.put(ck.getName(), ck);
 			}

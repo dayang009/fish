@@ -12,6 +12,8 @@
     <artifactId>fish-job-admin</artifactId>
     <packaging>jar</packaging>
 
+	<description>xxl-job服务端，基于xxl-job-admin</description>
+
     <properties>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -44,35 +46,49 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
+		<!-- 德鲁伊连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
+		<!-- 多数据源 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
         </dependency>
 
-
-        <!-- mysql -->
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+		<!-- PgSQL 数据库驱动包 -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+		<!-- MySQL 数据库驱动 -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
+		<!-- 糊涂工具包 -->
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+		</dependency>
 
-        <!-- xxl-job-core -->
+        <!-- 基于 xxl-job-core 封装 -->
         <dependency>
             <groupId>com.fish</groupId>
             <artifactId>fish-common-job</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+		<!-- <dependency> -->
+		<!-- 	<groupId>com.xuxueli</groupId> -->
+		<!-- 	<artifactId>xxl-job-core</artifactId> -->
+		<!-- 	<version>2.4.0</version> -->
+		<!-- </dependency> -->
+
         <!-- Nacos 配置中心 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

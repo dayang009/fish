@@ -41,4 +41,10 @@ public class XxlJobGroupDaoTest {
 		int ret3 = xxlJobGroupDao.remove(group.getId());
 	}
 
+	@Test
+	void demo01Test() {
+		List<XxlJobGroup> pageList = xxlJobGroupDao.pageList(0, 10, null, "大");
+		pageList.forEach(System.out::println);
+	}
+
 }

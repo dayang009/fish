@@ -12,7 +12,8 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * glue factory, product class/object by name
  *
- * @author xuxueli 2016-1-2 20:02:27
+ * @author xuxueli
+ * @date 2016-1-2 20:02:27
  */
 public class GlueFactory {
 
@@ -45,19 +46,17 @@ public class GlueFactory {
 	 * @throws Exception
 	 */
 	public IJobHandler loadNewInstance(String codeSource) throws Exception {
-		if (codeSource != null && codeSource.trim().length() > 0) {
+		if (codeSource != null && !codeSource.trim().isEmpty()) {
 			Class<?> clazz = getCodeSourceClass(codeSource);
 			if (clazz != null) {
 				Object instance = clazz.newInstance();
-				if (instance != null) {
-					if (instance instanceof IJobHandler) {
-						this.injectService(instance);
-						return (IJobHandler) instance;
-					}
-					else {
-						throw new IllegalArgumentException(">>>>>>>>>>> xxl-glue, loadNewInstance error, "
-								+ "cannot convert from instance[" + instance.getClass() + "] to IJobHandler");
-					}
+				if (instance instanceof IJobHandler) {
+					this.injectService(instance);
+					return (IJobHandler) instance;
+				}
+				else {
+					throw new IllegalArgumentException(">>>>>>>>>>> xxl-glue, loadNewInstance error, "
+							+ "cannot convert from instance[" + instance.getClass() + "] to IJobHandler");
 				}
 			}
 		}

@@ -2,14 +2,12 @@ package com.xxl.job.core.executor.impl;
 
 import com.xxl.job.core.executor.XxlJobExecutor;
 import com.xxl.job.core.handler.annotation.XxlJob;
-import com.xxl.job.core.handler.impl.MethodJobHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * xxl-job executor (for frameless)
@@ -51,7 +49,7 @@ public class XxlJobSimpleExecutor extends XxlJobExecutor {
 	}
 
 	private void initJobHandlerMethodRepository(List<Object> xxlJobBeanList) {
-		if (xxlJobBeanList == null || xxlJobBeanList.size() == 0) {
+		if (xxlJobBeanList == null || xxlJobBeanList.isEmpty()) {
 			return;
 		}
 
@@ -59,9 +57,6 @@ public class XxlJobSimpleExecutor extends XxlJobExecutor {
 		for (Object bean : xxlJobBeanList) {
 			// method
 			Method[] methods = bean.getClass().getDeclaredMethods();
-			if (methods.length == 0) {
-				continue;
-			}
 			for (Method executeMethod : methods) {
 				XxlJob xxlJob = executeMethod.getAnnotation(XxlJob.class);
 				// registry

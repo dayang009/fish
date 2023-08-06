@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 权限拦截
  *
- * @author xuxueli 2015-12-12 18:09:04
+ * @author xuxueli
+ * @date 2015-12-12 18:09:04
  */
 @Component
 public class PermissionInterceptor implements AsyncHandlerInterceptor {
@@ -24,8 +25,7 @@ public class PermissionInterceptor implements AsyncHandlerInterceptor {
 	private LoginService loginService;
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
 		if (!(handler instanceof HandlerMethod)) {
 			return true; // proceed with the next interceptor

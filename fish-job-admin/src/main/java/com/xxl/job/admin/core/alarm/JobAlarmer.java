@@ -1,5 +1,6 @@
 package com.xxl.job.admin.core.alarm;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import com.xxl.job.admin.core.model.XxlJobLog;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import java.util.Map;
 @Component
 public class JobAlarmer implements ApplicationContextAware, InitializingBean {
 
-	private static Logger logger = LoggerFactory.getLogger(JobAlarmer.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobAlarmer.class);
 
 	private ApplicationContext applicationContext;
 
@@ -29,10 +30,10 @@ public class JobAlarmer implements ApplicationContextAware, InitializingBean {
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		Map<String, JobAlarm> serviceBeanMap = applicationContext.getBeansOfType(JobAlarm.class);
-		if (serviceBeanMap != null && serviceBeanMap.size() > 0) {
-			jobAlarmList = new ArrayList<JobAlarm>(serviceBeanMap.values());
+		if (CollectionUtil.isNotEmpty(serviceBeanMap)) {
+			jobAlarmList = new ArrayList<>(serviceBeanMap.values());
 		}
 	}
 
@@ -45,7 +46,7 @@ public class JobAlarmer implements ApplicationContextAware, InitializingBean {
 	public boolean alarm(XxlJobInfo info, XxlJobLog jobLog) {
 
 		boolean result = false;
-		if (jobAlarmList != null && jobAlarmList.size() > 0) {
+		if (jobAlarmList != null && !jobAlarmList.isEmpty()) {
 			result = true; // success means all-success
 			for (JobAlarm alarm : jobAlarmList) {
 				boolean resultItem = false;

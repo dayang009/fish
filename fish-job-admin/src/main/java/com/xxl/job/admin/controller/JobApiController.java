@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by xuxueli on 17/5/10.
+ * @author xuxueli
+ * @date 2017/5/10
  */
 @SuppressWarnings("unchecked")
 @Controller
@@ -45,11 +46,11 @@ public class JobApiController {
 		if (!"POST".equalsIgnoreCase(request.getMethod())) {
 			return new ReturnT<>(ReturnT.FAIL_CODE, "invalid request, HttpMethod not support.");
 		}
-		if (uri == null || uri.trim().length() == 0) {
+		if (uri == null || uri.trim().isEmpty()) {
 			return new ReturnT<>(ReturnT.FAIL_CODE, "invalid request, uri-mapping empty.");
 		}
 		if (XxlJobAdminConfig.getAdminConfig().getAccessToken() != null
-				&& XxlJobAdminConfig.getAdminConfig().getAccessToken().trim().length() > 0
+				&& !XxlJobAdminConfig.getAdminConfig().getAccessToken().trim().isEmpty()
 				&& !XxlJobAdminConfig.getAdminConfig()
 					.getAccessToken()
 					.equals(request.getHeader(XxlJobRemotingUtil.XXL_JOB_ACCESS_TOKEN))) {

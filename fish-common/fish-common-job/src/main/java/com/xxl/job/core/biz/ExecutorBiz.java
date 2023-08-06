@@ -3,7 +3,8 @@ package com.xxl.job.core.biz;
 import com.xxl.job.core.biz.model.*;
 
 /**
- * Created by xuxueli on 17/3/1.
+ * @author xuxueli
+ * @date 2017/3/1
  */
 public interface ExecutorBiz {
 

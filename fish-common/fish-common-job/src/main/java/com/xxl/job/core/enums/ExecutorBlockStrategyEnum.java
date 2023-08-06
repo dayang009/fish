@@ -1,17 +1,21 @@
 package com.xxl.job.core.enums;
 
 /**
- * Created by xuxueli on 17/5/9.
+ * @author xuxueli
+ * @date 2017/5/9
  */
 public enum ExecutorBlockStrategyEnum {
 
 	SERIAL_EXECUTION("Serial execution"),
-	/* CONCURRENT_EXECUTION("并行"), */
+
+	/**
+	 * CONCURRENT_EXECUTION("并行"),
+	 */
 	DISCARD_LATER("Discard Later"), COVER_EARLY("Cover Early");
 
 	private String title;
 
-	private ExecutorBlockStrategyEnum(String title) {
+	ExecutorBlockStrategyEnum(String title) {
 		this.title = title;
 	}
 

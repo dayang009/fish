@@ -5,7 +5,8 @@ import com.xxl.job.core.handler.IJobHandler;
 import java.lang.reflect.Method;
 
 /**
- * @author xuxueli 2019-12-11 21:12:18
+ * @author xuxueli
+ * @date 2019-12-11 21:12:18
  */
 public class MethodJobHandler extends IJobHandler {
 
@@ -13,9 +14,9 @@ public class MethodJobHandler extends IJobHandler {
 
 	private final Method method;
 
-	private Method initMethod;
+	private final Method initMethod;
 
-	private Method destroyMethod;
+	private final Method destroyMethod;
 
 	public MethodJobHandler(Object target, Method method, Method initMethod, Method destroyMethod) {
 		this.target = target;
@@ -29,8 +30,9 @@ public class MethodJobHandler extends IJobHandler {
 	public void execute() throws Exception {
 		Class<?>[] paramTypes = method.getParameterTypes();
 		if (paramTypes.length > 0) {
-			method.invoke(target, new Object[paramTypes.length]); // method-param can not
-																	// be primitive-types
+			// method-param can not be primitive-types
+			method.invoke(target, new Object[paramTypes.length]);
+
 		}
 		else {
 			method.invoke(target);

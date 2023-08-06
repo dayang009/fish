@@ -4,12 +4,14 @@ import com.xxl.job.admin.core.model.XxlJobInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * job info
  *
- * @author xuxueli 2016-1-12 18:03:45
+ * @author xuxueli
+ * @date 2016-1-12 18:03:45
  */
 @Mapper
 public interface XxlJobInfoDao {
@@ -25,16 +27,22 @@ public interface XxlJobInfoDao {
 
 	int save(XxlJobInfo info);
 
-	XxlJobInfo loadById(@Param("id") int id);
+	XxlJobInfo loadById(@Param("id") Serializable id);
 
 	int update(XxlJobInfo xxlJobInfo);
 
-	int delete(@Param("id") long id);
+	int delete(@Param("id") Serializable id);
 
-	List<XxlJobInfo> getJobsByGroup(@Param("jobGroup") int jobGroup);
+	List<XxlJobInfo> getJobsByGroup(@Param("jobGroup") Serializable jobGroup);
 
 	int findAllCount();
 
+	/**
+	 * 预读查询任务
+	 * @param maxNextTime 当前时间 + 预读时间
+	 * @param pagesize 一次读多少条
+	 * @return 执行任务的集合
+	 */
 	List<XxlJobInfo> scheduleJobQuery(@Param("maxNextTime") long maxNextTime, @Param("pagesize") int pagesize);
 
 	int scheduleUpdate(XxlJobInfo xxlJobInfo);

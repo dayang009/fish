@@ -17,11 +17,12 @@ import java.util.Properties;
 /**
  * i18n util
  *
- * @author xuxueli 2018-01-17 20:39:06
+ * @author xuxueli
+ * @date 2018-01-17 20:39:06
  */
 public class I18nUtil {
 
-	private static Logger logger = LoggerFactory.getLogger(I18nUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(I18nUtil.class);
 
 	private static Properties prop = null;
 
@@ -60,7 +61,7 @@ public class I18nUtil {
 	 * @return
 	 */
 	public static String getMultString(String... keys) {
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 
 		Properties prop = loadI18nProp();
 		if (keys != null && keys.length > 0) {

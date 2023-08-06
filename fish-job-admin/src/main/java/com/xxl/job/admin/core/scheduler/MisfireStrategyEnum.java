@@ -3,7 +3,10 @@ package com.xxl.job.admin.core.scheduler;
 import com.xxl.job.admin.core.util.I18nUtil;
 
 /**
- * @author xuxueli 2020-10-29 21:11:23
+ * 失火策略枚举
+ *
+ * @author xuxueli
+ * @date 2020-10-29 21:11:23
  */
 public enum MisfireStrategyEnum {
 

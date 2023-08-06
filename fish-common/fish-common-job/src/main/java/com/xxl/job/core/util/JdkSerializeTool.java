@@ -6,11 +6,12 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 
 /**
- * @author xuxueli 2020-04-12 0:14:00
+ * @author xuxueli
+ * @date 2020-04-12 0:14:00
  */
 public class JdkSerializeTool {
 
-	private static Logger logger = LoggerFactory.getLogger(JdkSerializeTool.class);
+	private static final Logger logger = LoggerFactory.getLogger(JdkSerializeTool.class);
 
 	// ------------------------ serialize and unserialize ------------------------
 
@@ -35,6 +36,7 @@ public class JdkSerializeTool {
 		}
 		finally {
 			try {
+				assert oos != null;
 				oos.close();
 				baos.close();
 			}
@@ -63,6 +65,7 @@ public class JdkSerializeTool {
 		}
 		finally {
 			try {
+				assert bais != null;
 				bais.close();
 			}
 			catch (IOException e) {
