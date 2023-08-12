@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * job trigger thread pool helper
  *
  * @author xuxueli
- * @date 2018-07-03 21:08:07
+ * @since 2018-07-03 21:08:07
  */
 public class JobTriggerPoolHelper {
 

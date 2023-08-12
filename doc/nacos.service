@@ -1,0 +1,21 @@
+# vim /lib/systemd/system/nacos.service
+# systemctl daemon-reload
+# systemctl enable nacos.service
+# systemctl start nacos.service
+
+[Unit]
+Description=nacos
+After=network.target
+
+[Service]
+Type=forking
+User=root
+ExecStart=/bin/bash /opt/nacos/bin/startup.sh -m standalone
+ExecReload=/bin/bash /opt/nacos/bin/shutdown.sh
+ExecStop=/bin/bash /opt/nacos/bin/shutdown.sh
+Restart=always
+RestartSec=2
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -15,7 +15,7 @@ import java.text.MessageFormat;
 
 /**
  * @author xuxueli
- * @date 2020-10-30 20:43:10
+ * @since 2020-10-30 20:43:10
  */
 public class XxlJobCompleter {
 

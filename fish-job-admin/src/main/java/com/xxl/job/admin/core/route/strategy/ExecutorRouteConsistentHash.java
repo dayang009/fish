@@ -19,7 +19,7 @@ import java.util.TreeMap;
  * b、hash method replace hashCode：String的hashCode可能重复，需要进一步扩大hashCode的取值范围
  *
  * @author xuxueli
- * @date 2017/3/10
+ * @since 2017/3/10
  */
 public class ExecutorRouteConsistentHash extends ExecutorRouter {
 

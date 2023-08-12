@@ -4,7 +4,7 @@ import com.xxl.job.admin.core.util.I18nUtil;
 
 /**
  * @author xuxueli
- * @date 2020-10-29 21:11:23
+ * @since 2020-10-29 21:11:23
  */
 public enum ScheduleTypeEnum {
 

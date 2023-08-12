@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentMap;
  * local cache tool
  *
  * @author xuxueli
- * @date 2018-01-22 21:37:34
+ * @since 2018-01-22 21:37:34
  */
 public class LocalCacheUtil {
 

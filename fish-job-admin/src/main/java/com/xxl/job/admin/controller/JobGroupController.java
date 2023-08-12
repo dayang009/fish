@@ -23,7 +23,7 @@ import java.util.*;
  * job group controller
  *
  * @author xuxueli
- * @date 2016-10-02 20:52:56
+ * @since 2016-10-02 20:52:56
  */
 @Controller
 @RequestMapping("/jobgroup")

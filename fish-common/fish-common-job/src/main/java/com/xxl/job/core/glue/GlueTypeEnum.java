@@ -2,7 +2,7 @@ package com.xxl.job.core.glue;
 
 /**
  * @author xuxueli
- * @date 2017/04/26
+ * @since 2017/04/26
  */
 public enum GlueTypeEnum {
 

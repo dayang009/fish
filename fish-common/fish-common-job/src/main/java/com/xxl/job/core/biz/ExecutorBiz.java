@@ -4,7 +4,7 @@ import com.xxl.job.core.biz.model.*;
 
 /**
  * @author xuxueli
- * @date 2017/3/1
+ * @since 2017/3/1
  */
 public interface ExecutorBiz {
 

@@ -1,8 +1,9 @@
 package com.fish.user.mapper;
 
+import com.fish.common.mybatis.mapper.FishMapper;
 import com.fish.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
  * @Entity generator.entity.User
  */
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends FishMapper<User> {
 
 	/**
 	 * 插入一条记录
@@ -24,15 +25,22 @@ public interface UserMapper {
 	 */
 	int insert(User user);
 
+	int insertBatchSomeColumn(List<User> entityList);
+
 	int delete(User user);
 
-	int deleteById(Serializable id);
+	/**
+	 * 生产环境请使用标记删除
+	 * @param id 要删除数据的主键 id
+	 * @return 删除的数据行数
+	 */
+	int deleteById(@Param("id") Serializable id);
 
 	int deleteByMap(Map<String, Object> columnMap);
 
 	int updateById(User user);
 
-	User selectById(Serializable id);
+	User selectById(@Param("id") Serializable id);
 
 	List<User> selectByIds(List<? extends Serializable> idList);
 
@@ -45,7 +53,7 @@ public interface UserMapper {
 
 	List<User> selectBatchIds(List<? extends Serializable> idList);
 
-	@Select("select * from t_user")
+	@Override
 	List<User> findAll();
 
 }

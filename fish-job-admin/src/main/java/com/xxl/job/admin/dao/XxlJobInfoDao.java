@@ -11,7 +11,7 @@ import java.util.List;
  * job info
  *
  * @author xuxueli
- * @date 2016-1-12 18:03:45
+ * @since 2016-1-12 18:03:45
  */
 @Mapper
 public interface XxlJobInfoDao {

@@ -18,7 +18,7 @@ import java.util.concurrent.*;
  * job lose-monitor instance
  *
  * @author xuxueli
- * @date 2015-9-1 18:05:56
+ * @since 2015-9-1 18:05:56
  */
 public class JobCompleteHelper {
 

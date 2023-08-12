@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author xuxueli
- * @date 2019-05-04 16:44:59
+ * @since 2019-05-04 16:44:59
  */
 @Mapper
 public interface XxlJobUserDao {

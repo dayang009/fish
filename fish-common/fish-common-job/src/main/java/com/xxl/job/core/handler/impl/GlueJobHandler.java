@@ -7,7 +7,7 @@ import com.xxl.job.core.handler.IJobHandler;
  * glue job handler
  *
  * @author xuxueli
- * @date 2016-5-19 21:05:45
+ * @since 2016-5-19 21:05:45
  */
 public class GlueJobHandler extends IJobHandler {
 

@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-circular-references: true
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
     time-zone: "Asia/Shanghai"
@@ -30,7 +32,7 @@ spring:
             validation-query: SELECT 1
         mysql:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.188.7:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+          url: jdbc:mysql://192.168.188.7:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
           username: root
           password: root
           type: com.alibaba.druid.pool.DruidDataSource

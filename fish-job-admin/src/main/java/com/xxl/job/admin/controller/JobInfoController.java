@@ -34,7 +34,7 @@ import java.util.*;
  * index controller
  *
  * @author xuxueli
- * @date 2015-12-19 16:13:16
+ * @since 2015-12-19 16:13:16
  */
 @Controller
 @RequestMapping("/jobinfo")

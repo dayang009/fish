@@ -17,7 +17,7 @@ import java.io.IOException;
  * 2、do not support inner class；
  *
  * @author xuxueli
- * @date 2015-9-25 18:02:56
+ * @since 2015-9-25 18:02:56
  */
 public class JacksonUtil {
 

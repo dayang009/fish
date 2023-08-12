@@ -6,7 +6,7 @@ import com.xxl.job.admin.core.util.I18nUtil;
  * trigger type enum
  *
  * @author xuxueli
- * @date 2018-09-16 04:56:41
+ * @since 2018-09-16 04:56:41
  */
 public enum TriggerTypeEnum {
 

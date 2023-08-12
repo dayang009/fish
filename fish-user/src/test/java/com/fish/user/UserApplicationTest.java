@@ -19,7 +19,7 @@ public class UserApplicationTest {
 	private UserMapper userMapper;
 
 	@Test
-	public void insertUserTest() {
+	void insertUserTest() {
 		User user = new User();
 		user.setNickName("zhangSan");
 		user.setUserAccount("1729806");
@@ -35,13 +35,13 @@ public class UserApplicationTest {
 	}
 
 	@Test
-	public void deleteUserById() {
+	void deleteUserById() {
 		int i = userMapper.deleteById(3);
 		System.out.println(i);
 	}
 
 	@Test
-	public void demo01Test() {
+	void demo01Test() {
 		List<Integer> list = new ArrayList<>();
 		list.add(1);
 		list.add(2);

@@ -17,7 +17,7 @@ import java.util.concurrent.*;
  * job registry instance
  *
  * @author xuxueli
- * @date 2016-10-02 19:10:24
+ * @since 2016-10-02 19:10:24
  */
 public class JobRegistryHelper {
 

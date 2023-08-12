@@ -18,6 +18,7 @@
         <module>fish-common-core</module>
         <module>fish-common-job</module>
         <module>fish-common-oauth2</module>
+        <module>fish-common-mybatis</module>
     </modules>
 
     <properties>

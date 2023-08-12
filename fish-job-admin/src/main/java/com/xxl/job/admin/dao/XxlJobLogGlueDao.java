@@ -10,7 +10,7 @@ import java.util.List;
  * job log for glue
  *
  * @author xuxueli
- * @date 2016-5-19 18:04:56
+ * @since 2016-5-19 18:04:56
  */
 @Mapper
 public interface XxlJobLogGlueDao {

@@ -2,7 +2,7 @@ package com.xxl.job.core.enums;
 
 /**
  * @author xuxueli
- * @date 2017/5/9
+ * @since 2017/5/9
  */
 public enum ExecutorBlockStrategyEnum {
 

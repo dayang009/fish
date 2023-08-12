@@ -7,7 +7,7 @@ import java.io.*;
 
 /**
  * @author xuxueli
- * @date 2020-04-12 0:14:00
+ * @since 2020-04-12 0:14:00
  */
 public class JdkSerializeTool {
 

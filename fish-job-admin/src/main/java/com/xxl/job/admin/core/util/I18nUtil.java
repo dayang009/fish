@@ -18,7 +18,7 @@ import java.util.Properties;
  * i18n util
  *
  * @author xuxueli
- * @date 2018-01-17 20:39:06
+ * @since 2018-01-17 20:39:06
  */
 public class I18nUtil {
 

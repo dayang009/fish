@@ -26,7 +26,7 @@ import java.util.concurrent.TimeoutException;
  * handler thread
  *
  * @author xuxueli
- * @date 2016-1-16 19:52:47
+ * @since 2016-1-16 19:52:47
  */
 public class JobThread extends Thread {
 

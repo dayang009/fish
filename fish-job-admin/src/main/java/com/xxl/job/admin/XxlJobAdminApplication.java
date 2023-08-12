@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author xuxueli
  * @since 2018-10-28
  */
-@SpringBootApplication(exclude = {XxlAutoConfig.class})
+@SpringBootApplication(exclude = { XxlAutoConfig.class })
 public class XxlJobAdminApplication {
 
 	public static void main(String[] args) {

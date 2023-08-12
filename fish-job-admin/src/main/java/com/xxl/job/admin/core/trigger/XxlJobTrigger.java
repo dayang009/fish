@@ -22,7 +22,7 @@ import java.util.Date;
  * xxl-job trigger
  *
  * @author xuxueli
- * @date 2017/7/13
+ * @since 2017/7/13
  */
 public class XxlJobTrigger {
 

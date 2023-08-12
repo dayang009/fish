@@ -11,7 +11,7 @@ import java.util.List;
  * job log
  *
  * @author xuxueli
- * @date 2019-11-22
+ * @since 2019-11-22
  */
 @Mapper
 public interface XxlJobLogReportDao {

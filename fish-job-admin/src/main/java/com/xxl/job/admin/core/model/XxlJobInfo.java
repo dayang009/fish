@@ -9,7 +9,7 @@ import java.util.Date;
  * xxl-job info
  *
  * @author xuxueli
- * @date 2016-1-12 18:25:49
+ * @since 2016-1-12 18:25:49
  */
 @ToString
 public class XxlJobInfo implements Serializable {

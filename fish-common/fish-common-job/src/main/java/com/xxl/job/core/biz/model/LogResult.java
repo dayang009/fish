@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author xuxueli
- * @date 2017/3/23
+ * @since 2017/3/23
  */
 public class LogResult implements Serializable {
 

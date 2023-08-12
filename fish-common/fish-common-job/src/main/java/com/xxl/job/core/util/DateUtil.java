@@ -15,7 +15,7 @@ import java.util.Map;
  * date util
  *
  * @author xuxueli
- * @date 2018-08-19 01:24:11
+ * @since 2018-08-19 01:24:11
  */
 public class DateUtil {
 

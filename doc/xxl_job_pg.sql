@@ -1,4 +1,4 @@
--- XXL-JOB v2.4.1
+-- XXL-JOB v2.4.0
 -- Copyright (c) 2015-present, xuxueli.
 
 -- 信息表
@@ -178,7 +178,7 @@ create table "xxl_job_group"
 (
     "id"           serial4     not null primary key,
     "app_name"     varchar(64) not null,
-    "title"        varchar(12) not null,
+    "title"        varchar(30) not null,
     "address_type" int2        not null default 0,
     "address_list" text,
     "update_time"  timestamp

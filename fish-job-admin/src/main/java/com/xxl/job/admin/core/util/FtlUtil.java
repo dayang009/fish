@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * ftl util
  *
  * @author xuxueli
- * @date 2018-01-17 20:37:48
+ * @since 2018-01-17 20:37:48
  */
 public class FtlUtil {
 

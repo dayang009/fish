@@ -5,7 +5,7 @@ import java.io.StringWriter;
 
 /**
  * @author xuxueli
- * @date 2018-10-20 20:07:26
+ * @since 2018-10-20 20:07:26
  */
 public class ThrowableUtil {
 

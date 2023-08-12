@@ -17,7 +17,7 @@ import java.util.Arrays;
  * xxl-job config
  *
  * @author xuxueli
- * @date 2017-04-28
+ * @since 2017-04-28
  */
 @Component
 public class XxlJobAdminConfig implements InitializingBean, DisposableBean {

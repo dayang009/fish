@@ -8,7 +8,7 @@ Hello World!!!
 
 ### 后端
 
-- 更新日期：2023-07-21
+- 更新日期：2023-08-08
 
 | 依赖                           | 本项目版本  | 新版                                                         | 说明                                                         |
 | ------------------------------ | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -18,11 +18,11 @@ Hello World!!!
 | spring-boot-admin              | v2.7.10     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
 | spring-authorization-server    | v0.4.2      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=0.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/security/spring-security-oauth2-authorization-server/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
 | mybatis                        | v2.3.1      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml) | 限制 Spring Boot 2.x，指 mybatis-spring-boot-starter         |
-| mybatis-plus                   | v3.5.3.1    | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml) |                                                              |
+| mybatis-plus                   | v3.5.3.2    | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml) |                                                              |
 | pagehelper-spring-boot-starter | v1.4.7      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/pagehelper/pagehelper-spring-boot-starter/maven-metadata.xml) | MyBatis 推荐分页插件                                         |
 | dynamic-datasource             | v3.6.1      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml) | 指 dynamic-datasource-spring-boot-starter                    |
 | druid-spring-boot-starter      | v1.2.18     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/druid-spring-boot-starter/maven-metadata.xml) | 德鲁伊链接池                                                 |
-| knife4j                        | v4.2.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/xiaoymin/knife4j-dependencies/maven-metadata.xml) | Knife4j是一个集Swagger2和OpenAPI3为一体的增强解决方案        |
+| knife4j                        | v4.3.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/xiaoymin/knife4j-dependencies/maven-metadata.xml) | Knife4j是一个集Swagger2和OpenAPI3为一体的增强解决方案        |
 | springdoc                      | 1.7.0       | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml) | 用于生成 API doc，支持从 javadoc 中获取字段注释              |
 | guava                          | v32.1.2-jre | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml) |                                                              |
 | fastjson                       |             | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml) | 使用的是不带英文后缀的版本                                   |
@@ -389,6 +389,77 @@ test
 ```
  docker restart 容器id
 ```
+
+
+
+
+
+## Docker Install PgSQL
+
+https://github.com/docker-library/docs/tree/master/postgres
+
+
+
+``` bash
+docker run -d \
+	--name postgresql11 \
+	--restart always \
+	-p "5432":"5432" \
+	-e POSTGRES_USER=postgres \
+	-e POSTGRES_PASSWORD=postgres \
+	-e PGDATA=/var/lib/postgresql/data/pgdata \
+	-v /docker/postgresql/data:/var/lib/postgresql/data \
+	postgres:11
+
+```
+
+## Docker Install Redis
+
+
+
+``` bash
+docker pull redis:6.2
+
+# 下载对应版本配置文件
+https://redis.io/docs/management/config/
+
+# 修改配置
+bind * -::*
+protected-mode no
+appendonly yes
+
+# 示例文件目录结构
+docker
+-- redis
+   -- data
+   -- redis.conf
+
+
+# 命令
+docker run -d \
+    --name redis6.2 \
+    --restart always \
+    -p "6379":"6379" \
+    -v /docker/redis/redis.conf:/etc/redis/redis.conf \
+    -v /docker/redis/data:/data \
+    redis:6.2 \
+    redis-server /etc/redis/redis.conf
+
+
+# 命令解释（参考）
+docker run \
+-p 6379:6379 \  docker与宿主机的端口映射
+--name redis \  redis容器的名字
+-v /docker/redis/redis.conf:/etc/redis/redis.conf \  挂载redis.conf文件
+-v /docker/redis/data:/data \  挂在redis的持久化数据
+--restart=always \  设置redis容器随docker启动而自启动
+-d \后台运行并返回容器id
+redis:7.0.4 \
+redis-server /etc/redis/redis.conf \  指定redis在docker中的配置文件路径，后台启动redis
+
+```
+
+
 
 
 

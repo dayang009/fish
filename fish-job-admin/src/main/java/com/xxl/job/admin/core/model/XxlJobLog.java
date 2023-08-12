@@ -7,7 +7,7 @@ import java.util.Date;
  * xxl-job log, used to track trigger process
  *
  * @author xuxueli
- * @date 2015-12-19 23:19:09
+ * @since 2015-12-19 23:19:09
  */
 public class XxlJobLog implements Serializable {
 

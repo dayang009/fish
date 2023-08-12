@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @author xuxueli
- * @date 2016/7/22
+ * @since 2016/7/22
  */
 @Data
 @NoArgsConstructor

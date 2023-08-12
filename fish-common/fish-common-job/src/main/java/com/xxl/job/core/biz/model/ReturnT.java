@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  * @param <T>
  * @author xuxueli
- * @date 2015-12-4 16:32:31
+ * @since 2015-12-4 16:32:31
  */
 public class ReturnT<T> implements Serializable {
 

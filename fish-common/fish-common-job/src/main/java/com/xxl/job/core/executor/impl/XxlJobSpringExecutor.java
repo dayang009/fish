@@ -21,7 +21,7 @@ import java.util.Map;
  * xxl-job executor (for spring)
  *
  * @author xuxueli
- * @date 2018-11-01 09:24:52
+ * @since 2018-11-01 09:24:52
  */
 public class XxlJobSpringExecutor extends XxlJobExecutor
 		implements ApplicationContextAware, SmartInitializingSingleton, DisposableBean {

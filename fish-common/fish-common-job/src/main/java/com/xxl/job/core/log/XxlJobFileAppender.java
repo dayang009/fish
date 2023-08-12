@@ -14,7 +14,7 @@ import java.util.Date;
  * store trigger log in each log-file
  *
  * @author xuxueli
- * @date 2016-3-12 19:25:12
+ * @since 2016-3-12 19:25:12
  */
 public class XxlJobFileAppender {
 

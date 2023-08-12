@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author xuxueli
- * @date 2019-05-21
+ * @since 2019-05-21
  */
 public class JobScheduleHelper {
 

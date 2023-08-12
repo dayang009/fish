@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author xuxueli
- * @date 2016/3/2
+ * @since 2016/3/2
  */
 public class XxlJobExecutor {
 

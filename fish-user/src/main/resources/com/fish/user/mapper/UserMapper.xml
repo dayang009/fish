@@ -1,59 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fish.user.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="com.fish.user.entity.User">
-        <id property="id" column="id" jdbcType="OTHER"/>
-        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
-        <result property="userAccount" column="user_account" jdbcType="VARCHAR"/>
-        <result property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
-        <result property="gender" column="gender" jdbcType="SMALLINT"/>
-        <result property="age" column="age" jdbcType="INTEGER"/>
-        <result property="phone" column="phone" jdbcType="VARCHAR"/>
-        <result property="email" column="email" jdbcType="VARCHAR"/>
-        <result property="adminFlag" column="admin_flag" jdbcType="SMALLINT"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="deleteFlag" column="delete_flag" jdbcType="BOOLEAN"/>
-    </resultMap>
+	<resultMap id="BaseResultMap" type="com.fish.user.entity.User">
+		<id property="id" column="id" jdbcType="OTHER"/>
+		<result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+		<result property="userAccount" column="user_account" jdbcType="VARCHAR"/>
+		<result property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
+		<result property="gender" column="gender" jdbcType="SMALLINT"/>
+		<result property="age" column="age" jdbcType="INTEGER"/>
+		<result property="phone" column="phone" jdbcType="VARCHAR"/>
+		<result property="email" column="email" jdbcType="VARCHAR"/>
+		<result property="adminFlag" column="admin_flag" jdbcType="SMALLINT"/>
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+		<result property="deleteFlag" column="delete_flag" jdbcType="BOOLEAN"/>
+	</resultMap>
 
-    <sql id="Base_Column_List">
-        id,nick_name,user_account,
+	<sql id="Base_Column_List">
+		id,nick_name,user_account,
         user_pwd,gender,age,
         phone,email,admin_flag,
         create_time,update_time,delete_flag
-    </sql>
+	</sql>
 
-    <!-- 主键自增回填 -->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email, admin_flag)
-        values (default, #{nickName}, #{userAccount}, #{userPwd}, #{gender}, #{age}, #{phone}, #{email}, #{adminFlag})
-    </insert>
-    <update id="updateById"></update>
-    <delete id="delete">
+	<!-- 主键自增回填 -->
+	<insert id="insert" parameterType="com.fish.user.entity.User" useGeneratedKeys="true" keyProperty="id">
+		insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email, admin_flag)
+		values (default, #{nickName}, #{userAccount}, #{userPwd}, #{gender}, #{age}, #{phone}, #{email}, #{adminFlag})
+	</insert>
 
-    </delete>
+	<insert id="insertBatchSomeColumn">
 
-    <delete id="deleteById">
-        update t_user
-        set delete_flag = true
-        where id = #{id}
-    </delete>
+	</insert>
 
-    <delete id="deleteByMap"></delete>
-    <select id="selectById" resultType="com.fish.user.entity.User"></select>
-    <select id="selectOne" resultType="com.fish.user.entity.User"></select>
-    <select id="selectBatchIds" resultType="com.fish.user.entity.User"></select>
+	<update id="updateById" parameterType="com.fish.user.entity.User">
+		update t_user
+		<set>
+			<if test="nickName != null and nickName != ''">
+				 nick_name = #{nickName},
+			</if>
+			<if test="userAccount != null and userAccount != ''">
+				user_account = #{userAccount},
+			</if>
+			<if test="userPwd != null and userPwd != ''">
+				user_pwd = #{userPwd},
+			</if>
+			<if test="gender != null and gender != ''">
+				gender = #{gender},
+			</if>
+			<if test="age != null and age != ''">
+				age = #{age},
+			</if>
+			<if test="phone != null and phone != ''">
+				phone = #{phone},
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
-    <select id="selectByIds" resultType="com.fish.user.entity.User">
-        select id, nick_name, user_account, user_pwd, gender, age, phone, email, admin_flag
-        from t_user
-        where id in
-        <foreach collection="list" open="(" close=")" separator="," item="id" index="i">
-            #{id}
-        </foreach>
-    </select>
+	<delete id="delete">
+
+	</delete>
+
+	<delete id="deleteById">
+		update t_user
+		set delete_flag = true
+		where id = #{id}
+	</delete>
+
+	<delete id="deleteByMap"></delete>
+
+	<select id="selectById" resultType="com.fish.user.entity.User">
+		select
+		<include refid="Base_Column_List"/>
+		from t_user
+		where id = #{id}
+	</select>
+
+	<select id="selectOne" parameterType="com.fish.user.entity.User" resultType="com.fish.user.entity.User">
+
+	</select>
+
+	<select id="selectBatchIds" resultType="com.fish.user.entity.User"></select>
+
+	<select id="selectByIds" resultType="com.fish.user.entity.User">
+		select
+		<include refid="Base_Column_List"/>
+		from t_user
+		where id in
+		<foreach item="id" index="" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
 
 </mapper>

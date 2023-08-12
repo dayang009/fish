@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
  * Cookie.Util
  *
  * @author xuxueli
- * @date 2015-12-12 18:01:06
+ * @since 2015-12-12 18:01:06
  */
 public class CookieUtil {
 

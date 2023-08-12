@@ -19,7 +19,7 @@ import java.io.IOException;
  * common exception resolver
  *
  * @author xuxueli
- * @date 2016-1-6 19:22:18
+ * @since 2016-1-6 19:22:18
  */
 @Component
 public class WebExceptionResolver implements HandlerExceptionResolver {

@@ -2,20 +2,26 @@ package com.fish.user.mapper;
 
 import com.fish.user.entity.User;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.annotation.Resource;
 
 /**
  * @author dayang
  */
-@SpringBootTest
+@ActiveProfiles("dev")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@MybatisTest
 public class UserMapperTest {
 
 	@Resource
 	private UserMapper userMapper;
 
+	@DisplayName("插入一条数据")
 	@Test
 	void insert() {
 		User user = new User();
@@ -46,6 +52,14 @@ public class UserMapperTest {
 
 	@Test
 	void updateById() {
+		User user = new User();
+		user.setId(4);
+		user.setNickName("haha");
+		user.setUserAccount("haha");
+		user.setUserPwd("haha");
+
+		int i = userMapper.updateById(user);
+		System.out.println(i);
 	}
 
 	@Test

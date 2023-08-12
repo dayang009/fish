@@ -12,7 +12,7 @@ import java.util.function.Function;
  * 针对表【t_user】的数据库操作Service
  *
  * @author dayang
- * @date 2023-07-13 13:38:54
+ * @since 2023-07-13 13:38:54
  */
 public interface UserService {
 

@@ -6,7 +6,7 @@ import com.xxl.job.admin.core.util.I18nUtil;
  * 失火策略枚举
  *
  * @author xuxueli
- * @date 2020-10-29 21:11:23
+ * @since 2020-10-29 21:11:23
  */
 public enum MisfireStrategyEnum {
 

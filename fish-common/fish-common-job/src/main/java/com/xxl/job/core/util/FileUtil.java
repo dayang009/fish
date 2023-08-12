@@ -12,7 +12,7 @@ import java.io.IOException;
  * file tool
  *
  * @author xuxueli
- * @date 2017-12-29 17:56:48
+ * @since 2017-12-29 17:56:48
  */
 public class FileUtil {
 

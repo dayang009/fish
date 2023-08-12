@@ -7,28 +7,17 @@ spring:
   freemarker:
     check-template-location: false
   datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.188.7:5432/postgres?currentSchema=fish&stringtype=unspecified
+    username: postgres
+    password: postgres
     druid:
       initial-size: 5
       max-active: 30
       min-idle: 10
       max-wait: 60000
       time-between-eviction-runs-millis: 100000
-    dynamic:
-      primary: master
-      strict: false
-      datasource:
-        master:
-          driver-class-name: org.postgresql.Driver
-          url: jdbc:postgresql://192.168.188.7:5432/postgres?currentSchema=fish&stringtype=unspecified
-          username: postgres
-          password: postgres
-          type: com.alibaba.druid.pool.DruidDataSource
-        mysql:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.188.7:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-          username: root
-          password: root
-          type: com.alibaba.druid.pool.DruidDataSource
+
 
 
 mybatis:
