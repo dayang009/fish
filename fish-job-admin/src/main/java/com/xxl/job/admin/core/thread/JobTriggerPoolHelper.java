@@ -36,7 +36,7 @@ public class JobTriggerPoolHelper {
 				});
 
 		slowTriggerPool = new ThreadPoolExecutor(10, XxlJobAdminConfig.getAdminConfig().getTriggerPoolSlowMax(), 60L,
-				TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(2000), new ThreadFactory() {
+				TimeUnit.SECONDS, new LinkedBlockingQueue<>(2000), new ThreadFactory() {
 					@Override
 					public Thread newThread(Runnable r) {
 						return new Thread(r, "xxl-job, admin JobTriggerPoolHelper-slowTriggerPool-" + r.hashCode());
@@ -54,7 +54,7 @@ public class JobTriggerPoolHelper {
 	// job timeout count
 	private volatile long minTim = System.currentTimeMillis() / 60000; // ms > min
 
-	private volatile ConcurrentMap<Integer, AtomicInteger> jobTimeoutCountMap = new ConcurrentHashMap<>();
+	private final ConcurrentMap<Integer, AtomicInteger> jobTimeoutCountMap = new ConcurrentHashMap<>();
 
 	/**
 	 * add trigger

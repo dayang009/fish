@@ -2,8 +2,7 @@
 -- Copyright (c) 2015-present, xuxueli.
 
 -- 信息表
-drop table if exists "xxl_job_info";
-create table "xxl_job_info"
+create table if not exists "xxl_job_info"
 (
     "id"                        serial4      not null primary key,
     "job_group"                 int4         not null,
@@ -27,8 +26,8 @@ create table "xxl_job_info"
     "glue_updatetime"           timestamp(3),
     "child_jobid"               varchar(255),
     "trigger_status"            int2         not null default 0,
-    "trigger_last_time"         bigint       not null default 0,
-    "trigger_next_time"         bigint       not null default 0
+    "trigger_last_time"         int8         not null default 0,
+    "trigger_next_time"         int8         not null default 0
 )
 ;
 
@@ -58,10 +57,9 @@ comment on column "xxl_job_info"."trigger_next_time" is '下次调度时间';
 comment on table "xxl_job_info" is '存储任务调度信息的表';
 
 -- 日志表
-drop table if exists "xxl_job_log";
-create table "xxl_job_log"
+create table if not exists "xxl_job_log"
 (
-    "id"                        serial8 not null primary key,
+    "id"                        serial4 not null primary key,
     "job_group"                 int4    not null,
     "job_id"                    int4    not null,
     "executor_address"          varchar(255),
@@ -105,8 +103,7 @@ create index I_trigger_time
 
 
 -- xxl_job_log_report
-drop table if exists "xxl_job_log_report";
-create table "xxl_job_log_report"
+create table if not exists "xxl_job_log_report"
 (
     "id"            serial4 not null primary key,
     "trigger_day"   timestamp(3),
@@ -114,8 +111,7 @@ create table "xxl_job_log_report"
     "suc_count"     int2    not null default 0,
     "fail_count"    int2    not null default 0,
     "update_time"   timestamp(3),
-    constraint i_trigger_day
-        unique (trigger_day)
+    constraint i_trigger_day unique (trigger_day)
 
 )
 ;
@@ -129,8 +125,7 @@ comment on table "xxl_job_log_report" is '调度任务执行日志表';
 
 
 -- xxl_job_logglue
-drop table if exists "xxl_job_logglue";
-create table "xxl_job_logglue"
+create table if not exists "xxl_job_logglue"
 (
     "id"          serial4      not null primary key,
     "job_id"      int4         not null,
@@ -151,14 +146,13 @@ comment on table "xxl_job_logglue" is 'XXL-JOB 调度任务 GLUE 代码表';
 
 
 -- xxl_job_registry
-drop table if exists "xxl_job_registry";
-create table "xxl_job_registry"
+create table if not exists "xxl_job_registry"
 (
     "id"             serial4      not null primary key,
     "registry_group" varchar(50)  not null,
     "registry_key"   varchar(255) not null,
     "registry_value" varchar(255) not null,
-    "update_time"    timestamp
+    "update_time"    timestamp(0)
 )
 ;
 
@@ -173,15 +167,14 @@ comment on column "xxl_job_registry".update_time is '更新时间';
 comment on table "xxl_job_registry" is 'XXL-JOB 执行器注册信息表';
 
 -- xxl_job_group
-drop table if exists "xxl_job_group";
-create table "xxl_job_group"
+create table if not exists "xxl_job_group"
 (
     "id"           serial4     not null primary key,
     "app_name"     varchar(64) not null,
     "title"        varchar(30) not null,
     "address_type" int2        not null default 0,
     "address_list" text,
-    "update_time"  timestamp
+    "update_time"  timestamp(0)
 )
 ;
 
@@ -193,8 +186,7 @@ comment on column "xxl_job_group"."address_list" is '执行器地址列表，多
 comment on table "xxl_job_group" is 'XXL-JOB 执行器注册信息表';
 
 -- xxl_job_lock
-drop table if exists "xxl_job_lock";
-create table "xxl_job_lock"
+create table if not exists "xxl_job_lock"
 (
     "lock_name" varchar(50) not null primary key
 );
@@ -204,16 +196,14 @@ comment on table "xxl_job_lock" is '分布式锁表';
 
 
 -- xxl_job_user
-drop table if exists "xxl_job_user";
-create table "xxl_job_user"
+create table if not exists "xxl_job_user"
 (
     "id"         serial4      not null primary key,
     "username"   varchar(50)  not null,
     "password"   varchar(50)  not null,
     "role"       int2         not null,
     "permission" varchar(255) null,
-    constraint i_username
-        unique (username)
+    constraint i_username unique (username)
 
 )
 ;
@@ -226,7 +216,7 @@ comment on table "xxl_job_user" is 'XXL-JOB 用户信息表';
 
 -- 插入初始化语句
 insert into xxl_job_group(id, app_name, title, address_type, address_list, update_time)
-values (default, 'xxl-job-executor-sample', '示例执行器', 0, null, '2018-11-03 22:21:31');
+values (default, 'fish-executor', '大鱼执行器', 0, null, '2023-08-13 12:52:31');
 insert into xxl_job_info(id, job_group, job_desc, add_time, update_time, author, alarm_email, schedule_type,
                          schedule_conf, misfire_strategy, executor_route_strategy, executor_handler, executor_param,
                          executor_block_strategy, executor_timeout, executor_fail_retry_count, glue_type, glue_source,

@@ -3,7 +3,8 @@ package com.xxl.job.core.context;
 /**
  * xxl-job context
  *
- * @author xuxueli 2020-05-21 [Dear hj]
+ * @author xuxueli
+ * @since 2020-05-21
  */
 public class XxlJobContext {
 
@@ -106,14 +107,8 @@ public class XxlJobContext {
 	}
 
 	// ---------------------- tool ----------------------
-
-	private static InheritableThreadLocal<XxlJobContext> contextHolder = new InheritableThreadLocal<>(); // support
-																											// for
-																											// child
-																											// thread
-																											// of
-																											// job
-																											// handler)
+	// support for child thread of job handler
+	private static final InheritableThreadLocal<XxlJobContext> contextHolder = new InheritableThreadLocal<>();
 
 	public static void setXxlJobContext(XxlJobContext xxlJobContext) {
 		contextHolder.set(xxlJobContext);

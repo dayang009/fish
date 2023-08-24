@@ -9,8 +9,7 @@
 -- create schema if not exists "fish" authorization "postgres";
 
 -- 创建用户表
-drop table if exists "t_user";
-create table "t_user"
+create table if not exists "t_user"
 (
     "id"           serial4      not null primary key,
     "nick_name"    varchar(255),
@@ -22,7 +21,7 @@ create table "t_user"
     "email"        varchar(100),
     "admin_flag"   int2         not null default 0,
     "create_time"  timestamp(3) not null default current_timestamp,
-    "update_time"  timestamp(3) not null default current_timestamp,
+    "update_time"  timestamp(0) not null default current_timestamp,
     "delete_flag"  bool         not null default false
 )
 ;

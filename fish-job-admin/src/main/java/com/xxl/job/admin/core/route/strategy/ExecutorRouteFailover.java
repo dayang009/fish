@@ -28,7 +28,7 @@ public class ExecutorRouteFailover extends ExecutorRouter {
 			}
 			catch (Exception e) {
 				logger.error(e.getMessage(), e);
-				beatResult = new ReturnT<String>(ReturnT.FAIL_CODE, "" + e);
+				beatResult = new ReturnT<>(ReturnT.FAIL_CODE, "" + e);
 			}
 			beatResultSB.append((beatResultSB.length() > 0) ? "<br><br>" : "")
 				.append(I18nUtil.getString("jobconf_beat") + "：")

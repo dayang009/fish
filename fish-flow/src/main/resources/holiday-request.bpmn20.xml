@@ -16,7 +16,7 @@
 		<startEvent id="startEvent"/>
 		<sequenceFlow sourceRef="startEvent" targetRef="approveTask"/>
 
-		<userTask id="approveTask" name="同意或者拒绝"/>
+		<userTask id="approveTask" name="同意或者拒绝" flowable:assignee="zhangSan"/>
 		<sequenceFlow sourceRef="approveTask" targetRef="decision"/>
 
 		<exclusiveGateway id="decision"/>
@@ -36,14 +36,14 @@
 		</sequenceFlow>
 
 		<serviceTask id="externalSystemCall" name="Enter holidays in external system"
-					 flowable:class="org.flowable.CallExternalSystemDelegate"/>
+					 flowable:class="com.fish.flow.CallExternalSystemDelegate"/>
 		<sequenceFlow sourceRef="externalSystemCall" targetRef="holidayApprovedTask"/>
 
 		<userTask id="holidayApprovedTask" name="Holiday approved"/>
 		<sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd"/>
 
-		<serviceTask id="sendRejectionMail" name="Send out rejection email"
-					 flowable:class="org.flowable.SendRejectionMail"/>
+		<serviceTask id="sendRejectionMail" name="发送拒绝邮件"
+					 flowable:class="com.fish.flow.SendRejectionMail"/>
 		<sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd"/>
 
 		<endEvent id="approveEnd"/>

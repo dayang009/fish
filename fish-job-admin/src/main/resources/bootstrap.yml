@@ -30,7 +30,7 @@ spring:
         - data-id: share-fish-config-@profiles.active@.yaml
           refresh: true
       discovery:
-        enabled: true
+        enabled: false
         server-addr: @nacos.fish.ip@:@nacos.fish.port@
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
@@ -81,7 +81,7 @@ eureka:
     # 默认值为主机名+服务名+端口
     instance-id: ${spring.application.name}:${server.port}
   client:
-    enabled: false
+    enabled: true
     service-url:
       defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
 

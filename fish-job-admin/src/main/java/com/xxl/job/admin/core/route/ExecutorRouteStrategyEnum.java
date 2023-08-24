@@ -5,7 +5,7 @@ import com.xxl.job.admin.core.util.I18nUtil;
 
 /**
  * @author xuxueli
- * @since 17/3/10
+ * @since 2017/3/10
  */
 public enum ExecutorRouteStrategyEnum {
 

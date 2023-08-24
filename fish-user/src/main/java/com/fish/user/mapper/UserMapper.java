@@ -1,6 +1,5 @@
 package com.fish.user.mapper;
 
-import com.fish.common.mybatis.mapper.FishMapper;
 import com.fish.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +15,7 @@ import java.util.Map;
  * @Entity generator.entity.User
  */
 @Mapper
-public interface UserMapper extends FishMapper<User> {
+public interface UserMapper {
 
 	/**
 	 * 插入一条记录
@@ -25,6 +24,11 @@ public interface UserMapper extends FishMapper<User> {
 	 */
 	int insert(User user);
 
+	/**
+	 * 插入数据集合
+	 * @param entityList
+	 * @return
+	 */
 	int insertBatchSomeColumn(List<User> entityList);
 
 	int delete(User user);
@@ -52,8 +56,5 @@ public interface UserMapper extends FishMapper<User> {
 	User selectOne(User user);
 
 	List<User> selectBatchIds(List<? extends Serializable> idList);
-
-	@Override
-	List<User> findAll();
 
 }

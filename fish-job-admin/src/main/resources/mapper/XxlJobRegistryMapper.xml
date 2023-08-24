@@ -25,18 +25,18 @@
 	</select>
 
 	<delete id="removeDead" parameterType="java.lang.Integer">
-		DELETE FROM xxl_job_registry
-		WHERE id in
+		delete from xxl_job_registry
+		where id in
 		<foreach collection="ids" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>
 	</delete>
 
 	<select id="findAll" parameterType="java.util.HashMap" resultMap="XxlJobRegistry">
-		SELECT
+		select
 		<include refid="Base_Column_List"/>
-		FROM xxl_job_registry AS t
-		WHERE t.update_time &gt; #{nowTime}::timestamp - interval '1 second' * ${timeout}
+		from xxl_job_registry as t
+		where t.update_time &gt; #{nowTime}::timestamp - interval '1 second' * ${timeout}
 	</select>
 
 	<update id="registryUpdate">

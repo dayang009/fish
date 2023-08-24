@@ -161,12 +161,12 @@ public class XxlJobExecutor {
 
 		// generate address
 		if (address == null || address.trim().isEmpty()) {
-			String ip_port_address = IpUtil.getIpPort(ip, port); // registry-address：default
-			// use address to
-			// registry ,
-			// otherwise use
-			// ip:port if address
-			// is null
+			String ip_port_address = IpUtil.getIpPort(ip, port);
+
+			/*
+			 * registry-address：default use address to registry , otherwise use ip:port if
+			 * address is null
+			 */
 			address = "http://{ip_port}/".replace("{ip_port}", ip_port_address);
 		}
 
@@ -262,15 +262,10 @@ public class XxlJobExecutor {
 		logger.info(">>>>>>>>>>> xxl-job regist JobThread success, jobId:{}, handler:{}",
 				new Object[] { jobId, handler });
 
-		JobThread oldJobThread = jobThreadRepository.put(jobId, newJobThread); // putIfAbsent
-		// | oh my
-		// god,
-		// map's
-		// put
-		// method
-		// return
-		// the old
-		// value!!!
+		JobThread oldJobThread = jobThreadRepository.put(jobId, newJobThread);
+		/*
+		 * putIfAbsent | oh my god, map's put method return the old value!!!
+		 */
 		if (oldJobThread != null) {
 			oldJobThread.toStop(removeOldReason);
 			oldJobThread.interrupt();

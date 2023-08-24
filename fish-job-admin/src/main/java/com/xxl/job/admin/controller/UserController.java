@@ -36,7 +36,7 @@ public class UserController {
 	@Resource
 	private XxlJobGroupDao xxlJobGroupDao;
 
-	@RequestMapping
+	@RequestMapping("/")
 	@PermissionLimit(adminuser = true)
 	public String index(Model model) {
 

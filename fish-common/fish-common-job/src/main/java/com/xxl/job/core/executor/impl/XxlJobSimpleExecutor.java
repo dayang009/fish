@@ -12,7 +12,8 @@ import java.util.List;
 /**
  * xxl-job executor (for frameless)
  *
- * @author xuxueli 2020-11-05
+ * @author xuxueli
+ * @since 2020-11-05
  */
 public class XxlJobSimpleExecutor extends XxlJobExecutor {
 

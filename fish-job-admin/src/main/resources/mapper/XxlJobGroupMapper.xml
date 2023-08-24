@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxl.job.admin.dao.XxlJobGroupDao">
+
 	<resultMap id="XxlJobGroup" type="com.xxl.job.admin.core.model.XxlJobGroup">
 		<result column="id" property="id"/>
 		<result column="app_name" property="appname"/>
@@ -21,18 +22,18 @@
 	</sql>
 
 	<select id="findAll" resultMap="XxlJobGroup">
-		SELECT
+		select
 		<include refid="Base_Column_List"/>
-		FROM xxl_job_group AS t
-		ORDER BY t.app_name, t.title, t.id ASC
+		from xxl_job_group as t
+		order by t.app_name, t.title, t.id
 	</select>
 
 	<select id="findByAddressType" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
-		SELECT
+		select
 		<include refid="Base_Column_List"/>
-		FROM xxl_job_group AS t
-		WHERE t.address_type = #{addressType}
-		ORDER BY t.app_name, t.title, t.id ASC
+		from xxl_job_group as t
+		where t.address_type = #{addressType}
+		order by t.app_name, t.title, t.id
 	</select>
 
 	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id">
@@ -57,37 +58,37 @@
 	</delete>
 
 	<select id="load" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
-		SELECT
+		select
 		<include refid="Base_Column_List"/>
-		FROM xxl_job_group AS t
-		WHERE t.id = #{id}
+		from xxl_job_group as t
+		where t.id = #{id}
 	</select>
 
 	<select id="pageList" parameterType="java.util.HashMap" resultMap="XxlJobGroup">
-		SELECT
+		select
 		<include refid="Base_Column_List"/>
-		FROM xxl_job_group AS t
-		<trim prefix="WHERE" prefixOverrides="AND | OR">
+		from xxl_job_group as t
+		<trim prefix="where" prefixOverrides="and | OR">
 			<if test="appname != null and appname != ''">
-				AND t.app_name like CONCAT(CONCAT('%', #{appname}::text), '%')
+				and t.app_name like concat(concat('%', #{appname}::text), '%')
 			</if>
 			<if test="title != null and title != ''">
-				AND t.title like CONCAT(CONCAT('%', #{title}::text), '%')
+				and t.title like concat(concat('%', #{title}::text), '%')
 			</if>
 		</trim>
-		ORDER BY t.app_name, t.title, t.id ASC
-		LIMIT #{pagesize} OFFSET #{offset}
+		order by t.app_name, t.title, t.id
+		limit #{pagesize} offset #{offset}
 	</select>
 
 	<select id="pageListCount" parameterType="java.util.HashMap" resultType="int">
-		SELECT count(1)
-		FROM xxl_job_group AS t
-		<trim prefix="WHERE" prefixOverrides="AND | OR">
+		select count(1)
+		from xxl_job_group as t
+		<trim prefix="where" prefixOverrides="and | OR">
 			<if test="appname != null and appname != ''">
-				AND t.app_name like CONCAT(CONCAT('%', #{appname}::text), '%')
+				and t.app_name like concat(concat('%', #{appname}::text), '%')
 			</if>
 			<if test="title != null and title != ''">
-				AND t.title like CONCAT(CONCAT('%', #{title}::text), '%')
+				and t.title like concat(concat('%', #{title}::text), '%')
 			</if>
 		</trim>
 	</select>

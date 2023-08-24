@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.fish.common.core.config.ControllerResponseAdvice,\
+  com.fish.common.core.exception.GlobalExceptionHandler

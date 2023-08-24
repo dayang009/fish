@@ -99,8 +99,8 @@ public class JobLogController {
 			String filterTime) {
 
 		// valid permission
-		JobInfoController.validPermission(request, jobGroup); // 仅管理员支持查询全部；普通用户仅支持查询有权限的
-																// jobGroup
+		// 仅管理员支持查询全部；普通用户仅支持查询有权限的 jobGroup
+		JobInfoController.validPermission(request, jobGroup);
 
 		// parse param
 		Date triggerTimeStart = null;
@@ -151,7 +151,7 @@ public class JobLogController {
 			XxlJobLog jobLog = xxlJobLogDao.load(logId); // todo, need to improve
 															// performance
 			if (jobLog == null) {
-				return new ReturnT<LogResult>(ReturnT.FAIL_CODE, I18nUtil.getString("joblog_logid_unvalid"));
+				return new ReturnT<>(ReturnT.FAIL_CODE, I18nUtil.getString("joblog_logid_unvalid"));
 			}
 
 			// log cat

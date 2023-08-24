@@ -1,7 +1,5 @@
 package com.xxl.job.admin.core.model;
 
-import lombok.ToString;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +9,6 @@ import java.util.Date;
  * @author xuxueli
  * @since 2016-1-12 18:25:49
  */
-@ToString
 public class XxlJobInfo implements Serializable {
 
 	private static final long serialVersionUID = 6828320007570127498L;
@@ -320,6 +317,20 @@ public class XxlJobInfo implements Serializable {
 
 	public void setTriggerNextTime(long triggerNextTime) {
 		this.triggerNextTime = triggerNextTime;
+	}
+
+	@Override
+	public String toString() {
+		return "XxlJobInfo{" + "id=" + id + ", jobGroup=" + jobGroup + ", jobDesc='" + jobDesc + '\'' + ", addTime="
+				+ addTime + ", updateTime=" + updateTime + ", author='" + author + '\'' + ", alarmEmail='" + alarmEmail
+				+ '\'' + ", scheduleType='" + scheduleType + '\'' + ", scheduleConf='" + scheduleConf + '\''
+				+ ", misfireStrategy='" + misfireStrategy + '\'' + ", executorRouteStrategy='" + executorRouteStrategy
+				+ '\'' + ", executorHandler='" + executorHandler + '\'' + ", executorParam='" + executorParam + '\''
+				+ ", executorBlockStrategy='" + executorBlockStrategy + '\'' + ", executorTimeout=" + executorTimeout
+				+ ", executorFailRetryCount=" + executorFailRetryCount + ", glueType='" + glueType + '\''
+				+ ", glueSource='" + glueSource + '\'' + ", glueRemark='" + glueRemark + '\'' + ", glueUpdatetime="
+				+ glueUpdatetime + ", childJobId='" + childJobId + '\'' + ", triggerStatus=" + triggerStatus
+				+ ", triggerLastTime=" + triggerLastTime + ", triggerNextTime=" + triggerNextTime + '}';
 	}
 
 }

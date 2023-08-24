@@ -77,7 +77,7 @@ public class XxlJobScheduler {
 	}
 
 	// ---------------------- executor-client ----------------------
-	private static ConcurrentMap<String, ExecutorBiz> executorBizRepository = new ConcurrentHashMap<String, ExecutorBiz>();
+	private static final ConcurrentMap<String, ExecutorBiz> executorBizRepository = new ConcurrentHashMap<>();
 
 	public static ExecutorBiz getExecutorBiz(String address) throws Exception {
 		// valid

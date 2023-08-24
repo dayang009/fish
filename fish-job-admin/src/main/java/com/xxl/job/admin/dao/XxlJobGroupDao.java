@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author xuxueli
- * @since 16/9/30
+ * @since 2016/9/30
  */
 @Mapper
 public interface XxlJobGroupDao {

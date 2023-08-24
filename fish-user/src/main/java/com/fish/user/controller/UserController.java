@@ -2,12 +2,10 @@ package com.fish.user.controller;
 
 import com.fish.user.entity.User;
 import com.fish.user.mapper.UserMapper;
-import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author dayang
@@ -33,14 +31,6 @@ public class UserController {
 
 		int insert = userMapper.insert(user);
 		return String.valueOf(insert);
-	}
-
-	@GetMapping("/demo02")
-	public List<User> demo02() {
-		PageHelper.startPage(1, 2, false);
-		List<User> userList = userMapper.findAll();
-		userList.forEach(System.out::println);
-		return userList;
 	}
 
 }

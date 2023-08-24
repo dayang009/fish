@@ -13,11 +13,11 @@ import java.util.concurrent.ConcurrentMap;
  * b、LRU(LeastRecently Used)：最近最久未使用，时间
  *
  * @author xuxueli
- * @since 17/3/10
+ * @since 2017/3/10
  */
 public class ExecutorRouteLFU extends ExecutorRouter {
 
-	private static ConcurrentMap<Integer, HashMap<String, Integer>> jobLfuMap = new ConcurrentHashMap<Integer, HashMap<String, Integer>>();
+	private static ConcurrentMap<Integer, HashMap<String, Integer>> jobLfuMap = new ConcurrentHashMap<>();
 
 	private static long CACHE_VALID_TIME = 0;
 
@@ -56,13 +56,8 @@ public class ExecutorRouteLFU extends ExecutorRouter {
 		}
 
 		// load least userd count address
-		List<Map.Entry<String, Integer>> lfuItemList = new ArrayList<Map.Entry<String, Integer>>(lfuItemMap.entrySet());
-		Collections.sort(lfuItemList, new Comparator<Map.Entry<String, Integer>>() {
-			@Override
-			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-				return o1.getValue().compareTo(o2.getValue());
-			}
-		});
+		List<Map.Entry<String, Integer>> lfuItemList = new ArrayList<>(lfuItemMap.entrySet());
+		lfuItemList.sort(Map.Entry.comparingByValue());
 
 		Map.Entry<String, Integer> addressItem = lfuItemList.get(0);
 		String minAddress = addressItem.getKey();

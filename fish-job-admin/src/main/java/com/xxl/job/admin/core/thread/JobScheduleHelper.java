@@ -56,11 +56,10 @@ public class JobScheduleHelper {
 			Date nextValidTime = new CronExpression(jobInfo.getScheduleConf()).getNextValidTimeAfter(fromTime);
 			return nextValidTime;
 		}
-		else if (ScheduleTypeEnum.FIX_RATE == scheduleTypeEnum /*
-																 * || ScheduleTypeEnum.
-																 * FIX_DELAY ==
-																 * scheduleTypeEnum
-																 */) {
+		/*
+		 * || ScheduleTypeEnum. FIX_DELAY == scheduleTypeEnum
+		 */
+		else if (ScheduleTypeEnum.FIX_RATE == scheduleTypeEnum) {
 			return new Date(fromTime.getTime() + Integer.parseInt(jobInfo.getScheduleConf()) * 1000L);
 		}
 		return null;
@@ -81,8 +80,8 @@ public class JobScheduleHelper {
 			}
 			logger.info(">>>>>>>>> init xxl-job admin scheduler success.");
 
-			// pre-read count: treadpool-size * trigger-qps (each trigger cost 50ms,
-			// qps = 1000/50 = 20)
+			// pre-read count: treadpool-size * trigger-qps
+			// (each trigger cost 50ms, qps = 1000/50 = 20)
 			int preReadCount = (XxlJobAdminConfig.getAdminConfig().getTriggerPoolFastMax()
 					+ XxlJobAdminConfig.getAdminConfig().getTriggerPoolSlowMax()) * 20;
 

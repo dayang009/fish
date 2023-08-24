@@ -32,7 +32,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.14</spring-boot.version>
+        <spring-boot.version>2.6.15</spring-boot.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <knife4j.version>4.3.0</knife4j.version>
@@ -440,7 +440,6 @@
                     <excludeDefaultDirectories>false</excludeDefaultDirectories>
                     <filesets>
                         <fileset>
-                            <directory>${basedir}/logs</directory>
                             <directory>${basedir}/transaction-logs</directory>
                         </fileset>
                     </filesets>
@@ -488,6 +487,7 @@
 						<nonFilteredFileExtension>woff</nonFilteredFileExtension>
 						<nonFilteredFileExtension>woff2</nonFilteredFileExtension>
 						<nonFilteredFileExtension>icon</nonFilteredFileExtension>
+						<nonFilteredFileExtension>ico</nonFilteredFileExtension>
 						<nonFilteredFileExtension>otf</nonFilteredFileExtension>
 					</nonFilteredFileExtensions>
                 </configuration>

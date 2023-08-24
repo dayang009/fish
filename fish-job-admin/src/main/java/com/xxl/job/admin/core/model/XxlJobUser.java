@@ -1,8 +1,5 @@
 package com.xxl.job.admin.core.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
@@ -11,9 +8,6 @@ import java.io.Serializable;
  * @author xuxueli
  * @since 2019-05-04 16:43:12
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class XxlJobUser implements Serializable {
 
 	private static final long serialVersionUID = -4726988039083508539L;
@@ -33,7 +27,7 @@ public class XxlJobUser implements Serializable {
 	/**
 	 * 角色：0-普通用户、1-管理员
 	 */
-	private Integer role;
+	private Integer role = 0;
 
 	/**
 	 * 权限：执行器ID列表，多个逗号分割
@@ -60,6 +54,63 @@ public class XxlJobUser implements Serializable {
 			return false;
 		}
 
+	}
+
+	public XxlJobUser() {
+	}
+
+	public XxlJobUser(Integer id, String username, String password, Integer role, String permission) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.permission = permission;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getRole() {
+		return role;
+	}
+
+	public void setRole(Integer role) {
+		this.role = role;
+	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+
+	@Override
+	public String toString() {
+		return "XxlJobUser{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\''
+				+ ", role=" + role + ", permission='" + permission + '\'' + '}';
 	}
 
 }

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author xuxueli
- * @since 17/3/2
+ * @since 2017/3/2
  */
 public class ExecutorRegistryThread {
 

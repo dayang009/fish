@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * t_user
@@ -61,12 +60,12 @@ public class User implements Serializable {
 	/**
 	 * 0-普通用户，1-管理员
 	 */
-	private Integer adminFlag;
+	private Integer adminFlag = 0;
 
 	/**
 	 * 创建时间
 	 */
-	private Date createTime;
+	private LocalDateTime createTime;
 
 	/**
 	 * 更新时间
@@ -76,6 +75,14 @@ public class User implements Serializable {
 	/**
 	 * 是否逻辑删除
 	 */
-	private Boolean deleteFlag;
+	private Boolean deleteFlag = Boolean.FALSE;
+
+	public User(String nickName, String userAccount, String userPwd, Integer gender, Integer age) {
+		this.nickName = nickName;
+		this.userAccount = userAccount;
+		this.userPwd = userPwd;
+		this.gender = gender;
+		this.age = age;
+	}
 
 }

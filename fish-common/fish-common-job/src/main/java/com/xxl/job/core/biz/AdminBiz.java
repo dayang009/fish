@@ -7,7 +7,8 @@ import com.xxl.job.core.biz.model.ReturnT;
 import java.util.List;
 
 /**
- * @author xuxueli 2017-07-27 21:52:49
+ * @author xuxueli
+ * @since 2017-07-27 21:52:49
  */
 public interface AdminBiz {
 

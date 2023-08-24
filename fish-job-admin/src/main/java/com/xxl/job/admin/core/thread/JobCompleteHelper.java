@@ -163,14 +163,9 @@ public class JobCompleteHelper {
 		if (log == null) {
 			return new ReturnT<>(ReturnT.FAIL_CODE, "log item not found.");
 		}
+		// avoid repeat callback, trigger child job etc
 		if (log.getHandleCode() > 0) {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "log repeate callback."); // avoid
-																				// repeat
-																				// callback,
-																				// trigger
-																				// child
-																				// job
-																				// etc
+			return new ReturnT<>(ReturnT.FAIL_CODE, "log repeate callback.");
 		}
 
 		// handle msg

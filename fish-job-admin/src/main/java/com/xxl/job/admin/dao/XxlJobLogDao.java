@@ -12,12 +12,22 @@ import java.util.Map;
  * job log
  *
  * @author xuxueli
- * @since 2016-1-12 18:03:06
+ * @since 2016-1-12
  */
 @Mapper
 public interface XxlJobLogDao {
 
-	// exist jobId not use jobGroup, not exist use jobGroup
+	/**
+	 * exist jobId not use jobGroup, not exist use jobGroup
+	 * @param offset
+	 * @param pagesize
+	 * @param jobGroup
+	 * @param jobId
+	 * @param triggerTimeStart
+	 * @param triggerTimeEnd
+	 * @param logStatus
+	 * @return
+	 */
 	List<XxlJobLog> pageList(@Param("offset") int offset, @Param("pagesize") int pagesize,
 			@Param("jobGroup") int jobGroup, @Param("jobId") int jobId,
 			@Param("triggerTimeStart") Date triggerTimeStart, @Param("triggerTimeEnd") Date triggerTimeEnd,

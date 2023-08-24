@@ -32,9 +32,21 @@
 		values (default, #{nickName}, #{userAccount}, #{userPwd}, #{gender}, #{age}, #{phone}, #{email}, #{adminFlag})
 	</insert>
 
-	<insert id="insertBatchSomeColumn">
+	<insert id="insertBatchSomeColumn" parameterType="list">
+        insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (default,
+            #{item.nickName},
+            #{item.userAccount},
+            #{item.userPwd},
+            #{item.gender},
+            #{item.age},
+            #{item.phone},
+            #{item.email})
+        </foreach>
 
-	</insert>
+    </insert>
 
 	<update id="updateById" parameterType="com.fish.user.entity.User">
 		update t_user

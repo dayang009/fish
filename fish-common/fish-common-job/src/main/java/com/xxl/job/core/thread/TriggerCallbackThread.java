@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author xuxueli
- * @since 16/7/22
+ * @since 2016/7/22
  */
 @SuppressWarnings("unchecked")
 public class TriggerCallbackThread {
