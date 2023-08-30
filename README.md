@@ -10,9 +10,9 @@ Hello World!!!
 
 - 更新日期：2023-08-08
 
-| 依赖                           | 本项目版本  | 新版                                                         | 说明                                                         |
-| ------------------------------ | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| spring-boot                    | v2.7.14     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
+| 依赖                           | 本项目版本       | 新版                                                         | 说明                                                         |
+| ------------------------------ |-------------| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| spring-boot                    | v2.7.15     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
 | spring-cloud                   | v2021.0.8   | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
 | spring-cloud-alibaba           | v2021.0.5.0 | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021.0&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x，[Spring Cloud Alibaba](https://github.com/alibaba/spring-cloud-alibaba/blob/2022.x/README-zh.md) |
 | spring-boot-admin              | v2.7.10     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
@@ -490,6 +490,16 @@ redis-server /etc/redis/redis.conf \  指定redis在docker中的配置文件路�
 ```
 
 
+
+``` dockerfile
+docker run -d \
+	-p "8761":"8761" \
+    --restart always \
+    -v /proj/fish/fish-register/target/fish-register.jar:/proj/fish/fish-register.jar \
+    --name fish-register \
+    java:8 \
+    java -jar /proj/fish/fish-register.jar --spring.profiles.active=prod
+```
 
 
 

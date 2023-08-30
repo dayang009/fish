@@ -60,6 +60,12 @@
             <scope>test</scope>
         </dependency>
 
+		<!-- JDK 11 Support -->
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+		</dependency>
+
     </dependencies>
 
     <build>

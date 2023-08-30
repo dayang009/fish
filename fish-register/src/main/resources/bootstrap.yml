@@ -54,7 +54,7 @@ eureka:
     registry-fetch-interval-seconds: 30
     service-url:
       #单机
-      defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
 management:
   endpoints:
