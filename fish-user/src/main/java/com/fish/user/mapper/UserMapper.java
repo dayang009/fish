@@ -10,9 +10,7 @@ import java.util.Map;
 
 /**
  * @author dayang
- * @description 针对表【t_user】的数据库操作Mapper
- * @createDate 2023-07-13 13:38:54
- * @Entity generator.entity.User
+ * @since 2023-07-13 13:38:54
  */
 @Mapper
 public interface UserMapper {
