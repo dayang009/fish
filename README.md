@@ -8,7 +8,7 @@ Hello World!!!
 
 ### 后端
 
-- 更新日期：2023-08-08
+- 更新日期：2023-09-05
 
 | 依赖                           | 本项目版本       | 新版                                                         | 说明                                                         |
 | ------------------------------ |-------------| ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -21,7 +21,7 @@ Hello World!!!
 | mybatis-plus                   | v3.5.3.2    | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml) |                                                              |
 | pagehelper-spring-boot-starter | v1.4.7      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/pagehelper/pagehelper-spring-boot-starter/maven-metadata.xml) | MyBatis 推荐分页插件                                         |
 | dynamic-datasource             | v3.6.1      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml) | 指 dynamic-datasource-spring-boot-starter                    |
-| druid-spring-boot-starter      | v1.2.18     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/druid-spring-boot-starter/maven-metadata.xml) | 德鲁伊链接池                                                 |
+| druid-spring-boot-starter      | v1.2.19     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/druid-spring-boot-starter/maven-metadata.xml) | 德鲁伊链接池                                                 |
 | knife4j                        | v4.3.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/xiaoymin/knife4j-dependencies/maven-metadata.xml) | Knife4j是一个集Swagger2和OpenAPI3为一体的增强解决方案        |
 | springdoc                      | 1.7.0       | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml) | 用于生成 API doc，支持从 javadoc 中获取字段注释              |
 | guava                          | v32.1.2-jre | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml) |                                                              |
@@ -499,9 +499,28 @@ docker run -d \
     --name fish-register \
     java:8 \
     java -jar /proj/fish/fish-register.jar --spring.profiles.active=prod
+    
+    
+docker run -d \
+	-p "8888":"8888" \
+    --restart always \
+    -v /proj/fish/fish-gateway/target/fish-gateway.jar:/proj/fish/fish-gateway.jar \
+    --name fish-gateway \
+    java:8 \
+    java -jar /proj/fish/fish-gateway.jar --spring.profiles.active=prod
 ```
 
 
+
+
+
+``` 
+.\mkcert-v1.4.4-windows-amd64.exe www.dymaven.com aiPlatform.dev localhost ::1 192.168.188.7
+
+.\mkcert-v1.4.4-windows-amd64.exe -install
+
+keytool -import -alias mycert -filewww.xxx.com+5.pem -keystore D:\cert\www.xxx.com+5.jks
+```
 
 
 
