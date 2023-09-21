@@ -1,0 +1,106 @@
+version: '3'
+
+services:
+  fish-mysql:
+    build:
+      context: ./db
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    container_name: fish-mysql
+    image: fish-mysql
+    ports:
+    - "3306:3306"
+    networks:
+    - spring_cloud_default
+
+  fish-redis:
+    image: redis:6.2
+    ports:
+    - "6379:6379"
+    restart: always
+    container_name: fish-redis
+    hostname: fish-redis
+    networks:
+    - spring_cloud_default
+
+  fish-register:
+    build:
+      context: ./fish-register
+    restart: always
+    ports:
+    - "8848:8848"
+    container_name: fish-register
+    hostname: fish-register
+    image: fish-register
+    networks:
+    - spring_cloud_default
+
+  fish-gateway:
+    build:
+      context: ./fish-gateway
+    restart: always
+    ports:
+    - "9999:9999"
+    container_name: fish-gateway
+    hostname: fish-gateway
+    image: fish-gateway
+    networks:
+    - spring_cloud_default
+
+  fish-auth:
+    build:
+      context: ./fish-auth
+    restart: always
+    container_name: fish-auth
+    hostname: fish-auth
+    image: fish-auth
+    networks:
+    - spring_cloud_default
+
+  fish-upms:
+    build:
+      context: ./fish-upms/fish-upms-biz
+    restart: always
+    container_name: fish-upms
+    hostname: fish-upms
+    image: fish-upms
+    networks:
+    - spring_cloud_default
+
+  fish-monitor:
+    build:
+      context: ./fish-visual/fish-monitor
+    restart: always
+    ports:
+    - "5001:5001"
+    container_name: fish-monitor
+    hostname: fish-monitor
+    image: fish-monitor
+    networks:
+    - spring_cloud_default
+
+  fish-codegen:
+    build:
+      context: ./fish-visual/fish-codegen
+    restart: always
+    container_name: fish-codegen
+    hostname: fish-codegen
+    image: fish-codegen
+    networks:
+    - spring_cloud_default
+
+  fish-daemon-quartz:
+    build:
+      context: ./fish-visual/fish-quartz
+    restart: always
+    image: fish-quartz
+    container_name: fish-quartz
+    networks:
+    - spring_cloud_default
+
+networks:
+  spring_cloud_default:
+    name:  spring_cloud_default
+    driver: bridge

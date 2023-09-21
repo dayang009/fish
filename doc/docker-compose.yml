@@ -1,0 +1,33 @@
+version: "3"
+services:
+  #Service for nameserver
+  namesrv:
+    container_name: RocketMQ-namesrv
+    image: apache/rocketmq:4.9.7
+    command: sh mqnamesrv
+    restart: always
+    ports:
+    - "9876:9876"
+    volumes:
+    - ./namesrv/logs:/home/rocketmq/logs
+
+
+  #Service for broker
+  broker:
+    container_name: RocketMQ-broker
+    links:
+    - namesrv
+    image: apache/rocketmq:4.9.7
+    command: sh mqbroker --enable-proxy -c /opt/rocketmq/conf/broker.conf
+    restart: always
+    ports:
+    - "8080:8080"
+    - "10909:10909"
+    - "10911:10911"
+    - "10912:10912"
+    environment:
+    - NAMESRV_ADDR=namesrv:9876
+    volumes:
+    - ./broker/logs:/home/rocketmq/logs
+    - ./broker/store:/home/rocketmq/store
+    - ./broker/conf:/opt/rocketmq/conf
