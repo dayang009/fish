@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <name>fish</name>
-    <description>小鱼微服务</description>
+    <description>大鱼微服务</description>
     <url>https://dayang.plus</url>
 
     <modules>
