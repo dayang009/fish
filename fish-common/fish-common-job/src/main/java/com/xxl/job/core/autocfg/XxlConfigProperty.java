@@ -21,7 +21,7 @@ public class XxlConfigProperty {
 	/**
 	 * 执行器名称
 	 */
-	private String appname = "fish-executor";
+	private String appname = "default-executor";
 
 	private String address;
 

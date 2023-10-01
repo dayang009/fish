@@ -22,7 +22,6 @@
         <module>fish-job-admin</module>
         <module>fish-register</module>
         <module>fish-user</module>
-        <module>fish-monitor</module>
 		<module>fish-flow</module>
 	</modules>
 
@@ -227,6 +226,11 @@
                 <artifactId>easyexcel</artifactId>
                 <version>3.3.2</version>
             </dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>2.0.40</version>
+			</dependency>
 
             <!-- 解析客户端操作系统、浏览器等 -->
             <dependency>
@@ -466,6 +470,26 @@
 				<configuration>
 					<skip>true</skip>
 				</configuration>
+			</plugin>
+
+			<!-- https://www.baeldung.com/maven-download-sources-javadoc -->
+			<!-- 下载 Maven 源代码和 JavaDocs -->
+			<!-- mvn dependency:sources dependency:resolve -Dclassifier=javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>sources</goal>
+							<goal>resolve</goal>
+						</goals>
+						<configuration>
+							<classifier>javadoc</classifier>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 

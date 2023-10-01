@@ -1,4 +1,4 @@
-# vim /lib/systemd/system/nacos.service
+# vim /usr/lib/systemd/system/nacos.service
 # systemctl daemon-reload
 # systemctl enable nacos.service
 # systemctl start nacos.service

@@ -216,7 +216,7 @@ comment on table "xxl_job_user" is 'XXL-JOB 用户信息表';
 
 -- 插入初始化语句
 insert into xxl_job_group(id, app_name, title, address_type, address_list, update_time)
-values (default, 'fish-executor', '大鱼执行器', 0, null, '2023-08-13 12:52:31');
+values (default, 'default-executor', '默认执行器', 0, null, '2023-09-26 12:52:31');
 insert into xxl_job_info(id, job_group, job_desc, add_time, update_time, author, alarm_email, schedule_type,
                          schedule_conf, misfire_strategy, executor_route_strategy, executor_handler, executor_param,
                          executor_block_strategy, executor_timeout, executor_fail_retry_count, glue_type, glue_source,

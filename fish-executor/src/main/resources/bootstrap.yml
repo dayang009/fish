@@ -43,5 +43,5 @@ eureka:
 
 xxljob:
   admin-addresses: http://127.0.0.1:8083/xxl-job-admin
-  appname: fish-executor
-  port: 9999
+  appname: default-executor
+  port: 9898

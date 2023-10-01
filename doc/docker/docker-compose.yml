@@ -1,0 +1,21 @@
+# https://docs.gitlab.com/16.3/ee/install/docker.html
+version: '3.6'
+
+services:
+  web:
+    image: 'gitlab/gitlab-ee:16.3.5-ee.0'
+    restart: always
+    hostname: 'gitlab.dayang.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.dayang.com'
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+    - '8888:80'
+    - '8443:443'
+    - '822:22'
+    volumes:
+    - '$GITLAB_HOME/config:/etc/gitlab'
+    - '$GITLAB_HOME/logs:/var/log/gitlab'
+    - '$GITLAB_HOME/data:/var/opt/gitlab'
+    shm_size: '256m'

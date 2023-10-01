@@ -431,15 +431,16 @@ https://github.com/docker-library/docs/tree/master/postgres
 
 
 ``` bash
-docker run -d \
-	--name postgresql11 \
+docker run -itd \
+	--name postgresql \
 	--restart always \
+	--privileged=true \
 	-p "5432":"5432" \
 	-e POSTGRES_USER=postgres \
 	-e POSTGRES_PASSWORD=postgres \
 	-e PGDATA=/var/lib/postgresql/data/pgdata \
 	-v /docker/postgresql/data:/var/lib/postgresql/data \
-	postgres:11
+	postgres:14
 
 ```
 
@@ -466,9 +467,10 @@ docker
 
 
 # 命令
-docker run -d \
+docker run -itd \
     --name redis6.2 \
     --restart always \
+    --privileged=true \
     -p "6379":"6379" \
     -v /docker/redis/redis.conf:/etc/redis/redis.conf \
     -v /docker/redis/data:/data \
