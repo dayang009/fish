@@ -28,7 +28,7 @@ public class ConvertUtil {
 	 */
 	public static String beanToXml(Object object, String localFilePath, String fileName)
 			throws JAXBException, IOException {
-		// 过去JAXB的上下文环境，需要传入具体的 JavaBean
+		// 获取JAXB的上下文环境，需要传入具体的 JavaBean
 		JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
 		// 创建 Marshaller 实例
 		Marshaller marshaller = jaxbContext.createMarshaller();

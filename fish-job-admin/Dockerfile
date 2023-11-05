@@ -1,11 +1,15 @@
-FROM openjdk:8-jre-slim
-MAINTAINER xuxueli
+FROM alibabadragonwell/dragonwell:8-anolis
 
-ENV PARAMS=""
+MAINTAINER dayang <dayangtop@163.com>
 
-ENV TZ=PRC
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+WORKDIR /fish-job-admin
 
-ADD target/xxl-job-admin-*.jar /app.jar
+ARG JAR_FILE=target/fish-job-admin.jar
 
-ENTRYPOINT ["sh","-c","java -jar $JAVA_OPTS /app.jar $PARAMS"]
+COPY ${JAR_FILE} app.jar
+
+EXPOSE 8083
+
+ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms128m -Xmx256m -Djava.security.egd=file:/dev/./urandom"
+
+CMD sleep 30; java $JAVA_OPTS -jar app.jar

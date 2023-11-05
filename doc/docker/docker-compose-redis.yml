@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  nacos:
+    image: redis:6.2.14
+    restart: always
+    privileged: true
+    container_name: redis
+    ports:
+    - "6379:6379"
+    volumes:
+    - ./redisData:/data
+    - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    environment:
+    - TZ=Asia/Shanghai
+
+
+
+# 配置文件下载网址，注意版本要匹配 https://redis.io/docs/management/config/

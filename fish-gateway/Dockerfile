@@ -1,5 +1,7 @@
 FROM alibabadragonwell/dragonwell:8-anolis
 
+MAINTAINER dayang <dayangtop@163.com>
+
 WORKDIR /fish-gateway
 
 ARG JAR_FILE=target/fish-gateway.jar
@@ -10,4 +12,4 @@ EXPOSE 9999
 
 ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms128m -Xmx256m -Djava.security.egd=file:/dev/./urandom"
 
-CMD sleep 60; java $JAVA_OPTS -jar app.jar
+CMD sleep 30; java $JAVA_OPTS -jar app.jar

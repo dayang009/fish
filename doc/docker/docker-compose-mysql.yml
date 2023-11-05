@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0.35
+    container_name: mysql
+    restart: always
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_general_ci
+      TZ: "Asia/Shanghai"
+    ports:
+    - "3306:3306"
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - ./mysqlData:/var/lib/mysql

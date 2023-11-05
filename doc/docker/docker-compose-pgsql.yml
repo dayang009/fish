@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  nacos:
+    image: postgres:14.9
+    restart: always
+    privileged: true
+    container_name: postgres
+    ports:
+    - "5432:5432"
+    volumes:
+    - ./pgdata:/var/lib/postgresql/data/pgdata
+    environment:
+    - TZ=Asia/Shanghai
+    - LANG=en_US.UTF-8
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - PGDATA=/var/lib/postgresql/data/pgdata

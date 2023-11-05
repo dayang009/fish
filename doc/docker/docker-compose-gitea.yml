@@ -1,0 +1,27 @@
+version: "3.8"
+
+networks:
+  gitea:
+    external: false
+
+services:
+  server:
+    image: gitea/gitea:1.20.5
+    container_name: gitea
+    privileged: true
+    restart: always
+    environment:
+    - APP_NAME="码出高效"
+    - USER_UID=1000
+    - USER_GID=1000
+    - SSH_PORT=222
+    - SSH_LISTEN_PORT=22
+    networks:
+    - gitea
+    volumes:
+    - ./gitea:/data
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro
+    ports:
+    - "3000:3000"
+    - "222:22"
