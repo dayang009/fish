@@ -1,8 +1,6 @@
 version: '3.8'
 
-# docker run --name tmp-nginx-container -d nginx:1.24.0
-# docker cp tmp-nginx-container:/etc/nginx/nginx.conf /docker/nginx/nginx.conf
-# docker rm -f tmp-nginx-container
+
 
 services:
 
@@ -23,3 +21,6 @@ services:
     environment:
       TZ: Asia/Shanghai
       LANG: en_US.UTF-8
+# docker run --name tmp-nginx-container -d nginx:1.24.0
+# docker cp tmp-nginx-container:/etc/nginx/nginx.conf /docker/nginx/nginx.conf
+# docker rm -f tmp-nginx-container

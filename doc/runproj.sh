@@ -1,0 +1,1 @@
+sudo nohup java -Djava.net.preferIPv4Stack=true -Xmx4g -Xms4g -Xmn2g -jar demo.jar > /dev/null 2>&1 &

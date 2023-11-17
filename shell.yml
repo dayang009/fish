@@ -1,0 +1,122 @@
+# 使用 shell 执行器 打包
+shell-package:
+  stage: shell-package
+  script:
+    - git --version
+    - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+    - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
+    - echo 当前分支：$CI_COMMIT_BRANCH
+    - echo 主分支：$CI_DEFAULT_BRANCH
+    - echo 项目路径：$CI_PROJECT_DIR
+    # 在 Shell 执行器中，如果手动导入 gpg，可使用参数 -Pgpg
+    # 在 Shell 执行器中，如果不指定 settings.xml，可使用系统默认
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings-private.xml && PACKAGE_FLAG=1
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  artifacts:
+    name: package
+    paths:
+      - target/*.jar
+      - target/*.asc
+      - target/*.pom
+      - "*/target/*.jar"
+      - "*/target/*.asc"
+      - "*/target/*.pom"
+      - "*/*/target/*.jar"
+      - "*/*/target/*.asc"
+      - "*/*/target/*.pom"
+      - ui/dist
+
+# shell 发布网关服务
+shell-service-eureka:
+  stage: shell-service
+  needs:
+    - job: shell-package
+      artifacts: true
+  script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
+    - MODULE='eureka'
+    - echo MODULE：$MODULE
+    - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
+    - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
+    - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
+    - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
+    - echo APP_NAME：$APP_NAME
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
+    - SERVICE=/etc/systemd/system/fzy-$MODULE.service
+    - echo SERVICE：$SERVICE
+    - JAVA_HOME=/usr/local/jdk1.8.0_381
+    - echo JAVA_HOME：$JAVA_HOME
+    - echo "" > $SERVICE
+    - echo "[Unit]" >> $SERVICE
+    - echo "Description=$MODULE" >> $SERVICE
+    - echo "After=syslog.target" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo "[Service]" >> $SERVICE
+    - echo "EnvironmentFile=/etc/profile" >> $SERVICE
+    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME --spring.profiles.active=prod" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo "[Install]" >> $SERVICE
+    - echo "WantedBy=multi-user.target" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo 创建新启动脚本完成
+    - sudo systemctl enable fzy-$MODULE.service && echo 设置开机启动完成
+    - sudo systemctl daemon-reload
+    - sudo systemctl restart fzy-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status fzy-$MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
+    - sleep 30 && echo 增加延时
+    - sudo systemctl status fzy-$MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+
+# shell 发布网关服务
+shell-service-gateway:
+  stage: shell-service
+  needs:
+  - job: shell-package
+    artifacts: true
+  script:
+  - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+  - echo JAR_PATH：$JAR_PATH
+  - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
+  - MODULE='gateway'
+  - echo MODULE：$MODULE
+  - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
+  - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
+  - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
+  - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
+  - echo APP_NAME：$APP_NAME
+  - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
+  - SERVICE=/etc/systemd/system/fzy-$MODULE.service
+  - echo SERVICE：$SERVICE
+  - JAVA_HOME=/usr/local/jdk1.8.0_381
+  - echo JAVA_HOME：$JAVA_HOME
+  - echo "" > $SERVICE
+  - echo "[Unit]" >> $SERVICE
+  - echo "Description=$MODULE" >> $SERVICE
+  - echo "After=syslog.target" >> $SERVICE
+  - echo "" >> $SERVICE
+  - echo "[Service]" >> $SERVICE
+  - echo "EnvironmentFile=/etc/profile" >> $SERVICE
+  - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME --spring.profiles.active=prod" >> $SERVICE
+  - echo "" >> $SERVICE
+  - echo "[Install]" >> $SERVICE
+  - echo "WantedBy=multi-user.target" >> $SERVICE
+  - echo "" >> $SERVICE
+  - echo 创建新启动脚本完成
+  - sudo systemctl enable fzy-$MODULE.service && echo 设置开机启动完成
+  - sudo systemctl daemon-reload
+  - sudo systemctl restart fzy-$MODULE.service && echo 重启项目完成
+  - sudo systemctl status fzy-$MODULE.service && MODULE_STATUS=1
+  - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  - MODULE_STATUS=0
+  - sleep 30 && echo 增加延时
+  - sudo systemctl status fzy-$MODULE.service && MODULE_STATUS=1
+  - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+
