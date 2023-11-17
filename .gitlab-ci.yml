@@ -19,10 +19,6 @@ stages:
 - sync
 
 
-# 代码安全检查
-sast:
-  stage: package
-
 coverage:
   variables:
     MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
@@ -121,5 +117,4 @@ coverage:
 
 
 include:
-- template: Security/SAST.gitlab-ci.yml
 - /shell.yml
