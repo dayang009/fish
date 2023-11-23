@@ -8,7 +8,7 @@ spring:
     check-template-location: false
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.188.99:5432/postgres?currentSchema=fish&stringtype=unspecified
+    url: jdbc:postgresql://192.168.18.8:5432/fish?currentSchema=public&stringtype=unspecified
     username: postgres
     password: postgres
     druid:

@@ -1,11 +1,16 @@
 package com.fish.user.controller;
 
+import com.fish.common.core.util.RespResult;
 import com.fish.user.entity.User;
 import com.fish.user.mapper.UserMapper;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author dayang
@@ -31,6 +36,12 @@ public class UserController {
 
 		int insert = userMapper.insert(user);
 		return String.valueOf(insert);
+	}
+
+	@PostMapping("/user")
+	public RespResult<String> addUser(@Validated @RequestBody List<User> users) {
+		userMapper.insertBatchSomeColumn(users);
+		return RespResult.success("数据插入成功");
 	}
 
 }

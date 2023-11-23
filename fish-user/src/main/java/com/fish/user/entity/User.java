@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -30,6 +31,7 @@ public class User implements Serializable {
 	/**
 	 * 账户
 	 */
+	@NotBlank(message = "用户名不能为空")
 	private String userAccount;
 
 	/**

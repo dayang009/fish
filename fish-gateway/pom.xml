@@ -57,6 +57,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
+		<!-- OpenAPI 文档网关聚合依赖 -->
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>knife4j-gateway-spring-boot-starter</artifactId>
+		</dependency>
 
 
 

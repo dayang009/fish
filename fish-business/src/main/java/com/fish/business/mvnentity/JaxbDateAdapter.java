@@ -1,0 +1,31 @@
+package com.fish.business.mvnentity;
+
+import cn.hutool.core.date.DateUtil;
+
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.util.Date;
+
+/**
+ * 定制{@link Date}类型序列化方式
+ *
+ * @author dayang
+ */
+public class JaxbDateAdapter extends XmlAdapter<String, Date> {
+
+	private static final String STD_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+	@Override
+	public Date unmarshal(String v) throws Exception {
+		if (v == null) {
+			return null;
+		}
+		return DateUtil.parse(v, STD_DATE_FORMAT);
+		// return new SimpleDateFormat(STD_DATE_FORMAT).parse(v);
+	}
+
+	@Override
+	public String marshal(Date v) {
+		return DateUtil.format(v, STD_DATE_FORMAT);
+	}
+
+}
