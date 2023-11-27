@@ -22,8 +22,8 @@
         <module>fish-job-admin</module>
         <module>fish-register</module>
         <module>fish-user</module>
-		<module>fish-flow</module>
-	</modules>
+        <module>fish-flow</module>
+    </modules>
 
     <properties>
         <java.version>8</java.version>
@@ -31,12 +31,14 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.17</spring-boot.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <knife4j.version>4.3.0</knife4j.version>
         <spring-boot-admin.version>2.7.11</spring-boot-admin.version>
         <openfeign-starter.version>3.1.8</openfeign-starter.version>
+        <docker.host>http://192.168.18.8:2375</docker.host>
+        <docker.registry>192.168.18.8</docker.registry>
     </properties>
 
     <dependencies>
@@ -158,19 +160,19 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.5.3.2</version>
             </dependency>
-			<dependency>
-				<groupId>com.baomidou</groupId>
-				<artifactId>mybatis-plus-boot-starter-test</artifactId>
-				<version>3.5.3.2</version>
-				<scope>test</scope>
-			</dependency>
-			<!-- 代码生成器 -->
-			<dependency>
-				<groupId>com.baomidou</groupId>
-				<artifactId>mybatis-plus-generator</artifactId>
-				<version>3.5.3.2</version>
-			</dependency>
-			<!-- https://www.kancloud.cn/tracy5546/dynamic-datasource/2264611 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter-test</artifactId>
+                <version>3.5.3.2</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- 代码生成器 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>3.5.3.2</version>
+            </dependency>
+            <!-- https://www.kancloud.cn/tracy5546/dynamic-datasource/2264611 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
@@ -189,12 +191,12 @@
                 <version>1.4.7</version>
             </dependency>
 
-			<!-- flowable工作流依赖 -->
-			<dependency>
-				<groupId>org.flowable</groupId>
-				<artifactId>flowable-spring-boot-starter</artifactId>
-				<version>6.8.0</version>
-			</dependency>
+            <!-- flowable工作流依赖 -->
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>6.8.0</version>
+            </dependency>
 
             <!-- if you use RocketMQ 5.X, donot update version great then 2.2.2 -->
             <dependency>
@@ -226,11 +228,11 @@
                 <artifactId>easyexcel</artifactId>
                 <version>3.3.2</version>
             </dependency>
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>2.0.40</version>
-			</dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>2.0.40</version>
+            </dependency>
 
             <!-- 解析客户端操作系统、浏览器等 -->
             <dependency>
@@ -245,8 +247,6 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>5.2.3</version>
             </dependency>
-
-
 
 
             <dependency>
@@ -327,12 +327,12 @@
                 <artifactId>dom4j</artifactId>
                 <version>2.1.4</version>
             </dependency>
-			<!-- https://x-stream.github.io/index.html -->
-			<dependency>
-				<groupId>com.thoughtworks.xstream</groupId>
-				<artifactId>xstream</artifactId>
-				<version>1.4.20</version>
-			</dependency>
+            <!-- https://x-stream.github.io/index.html -->
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>1.4.20</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.apache.groovy</groupId>
@@ -462,36 +462,35 @@
                 </configuration>
             </plugin>
 
-			<!-- Maven 打包时候跳过测试 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.1.2</version>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
+            <!-- Maven 打包时候跳过测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
 
-			<!-- https://www.baeldung.com/maven-download-sources-javadoc -->
-			<!-- 下载 Maven 源代码和 JavaDocs -->
-			<!-- mvn dependency:sources dependency:resolve -Dclassifier=javadoc -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.3.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>sources</goal>
-							<goal>resolve</goal>
-						</goals>
-						<configuration>
-							<classifier>javadoc</classifier>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
+            <!-- https://www.baeldung.com/maven-download-sources-javadoc -->
+            <!-- 下载 Maven 源代码和 JavaDocs -->
+            <!-- mvn dependency:sources dependency:resolve -Dclassifier=javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>sources</goal>
+                            <goal>resolve</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
 
             <plugin>
@@ -500,25 +499,25 @@
                 <version>3.3.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-					<!-- 这些后缀结尾的文件不进行编译 -->
-					<nonFilteredFileExtensions>
-						<nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
-						<nonFilteredFileExtension>xls</nonFilteredFileExtension>
-						<nonFilteredFileExtension>docx</nonFilteredFileExtension>
-						<nonFilteredFileExtension>doc</nonFilteredFileExtension>
-						<nonFilteredFileExtension>zip</nonFilteredFileExtension>
-						<nonFilteredFileExtension>rar</nonFilteredFileExtension>
-						<nonFilteredFileExtension>jks</nonFilteredFileExtension>
-						<nonFilteredFileExtension>eot</nonFilteredFileExtension>
-						<nonFilteredFileExtension>svg</nonFilteredFileExtension>
-						<nonFilteredFileExtension>ftl</nonFilteredFileExtension>
-						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-						<nonFilteredFileExtension>woff</nonFilteredFileExtension>
-						<nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-						<nonFilteredFileExtension>icon</nonFilteredFileExtension>
-						<nonFilteredFileExtension>ico</nonFilteredFileExtension>
-						<nonFilteredFileExtension>otf</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
+                    <!-- 这些后缀结尾的文件不进行编译 -->
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>xls</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>docx</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>doc</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>rar</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>svg</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>ftl</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>icon</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>ico</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>otf</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
             <plugin>
@@ -533,10 +532,59 @@
                 <version>3.1.1</version>
             </plugin>
 
+            <!-- https://dmp.fabric8.io/ -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.43.4</version>
+                <configuration>
+                    <authConfig>
+                        <push>
+                            <username>admin</username>
+                            <password>admin321</password>
+                        </push>
+                    </authConfig>
+                    <dockerHost>${docker.host}</dockerHost>
+                    <buildArgs>
+                        <!-- 用于在 Docker 中确定 jar 包名称 -->
+                        <GROUP_ID>${project.groupId}</GROUP_ID>
+                        <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
+                        <VERSION>${project.version}</VERSION>
+                        <!-- CI_PIPELINE_ID：代表管道ID，用于确定管道的链接 -->
+                        <CI_PIPELINE_ID>${CI_PIPELINE_ID}</CI_PIPELINE_ID>
+                        <!-- CI_JOB_ID：代表作业ID，用于确定作业的链接 -->
+                        <CI_JOB_ID>${CI_JOB_ID}</CI_JOB_ID>
+                        <!--
+                            可在构建docker镜像时，指定环境变量，指定后，会记录在docker镜像中环境 JAVA_OPTS 中
+                            如果在启动容器时，不想使用构建时的环境变量，可自行指定
+                            说明：构建时指定环境变量名是 CI_JAVA_OPTS，而docker镜像记录后的名称为 JAVA_OPTS，避免因为重名而造成未知问题
+                         -->
+                        <JAVA_OPTS>${CI_JAVA_OPTS}</JAVA_OPTS>
+                        <!--
+                            可在构建docker镜像时，指定环境变量，指定后，会记录在docker镜像中环境 APP_ARGS 中
+                            如果在启动容器时，不想使用构建时的环境变量，可自行指定
+                            用于放在 java -jar app.jar 最后，用以指定个性化参数
+                            说明：构建时指定环境变量名是 CI_APP_ARGS，而docker镜像记录后的名称为 APP_ARGS
+                         -->
+                        <APP_ARGS>${CI_APP_ARGS}</APP_ARGS>
+                    </buildArgs>
+
+                    <images>
+                        <image>
+                            <!-- 镜像名称 -->
+                            <name>${docker.registry}/${project.groupId}/${project.artifactId}:${project.version}</name>
+                            <build>
+                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                            </build>
+
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
+
         </plugins>
 
     </build>
-
 
 
     <profiles>
@@ -561,8 +609,6 @@
         </profile>
 
     </profiles>
-
-
 
 
 </project>

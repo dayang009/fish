@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -31,12 +31,14 @@ public class User implements Serializable {
 	/**
 	 * 账户
 	 */
-	@NotBlank(message = "用户名不能为空")
+	@NotEmpty(message = "用户名不能为空")
 	private String userAccount;
 
 	/**
 	 * 密码
 	 */
+	@NotBlank(message = "密码不能为空")
+	@Size(min = 6, max = 20, message = "密码最少 6 位，最大 20 位")
 	private String userPwd;
 
 	/**
@@ -47,16 +49,21 @@ public class User implements Serializable {
 	/**
 	 * 年龄
 	 */
+	@Min(value = 1, message = "年龄必须是非负")
+	@Max(value = 256)
 	private Integer age;
 
 	/**
 	 * 手机号
 	 */
+	@Pattern(regexp = "^1[3456789]\\d{9}$", message = "手机号格式有误")
 	private String phone;
 
 	/**
 	 * 邮箱
 	 */
+	@Email(message = "邮箱格式有误")
+	@NotEmpty(message = "邮箱为必填项")
 	private String email;
 
 	/**

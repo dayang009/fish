@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,9 +40,9 @@ public class UserController {
 	}
 
 	@PostMapping("/user")
-	public RespResult<String> addUser(@Validated @RequestBody List<User> users) {
+	public RespResult<String> addUser(@Validated @RequestBody List<@Valid User> users) {
 		userMapper.insertBatchSomeColumn(users);
-		return RespResult.success("数据插入成功");
+		return RespResult.success("批量数据插入成功");
 	}
 
 }
