@@ -32,10 +32,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.7.18</spring-boot.version>
-        <spring-cloud.version>2021.0.8</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
-        <knife4j.version>4.3.0</knife4j.version>
-        <spring-boot-admin.version>2.7.11</spring-boot-admin.version>
         <openfeign-starter.version>3.1.8</openfeign-starter.version>
         <docker.host>http://192.168.18.8:2375</docker.host>
         <docker.registry>192.168.18.8</docker.registry>
@@ -83,70 +79,16 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- SpringBoot 聚合依赖 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- SpringCloud 聚合依赖 -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- SpringCloudAlibaba 聚合依赖 -->
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Swagger 增强聚合依赖 -->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-dependencies</artifactId>
-                <version>${knife4j.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- SpringBootAdmin 聚合依赖 -->
-            <dependency>
-                <groupId>de.codecentric</groupId>
-                <artifactId>spring-boot-admin-dependencies</artifactId>
-                <version>${spring-boot-admin.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-parent</artifactId>
-                <version>3.6.1</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-
             <!-- https://github.com/mybatis/spring-boot-starter -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.3.1</version>
+                <version>2.3.2</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter-test</artifactId>
-                <version>2.3.1</version>
+                <version>2.3.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -158,19 +100,19 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.5.3.2</version>
+                <version>3.5.4.1</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter-test</artifactId>
-                <version>3.5.3.2</version>
+                <version>3.5.4.1</version>
                 <scope>test</scope>
             </dependency>
             <!-- 代码生成器 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.5.3.2</version>
+                <version>3.5.4.1</version>
             </dependency>
             <!-- https://www.kancloud.cn/tracy5546/dynamic-datasource/2264611 -->
             <dependency>
@@ -188,7 +130,7 @@
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>1.4.7</version>
+                <version>2.0.0</version>
             </dependency>
 
             <!-- flowable工作流依赖 -->
@@ -196,6 +138,12 @@
                 <groupId>org.flowable</groupId>
                 <artifactId>flowable-spring-boot-starter</artifactId>
                 <version>6.8.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>3.24.3</version>
             </dependency>
 
             <!-- if you use RocketMQ 5.X, donot update version great then 2.2.2 -->
@@ -207,7 +155,7 @@
             <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring-boot-starter</artifactId>
-                <version>1.12.0</version>
+                <version>1.13.0</version>
             </dependency>
             <!-- Java Bean 拷贝框架 -->
             <dependency>
@@ -231,7 +179,12 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>2.0.40</version>
+                <version>2.0.43</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>2.0.43</version>
             </dependency>
 
             <!-- 解析客户端操作系统、浏览器等 -->
@@ -252,12 +205,12 @@
             <dependency>
                 <groupId>commons-net</groupId>
                 <artifactId>commons-net</artifactId>
-                <version>3.9.0</version>
+                <version>3.10.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.12.0</version>
+                <version>2.15.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -289,7 +242,7 @@
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-api</artifactId>
-                <version>0.11.5</version>
+                <version>0.12.3</version>
             </dependency>
             <dependency>
                 <groupId>com.auth0</groupId>
@@ -301,7 +254,7 @@
             <dependency>
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
-                <version>3.16.3</version>
+                <version>3.17.3</version>
             </dependency>
             <dependency>
                 <groupId>com.aliyun.openservices</groupId>
@@ -313,7 +266,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
-                <version>1.23.0</version>
+                <version>1.25.0</version>
             </dependency>
             <dependency>
                 <groupId>org.tukaani</groupId>
@@ -343,6 +296,57 @@
                 <groupId>com.github.penggle</groupId>
                 <artifactId>kaptcha</artifactId>
                 <version>2.3.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.furyio</groupId>
+                <artifactId>fury-core</artifactId>
+                <version>0.4.0</version>
+            </dependency>
+
+            <!-- SpringBoot 聚合依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- SpringCloud 聚合依赖 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.8</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- SpringCloudAlibaba 聚合依赖 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2021.0.5.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Swagger 增强聚合依赖 -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>4.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- SpringBootAdmin 聚合依赖 -->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>2.7.14</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
 
@@ -386,16 +390,24 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>com.commsen.maven</groupId>
+                    <artifactId>bom-helper-maven-plugin</artifactId>
+                    <version>0.4.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
-
+            <plugin>
+                <groupId>com.commsen.maven</groupId>
+                <artifactId>bom-helper-maven-plugin</artifactId>
+            </plugin>
             <!-- 代码格式化插件，Spring源码风格，打包前执行 https://github.com/spring-io/spring-javaformat -->
             <plugin>
                 <groupId>io.spring.javaformat</groupId>
                 <artifactId>spring-javaformat-maven-plugin</artifactId>
-                <version>0.0.39</version>
+                <version>0.0.40</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -429,7 +441,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.3.2</version>
                 <configuration>
                     <failOnError>false</failOnError>
                     <excludeDefaultDirectories>false</excludeDefaultDirectories>
@@ -478,7 +490,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.6.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -520,6 +532,13 @@
                     </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>

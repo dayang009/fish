@@ -36,6 +36,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
+        <!-- 定时任务 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+        <!-- <dependency> -->
+        <!--     <groupId>org.redisson</groupId> -->
+        <!--     <artifactId>redisson-spring-boot-starter</artifactId> -->
+        <!-- </dependency> -->
 		<dependency>
 			<groupId>org.apache.rocketmq</groupId>
 			<artifactId>rocketmq-spring-boot-starter</artifactId>
@@ -64,6 +73,11 @@
 			<groupId>org.dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 		</dependency>
+        <!-- 高性能序列化框架 -->
+        <dependency>
+            <groupId>org.furyio</groupId>
+            <artifactId>fury-core</artifactId>
+        </dependency>
 
 		<dependency>
 			<groupId>com.github.ben-manes.caffeine</groupId>

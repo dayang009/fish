@@ -42,3 +42,6 @@ eureka:
 
 monitor:
   file-path: D:/temp
+
+rocketmq:
+  name-server: "127.0.0.1:8888"
