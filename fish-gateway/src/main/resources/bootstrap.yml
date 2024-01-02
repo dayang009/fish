@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 36901
 
 spring:
   application:
@@ -29,6 +29,10 @@ spring:
       ignored-interfaces:
       - VMware.*
       - VirtualBox.*
+      - veth
+      - docker
+      - cali
+      - br
     gateway:
       enabled: true
       discovery:
@@ -43,7 +47,7 @@ spring:
             allowed-methods: "*"
             allowed-headers: "*"
             allow-credentials: true
-            max-age: 3600
+            max-age: 86400
             exposedHeaders: "Content-Disposition,Content-Type,Cache-Control"
       routes:
       - id: fish-driver-user

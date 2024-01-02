@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 36903
   servlet:
     context-path: /xxl-job-admin
 

@@ -1,0 +1,54 @@
+spring:
+  main:
+    allow-circular-references: true
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: "Asia/Shanghai"
+  mvc:
+    log-request-details: true
+
+
+mybatis:
+  mapper-locations: "classpath*:/mapper/**/*.xml"
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    variables:
+      fish: fish
+
+mybatis-plus:
+  mapper-locations: "classpath*:/mapper/**/*.xml"
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    variables:
+      fish: fish
+  global-config:
+    db-config:
+      logic-delete-field: del_flag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+logging:
+  file:
+    name: ./logs/${spring.application.name}/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      max-file-size: 20MB
+      max-history: 30
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.tgz
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
+  charset:
+    console: UTF-8
+    file: UTF-8
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

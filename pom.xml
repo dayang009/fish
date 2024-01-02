@@ -18,11 +18,11 @@
         <module>fish-business</module>
         <module>fish-common</module>
         <module>fish-executor</module>
+        <module>fish-flow</module>
         <module>fish-gateway</module>
         <module>fish-job-admin</module>
         <module>fish-register</module>
         <module>fish-user</module>
-        <module>fish-flow</module>
     </modules>
 
     <properties>
@@ -49,16 +49,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-        <!-- 监控 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- 监控客户端 -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
         <!-- Lombok -->
         <dependency>
@@ -564,29 +554,6 @@
                         </push>
                     </authConfig>
                     <dockerHost>${docker.host}</dockerHost>
-                    <buildArgs>
-                        <!-- 用于在 Docker 中确定 jar 包名称 -->
-                        <GROUP_ID>${project.groupId}</GROUP_ID>
-                        <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
-                        <VERSION>${project.version}</VERSION>
-                        <!-- CI_PIPELINE_ID：代表管道ID，用于确定管道的链接 -->
-                        <CI_PIPELINE_ID>${CI_PIPELINE_ID}</CI_PIPELINE_ID>
-                        <!-- CI_JOB_ID：代表作业ID，用于确定作业的链接 -->
-                        <CI_JOB_ID>${CI_JOB_ID}</CI_JOB_ID>
-                        <!--
-                            可在构建docker镜像时，指定环境变量，指定后，会记录在docker镜像中环境 JAVA_OPTS 中
-                            如果在启动容器时，不想使用构建时的环境变量，可自行指定
-                            说明：构建时指定环境变量名是 CI_JAVA_OPTS，而docker镜像记录后的名称为 JAVA_OPTS，避免因为重名而造成未知问题
-                         -->
-                        <JAVA_OPTS>${CI_JAVA_OPTS}</JAVA_OPTS>
-                        <!--
-                            可在构建docker镜像时，指定环境变量，指定后，会记录在docker镜像中环境 APP_ARGS 中
-                            如果在启动容器时，不想使用构建时的环境变量，可自行指定
-                            用于放在 java -jar app.jar 最后，用以指定个性化参数
-                            说明：构建时指定环境变量名是 CI_APP_ARGS，而docker镜像记录后的名称为 APP_ARGS
-                         -->
-                        <APP_ARGS>${CI_APP_ARGS}</APP_ARGS>
-                    </buildArgs>
 
                     <images>
                         <image>
@@ -612,7 +579,7 @@
             <properties>
                 <!-- 环境标识，需要与配置文件的名称相对应 -->
                 <profiles.active>dev</profiles.active>
-                <nacos.fish.ip>192.168.18.8</nacos.fish.ip>
+                <nacos.fish.ip>127.0.0.1</nacos.fish.ip>
                 <nacos.fish.port>8848</nacos.fish.port>
                 <nacos.fish.username>nacos</nacos.fish.username>
                 <nacos.fish.password>nacos</nacos.fish.password>
@@ -625,6 +592,22 @@
                 <!-- 默认环境 -->
                 <activeByDefault>true</activeByDefault>
             </activation>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>prod</profiles.active>
+                <nacos.fish.ip>192.168.18.8</nacos.fish.ip>
+                <nacos.fish.port>8848</nacos.fish.port>
+                <nacos.fish.username>nacos</nacos.fish.username>
+                <nacos.fish.password>nacos</nacos.fish.password>
+                <nacos.fish.namespace></nacos.fish.namespace>
+                <nacos.fish.group>FISH</nacos.fish.group>
+                <eureka.fish.ip>192.168.18.8</eureka.fish.ip>
+                <eureka.fish.port>8761</eureka.fish.port>
+            </properties>
         </profile>
 
     </profiles>
