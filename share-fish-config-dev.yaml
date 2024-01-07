@@ -99,7 +99,7 @@ logging:
     rollingpolicy:
       max-file-size: 20MB
       max-history: 30
-      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.tgz
   pattern:
     dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
   charset:

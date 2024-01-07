@@ -2,11 +2,12 @@ version: '3.8'
 
 services:
   nacos:
-    image: nacos/nacos-server:v2.2.3-slim
+    image: nacos/nacos-server:v2.3.0-slim
     restart: always
     privileged: true
     container_name: nacos
     ports:
+    - "7848:7848"
     - "8848:8848"
     - "9848:9848"
     - "9849:9849"
@@ -15,6 +16,7 @@ services:
     - ./logs:/home/nacos/logs
     environment:
     - MODE=standalone
+    - NACOS_SERVER_IP=192.168.18.99
     - NACOS_AUTH_ENABLE=true
     - NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789
     - NACOS_AUTH_TOKEN_EXPIRE_SECONDS=1800000

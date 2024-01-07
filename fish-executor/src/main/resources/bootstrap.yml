@@ -22,7 +22,7 @@ spring:
         - data-id: share-fish-config-@profiles.active@.yaml
           refresh: true
       discovery:
-        enabled: false
+        enabled: true
         server-addr: @nacos.fish.ip@:@nacos.fish.port@
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
@@ -36,12 +36,12 @@ eureka:
     # 默认值为主机名+服务名+端口
     instance-id: ${spring.application.name}:${server.port}
   client:
-    enabled: true
+    enabled: false
     service-url:
       defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
 
 
 xxljob:
-  admin-addresses: http://127.0.0.1:8083/xxl-job-admin
+  admin-addresses: http://127.0.0.1:36903/xxl-job-admin
   appname: default-executor
   port: 9898
