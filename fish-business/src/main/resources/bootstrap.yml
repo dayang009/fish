@@ -19,6 +19,8 @@ spring:
         refresh-enabled: true
         # 用于共享的配置文件
         shared-configs:
+        - data-id: share-fish-config.yaml
+          refresh: true
         - data-id: share-fish-config-@profiles.active@.yaml
           refresh: true
       discovery:

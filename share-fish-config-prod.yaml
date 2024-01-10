@@ -12,7 +12,7 @@ spring:
       datasource:
         master:
           driver-class-name: org.postgresql.Driver
-          url: jdbc:postgresql://192.168.18.8:5432/fish?currentSchema=public&stringtype=unspecified
+          url: jdbc:postgresql://192.168.18.99:5432/fish?currentSchema=public&stringtype=unspecified
           username: postgres
           password: postgres
           type: com.alibaba.druid.pool.DruidDataSource
@@ -21,7 +21,7 @@ spring:
             validation-query: SELECT 1
         mysql:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.18.8:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&allowMultiQueries=true
+          url: jdbc:mysql://192.168.18.99:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&allowMultiQueries=true
           username: root
           password: root
           type: com.alibaba.druid.pool.DruidDataSource
@@ -44,7 +44,7 @@ spring:
             initial-size: 5
             validation-query: SELECT 1
   redis:
-    host: 192.168.18.8
+    host: 192.168.18.99
     port: 6379
     username:
     password:
