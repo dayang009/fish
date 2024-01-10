@@ -3,6 +3,7 @@ package com.fish.user.controller;
 import com.fish.user.entity.User;
 import com.fish.user.mapper.UserMapper;
 import com.google.common.collect.Lists;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author dayang
  * @since 2023/8/10
  */
+@Tag(name = "测试接口")
 @RestController
 @RequestMapping("/test")
 public class TestController {

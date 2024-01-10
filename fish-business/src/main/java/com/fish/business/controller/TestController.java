@@ -2,6 +2,8 @@ package com.fish.business.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.fish.business.config.SchedulerConfig;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
+@Tag(name = "测试控制参数")
 @RefreshScope
 @EnableScheduling
 @RestController
@@ -28,26 +31,22 @@ public class TestController {
 	@Resource
 	private ThreadPoolTaskScheduler poolTaskScheduler;
 
+	@Operation(summary = "添加一个定时任务")
 	@GetMapping("/demo01")
 	public void demo01(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date) {
-		ScheduledFuture<?> schedule = poolTaskScheduler.schedule(new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("模拟资源接口调用" + DateUtil.now());
-			}
-		}, date);
+		ScheduledFuture<?> schedule = poolTaskScheduler.schedule(() -> System.out.println("模拟资源接口调用" + DateUtil.now()),
+				date);
 		SchedulerConfig.cache.put("ka-" + DateUtil.date(date), schedule);
 
 	}
 
+	@Operation(summary = "删除已设置的定时任务")
 	@GetMapping("/demo02")
 	public void demo02(@RequestParam String key) {
-		ScheduledFuture future = SchedulerConfig.cache.get(key);
+		ScheduledFuture<?> future = SchedulerConfig.cache.get(key);
 		if (future != null) {
 			// 指定 ScheduledFuture 来停止当前线程
 			future.cancel(true);
-			// 移除缓存
-			SchedulerConfig.cache.remove(key);
 		}
 	}
 
@@ -58,6 +57,12 @@ public class TestController {
 		Map<String, String> map = new HashMap<>();
 		map.put("name", myname);
 		return map;
+	}
+
+	@Operation(summary = "查看存储定时任务的Map")
+	@GetMapping("/demo04")
+	public Map<String, ScheduledFuture<?>> demo04() {
+		return SchedulerConfig.cache;
 	}
 
 }

@@ -4,13 +4,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 @Configuration
 public class SchedulerConfig {
 
-	public static ConcurrentHashMap<String, ScheduledFuture> cache = new ConcurrentHashMap<>();
+	public static Map<String, ScheduledFuture<?>> cache = Collections.synchronizedMap(new ScheduCacheMap<>());
 
 	@Bean
 	public ThreadPoolTaskScheduler taskScheduler() {

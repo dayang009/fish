@@ -1,5 +1,7 @@
 package com.fish.user.entity;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +39,7 @@ public class User implements Serializable {
 	/**
 	 * 密码
 	 */
+	@Hidden
 	@NotBlank(message = "密码不能为空")
 	@Size(min = 6, max = 20, message = "密码最少 6 位，最大 20 位")
 	private String userPwd;
@@ -44,6 +47,7 @@ public class User implements Serializable {
 	/**
 	 * 性别：0---女，1---男
 	 */
+	@Schema(example = "1")
 	private Integer gender;
 
 	/**

@@ -107,7 +107,7 @@ public class Demo01Test {
 			SmallTool.printTimeAndThread("700路车正在赶来");
 			SmallTool.sleepMillis(100L);
 			return "700路到了";
-		}).exceptionally().applyToEither(CompletableFuture.supplyAsync(() -> {
+		}).applyToEither(CompletableFuture.supplyAsync(() -> {
 			SmallTool.printTimeAndThread("800路车在路上");
 			SmallTool.sleepMillis(200L);
 			return "800路车到了";

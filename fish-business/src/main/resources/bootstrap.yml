@@ -45,3 +45,8 @@ monitor:
 
 rocketmq:
   name-server: "127.0.0.1:8888"
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
