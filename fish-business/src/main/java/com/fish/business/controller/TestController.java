@@ -2,6 +2,7 @@ package com.fish.business.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.fish.business.config.SchedulerConfig;
+import com.fish.business.entity.Stud;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -9,10 +10,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +61,17 @@ public class TestController {
 	@GetMapping("/demo04")
 	public Map<String, ScheduledFuture<?>> demo04() {
 		return SchedulerConfig.cache;
+	}
+
+	@PostMapping("/demo05")
+	public Stud demo05() {
+		Stud stud = new Stud();
+		stud.setId("88");
+		stud.setName("zhangSan");
+		stud.setStartTime(LocalDateTime.now());
+		stud.setEndTime(LocalDateTime.now());
+		System.out.println(">>>" + stud);
+		return stud;
 	}
 
 }

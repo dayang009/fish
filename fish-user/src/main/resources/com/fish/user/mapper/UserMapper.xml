@@ -28,8 +28,10 @@
 
 	<!-- 主键自增回填 -->
 	<insert id="insert" parameterType="com.fish.user.entity.User" useGeneratedKeys="true" keyProperty="id">
-		insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email, admin_flag)
-		values (default, #{nickName}, #{userAccount}, #{userPwd}, #{gender}, #{age}, #{phone}, #{email}, #{adminFlag})
+		insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email, admin_flag, create_time,
+						   update_time)
+		values (default, #{nickName}, #{userAccount}, #{userPwd}, #{gender}, #{age}, #{phone}, #{email}, #{adminFlag},
+				#{createTime}, #{updateTime})
 	</insert>
 
 	<insert id="insertBatchSomeColumn" parameterType="list">

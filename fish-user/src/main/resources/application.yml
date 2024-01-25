@@ -11,7 +11,7 @@ spring:
     check-template-location: false
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.18.99:5432/fish?currentSchema=public&stringtype=unspecified
+    url: jdbc:postgresql://192.168.18.99:5432/postgres?currentSchema=public&stringtype=unspecified
     username: postgres
     password: postgres
     druid:
@@ -56,7 +56,7 @@ logging:
     rollingpolicy:
       max-file-size: 20MB
       max-history: 30
-      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.tgz
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
   pattern:
     dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
   charset:

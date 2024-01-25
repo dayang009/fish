@@ -41,7 +41,7 @@ public enum ResponseEnum implements IResult {
     RESPONSE_PACK_ERROR("1003", "response返回包装失败"),
     APP_ERROR("2000", "业务异常"),
     PRICE_ERROR("2001", "价格异常"),
-    SYSTEM_ERROR("5000", "网络错误，请稍后再试"),
+    SYSTEM_ERROR("5000", "系统错误，请稍后再试"),
     DATE_TIME_PARSE_ERROR("5001", "日期时间解析异常"),
 	TOKEN_PARSE_ERROR("5002", "Token 解析异常"),
     ;

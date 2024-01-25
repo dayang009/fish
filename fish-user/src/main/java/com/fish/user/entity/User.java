@@ -23,7 +23,7 @@ public class User implements Serializable {
 	/**
 	 * 主键
 	 */
-	private Integer id;
+	private String id;
 
 	/**
 	 * 昵称
@@ -41,7 +41,7 @@ public class User implements Serializable {
 	 */
 	@Hidden
 	@NotBlank(message = "密码不能为空")
-	@Size(min = 6, max = 20, message = "密码最少 6 位，最大 20 位")
+	@Size(min = 6, max = 20, message = "密码位数必须在{min}和{max}之间")
 	private String userPwd;
 
 	/**
@@ -53,8 +53,8 @@ public class User implements Serializable {
 	/**
 	 * 年龄
 	 */
-	@Min(value = 1, message = "年龄必须是非负")
-	@Max(value = 256)
+	@Min(value = 0, message = "年龄必须是非负")
+	@Max(value = 256, message = "年龄最大不能超过{value}")
 	private Integer age;
 
 	/**
@@ -66,8 +66,8 @@ public class User implements Serializable {
 	/**
 	 * 邮箱
 	 */
-	@Email(message = "邮箱格式有误")
-	@NotEmpty(message = "邮箱为必填项")
+	@Email
+	@NotEmpty(message = "邮箱信息不能为空")
 	private String email;
 
 	/**
@@ -76,13 +76,15 @@ public class User implements Serializable {
 	private Integer adminFlag = 0;
 
 	/**
-	 * 创建时间
+	 * 创建时间 前端上送 2020年10月10日11时17分31秒
 	 */
+	// @DateTimeFormat(pattern = "yyyy年MM月dd日HH时mm分ss秒")
 	private LocalDateTime createTime;
 
 	/**
-	 * 更新时间
+	 * 更新时间 个性化输出，返回给前端
 	 */
+	// @JsonFormat(pattern = "yyyy年MM月dd日HH时mm分ss秒")
 	private LocalDateTime updateTime;
 
 	/**

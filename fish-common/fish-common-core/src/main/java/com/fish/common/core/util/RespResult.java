@@ -78,6 +78,10 @@ public class RespResult<T> implements Serializable {
 		this.data = null;
 	}
 
+	public static <T> RespResult<T> instance(String code, String msg, T data) {
+		return new RespResult<T>().setCode(code).setMsg(msg).setData(data);
+	}
+
 	public static <T> RespResult<T> success() {
 		return new RespResult<T>().setCode(ResponseEnum.SUCCESS.getCode()).setMsg(ResponseEnum.SUCCESS.getMsg());
 	}
@@ -92,16 +96,8 @@ public class RespResult<T> implements Serializable {
 		return new RespResult<T>().setCode(ResponseEnum.SUCCESS.getCode()).setMsg(msg).setData(data);
 	}
 
-	public static <T> RespResult<T> success(String code, String msg, T data) {
-		return new RespResult<T>().setCode(code).setMsg(msg).setData(data);
-	}
-
 	public static <T> RespResult<T> fail() {
 		return new RespResult<T>().setCode(ResponseEnum.FAIL.getCode()).setMsg(ResponseEnum.FAIL.getMsg());
-	}
-
-	public static <T> RespResult<T> fail(String msg) {
-		return new RespResult<T>().setCode(ResponseEnum.FAIL.getCode()).setMsg(msg);
 	}
 
 	public static <T> RespResult<T> fail(T data) {
@@ -110,25 +106,8 @@ public class RespResult<T> implements Serializable {
 			.setData(data);
 	}
 
-	// public static <T> BaseResponse<T> fail(String msg, T data) {
-	// return new
-	// BaseResponse<T>().setCode(ResultCodeEnum.FAIL.getCode()).setMsg(msg).setData(data);
-	// }
-
 	public static <T> RespResult<T> fail(ResponseEnum responseEnum, T data) {
 		return new RespResult<T>().setCode(responseEnum.getCode()).setMsg(responseEnum.getMsg()).setData(data);
-	}
-
-	public static <T> RespResult<T> fail(String code, String msg) {
-		return new RespResult<T>().setCode(code).setMsg(msg);
-	}
-
-	public static <T> RespResult<T> fail(String code, String msg, T data) {
-		return new RespResult<T>().setCode(code).setMsg(msg).setData(data);
-	}
-
-	public static <T> RespResult<T> instance(String code, String msg, T data) {
-		return new RespResult<T>().setCode(code).setMsg(msg).setData(data);
 	}
 
 }

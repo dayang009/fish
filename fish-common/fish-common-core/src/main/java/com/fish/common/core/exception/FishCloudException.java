@@ -14,22 +14,20 @@ public class FishCloudException extends RuntimeException implements IResult {
 
 	private final String msg;
 
-	public FishCloudException(String code, String msg) {
+	private final Object data;
+
+	public FishCloudException(String code, String msg, Object data) {
 		super(msg);
 		this.code = code;
 		this.msg = msg;
+		this.data = data;
 	}
 
-	public FishCloudException(ResponseEnum statusCode) {
+	public FishCloudException(ResponseEnum statusCode, String desc) {
 		super(statusCode.getMsg());
 		this.code = statusCode.getCode();
 		this.msg = statusCode.getMsg();
-	}
-
-	public FishCloudException(ResponseEnum statusCode, String msg) {
-		super(msg);
-		this.code = statusCode.getCode();
-		this.msg = statusCode.getMsg();
+		this.data = desc;
 	}
 
 	@Override
@@ -40,6 +38,10 @@ public class FishCloudException extends RuntimeException implements IResult {
 	@Override
 	public String getMsg() {
 		return msg;
+	}
+
+	public Object getData() {
+		return data;
 	}
 
 }

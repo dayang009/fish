@@ -31,7 +31,7 @@ public class TestController {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	@PostMapping("/demo01")
-	public Integer demo01(@RequestBody Integer id) {
+	public Integer demo01(@RequestBody String id) {
 		User user = new User();
 		user.setId(id);
 		user.setNickName("haha");

@@ -158,7 +158,7 @@ public class SampleXxlJob {
 		}
 
 		// param valid
-		if (url == null || url.trim().length() == 0) {
+		if (url == null || url.trim().isEmpty()) {
 			XxlJobHelper.log("url[" + url + "] invalid.");
 
 			XxlJobHelper.handleFail();
