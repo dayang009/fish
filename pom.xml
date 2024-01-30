@@ -171,13 +171,6 @@
                 <version>2.0.45</version>
             </dependency>
 
-            <!-- 解析客户端操作系统、浏览器等 -->
-            <dependency>
-                <groupId>eu.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>1.21</version>
-            </dependency>
-
             <!-- excel工具 -->
             <dependency>
                 <groupId>org.apache.poi</groupId>
@@ -215,7 +208,7 @@
             </dependency>
 
 
-            <!-- 糊涂工具包 -->
+            <!-- 工具类库 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
@@ -228,22 +221,31 @@
                 <artifactId>jjwt-api</artifactId>
                 <version>0.12.3</version>
             </dependency>
+
+            <!-- Java implementation of JSON Web Token (JWT)  -->
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>3.19.4</version>
             </dependency>
 
-            <!-- 阿里云 -->
+            <!-- The Aliyun OSS SDK for Java used for accessing Aliyun Object Storage Service  -->
             <dependency>
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
-                <version>3.17.3</version>
+                <version>3.17.4</version>
             </dependency>
             <dependency>
                 <groupId>com.aliyun.openservices</groupId>
                 <artifactId>ons-client</artifactId>
                 <version>1.8.8.8.Final</version>
+            </dependency>
+
+            <!-- MinIO Java SDK for Amazon S3 Compatible Cloud Storage  -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>8.5.7</version>
             </dependency>
 
             <!-- 用 Java 中实现文件压缩和解压缩 -->
@@ -252,13 +254,8 @@
                 <artifactId>commons-compress</artifactId>
                 <version>1.25.0</version>
             </dependency>
-            <dependency>
-                <groupId>org.tukaani</groupId>
-                <artifactId>xz</artifactId>
-                <version>1.9</version>
-            </dependency>
 
-            <!-- 解析、生成 xml 格式文件 -->
+            <!-- flexible XML framework for Java  -->
             <dependency>
                 <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
@@ -274,12 +271,7 @@
             <dependency>
                 <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy</artifactId>
-                <version>4.0.12</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.penggle</groupId>
-                <artifactId>kaptcha</artifactId>
-                <version>2.3.2</version>
+                <version>4.0.18</version>
             </dependency>
 
             <dependency>
@@ -323,16 +315,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!-- SpringBootAdmin 聚合依赖 -->
-            <dependency>
-                <groupId>de.codecentric</groupId>
-                <artifactId>spring-boot-admin-dependencies</artifactId>
-                <version>2.7.14</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
 
         </dependencies>
     </dependencyManagement>
@@ -391,7 +373,7 @@
             <plugin>
                 <groupId>io.spring.javaformat</groupId>
                 <artifactId>spring-javaformat-maven-plugin</artifactId>
-                <version>0.0.40</version>
+                <version>0.0.41</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -573,7 +555,7 @@
             <properties>
                 <!-- 环境标识，需要与配置文件的名称相对应 -->
                 <profiles.active>dev</profiles.active>
-                <nacos.fish.ip>127.0.0.1</nacos.fish.ip>
+                <nacos.fish.ip>192.168.18.99</nacos.fish.ip>
                 <nacos.fish.port>8848</nacos.fish.port>
                 <nacos.fish.username>nacos</nacos.fish.username>
                 <nacos.fish.password>nacos</nacos.fish.password>

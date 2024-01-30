@@ -9,7 +9,8 @@ spring:
 
 
 mybatis:
-  mapper-locations: "classpath*:/mapper/**/*.xml"
+  mapper-locations:
+  - "classpath*:/mapper/**/*.xml"
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
@@ -17,7 +18,8 @@ mybatis:
       fish: fish
 
 mybatis-plus:
-  mapper-locations: "classpath*:/mapper/**/*.xml"
+  mapper-locations:
+  - "classpath*:/mapper/**/*.xml"
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
@@ -36,7 +38,7 @@ logging:
     rollingpolicy:
       max-file-size: 20MB
       max-history: 30
-      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz"
   pattern:
     dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
   charset:

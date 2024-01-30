@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  nacos:
+  pgsql:
     image: postgres:14.9
     restart: always
     privileged: true

@@ -12,7 +12,7 @@ spring:
       datasource:
         master:
           driver-class-name: org.postgresql.Driver
-          url: jdbc:postgresql://192.168.18.99:5432/fish?currentSchema=public&stringtype=unspecified
+          url: jdbc:postgresql://192.168.18.99:5432/postgres?currentSchema=public&stringtype=unspecified
           username: postgres
           password: postgres
           type: com.alibaba.druid.pool.DruidDataSource
@@ -34,15 +34,7 @@ spring:
           druid:
             initial-size: 5
             validation-query: SELECT 1 FROM DUAL
-        oscar:
-          driver-class-name: com.oscar.Driver
-          url: jdbc:oscar://127.0.0.1:2003/osrdb
-          username: SYSDBA
-          password: szoscar55
-          type: com.alibaba.druid.pool.DruidDataSource
-          druid:
-            initial-size: 5
-            validation-query: SELECT 1
+
   redis:
     host: 192.168.18.99
     port: 6379
@@ -55,8 +47,8 @@ spring:
 
 logging:
   level:
-    web: debug
-    org.springframework.web: debug
+    web: info
+    org.springframework.web: info
     org.springframework.client: info
     com.netflix.eureka.registry: warn
     com.fish: info

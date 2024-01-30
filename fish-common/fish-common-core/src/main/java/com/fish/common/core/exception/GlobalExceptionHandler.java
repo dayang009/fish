@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public RespResult<?> HttpMessageNotReadableException(NestedRuntimeException e) {
+	public RespResult<?> httpMessageNotReadableException(NestedRuntimeException e) {
 
 		log.error("嵌套运行时异常 >>> ", e.getCause());
 		return RespResult.fail(ResponseEnum.VALIDATE_ERROR,
@@ -48,21 +48,21 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public RespResult<?> validException(MethodArgumentNotValidException e) {
-		log.error("方法参数无效异常 >>> {}", e.getCause().getMessage());
+		log.error("方法参数无效异常 >>> ", e);
 		return RespResult.fail(ResponseEnum.USER_REQ_PARAS_ERROR,
 				Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
 	}
 
 	@ExceptionHandler(BindException.class)
 	public RespResult<?> validException(BindException e) {
-		log.error("绑定异常 >>> {}", e.getCause().getMessage());
+		log.error("绑定异常 >>> ", e);
 		return RespResult.fail(ResponseEnum.SYSTEM_ERROR,
 				Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
 	}
 
 	@ExceptionHandler(RuntimeException.class)
 	public RespResult<?> runtimeExceptionHandler(RuntimeException e) {
-		log.error("发生了运行时异常 >>> {}", e.getCause().getMessage());
+		log.error("运行时异常 >>> ", e);
 		return RespResult.fail(ResponseEnum.SYSTEM_ERROR, e.getMessage());
 	}
 

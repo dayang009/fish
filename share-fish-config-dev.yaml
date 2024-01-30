@@ -1,15 +1,4 @@
 spring:
-  main:
-    allow-circular-references: true
-  jackson:
-    date-format: "yyyy-MM-dd HH:mm:ss"
-    time-zone: "Asia/Shanghai"
-  boot:
-    admin:
-      client:
-        url: http://127.0.0.1:8182
-  mvc:
-    log-request-details: true
   datasource:
     druid:
       initial-size: 5
@@ -23,7 +12,7 @@ spring:
       datasource:
         master:
           driver-class-name: org.postgresql.Driver
-          url: jdbc:postgresql://192.168.18.8:5432/fish?currentSchema=public&stringtype=unspecified
+          url: jdbc:postgresql://192.168.18.99:5432/postgres?currentSchema=public&stringtype=unspecified
           username: postgres
           password: postgres
           type: com.alibaba.druid.pool.DruidDataSource
@@ -32,7 +21,7 @@ spring:
             validation-query: SELECT 1
         mysql:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.18.8:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&allowMultiQueries=true
+          url: jdbc:mysql://192.168.18.99:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&allowMultiQueries=true
           username: root
           password: root
           type: com.alibaba.druid.pool.DruidDataSource
@@ -45,17 +34,9 @@ spring:
           druid:
             initial-size: 5
             validation-query: SELECT 1 FROM DUAL
-        oscar:
-          driver-class-name: com.oscar.Driver
-          url: jdbc:oscar://127.0.0.1:2003/osrdb
-          username: SYSDBA
-          password: szoscar55
-          type: com.alibaba.druid.pool.DruidDataSource
-          druid:
-            initial-size: 5
-            validation-query: SELECT 1
+
   redis:
-    host: 192.168.18.8
+    host: 192.168.18.99
     port: 6379
     username:
     password:
@@ -63,27 +44,6 @@ spring:
     ssl: false
     timeout: 1s
     connect-timeout: 3s
-
-mybatis:
-  mapper-locations: "classpath*:/mapper/**/*.xml"
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-    variables:
-      fish: fish
-
-mybatis-plus:
-  mapper-locations: "classpath*:/mapper/**/*.xml"
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-    variables:
-      fish: fish
-  global-config:
-    db-config:
-      logic-delete-field: del_flag
-      logic-delete-value: 1
-      logic-not-delete-value: 0
 
 logging:
   level:
@@ -93,25 +53,3 @@ logging:
     com.netflix.eureka.registry: warn
     com.fish: debug
     com.xxl.job.admin.dao: debug
-  file:
-    name: ./logs/${spring.application.name}/${spring.application.name}.log
-  logback:
-    rollingpolicy:
-      max-file-size: 20MB
-      max-history: 30
-      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.tgz
-  pattern:
-    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
-  charset:
-    console: UTF-8
-    file: UTF-8
-
-management:
-  endpoints:
-    enabled-by-default: true
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always

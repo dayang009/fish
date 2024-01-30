@@ -16,6 +16,7 @@
 
     <modules>
         <module>fish-common-core</module>
+        <module>fish-common-feign</module>
         <module>fish-common-job</module>
     </modules>
 

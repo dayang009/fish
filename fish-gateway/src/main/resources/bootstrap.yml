@@ -18,6 +18,8 @@ spring:
         group: @nacos.fish.group@
         refresh-enabled: true
         shared-configs:
+        - data-id: share-fish-config.yaml
+          refresh: true
         - data-id: share-fish-config-@profiles.active@.yaml
           refresh: true
       discovery:

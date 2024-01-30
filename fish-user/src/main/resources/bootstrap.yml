@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: @artifactId@
@@ -22,7 +21,7 @@ spring:
         - data-id: share-fish-config-@profiles.active@.yaml
           refresh: true
       discovery:
-        enabled: false
+        enabled: true
         server-addr: @nacos.fish.ip@:@nacos.fish.port@
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@

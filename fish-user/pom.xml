@@ -62,10 +62,10 @@
 		</dependency>
 
 		<!-- 事务支持 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.springframework.boot</groupId> -->
+		<!-- 	<artifactId>spring-boot-starter-jta-atomikos</artifactId> -->
+		<!-- </dependency> -->
         <!-- 德鲁伊连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -93,6 +93,10 @@
         <dependency>
             <groupId>com.oracle.database.nls</groupId>
             <artifactId>orai18n</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!-- Page-helper 分页插件 -->
         <dependency>

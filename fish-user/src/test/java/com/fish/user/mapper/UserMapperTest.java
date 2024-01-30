@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 @ActiveProfiles("dev")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @MybatisTest
-public class UserMapperTest {
+class UserMapperTest {
 
 	@Resource
 	private UserMapper userMapper;
@@ -53,7 +53,7 @@ public class UserMapperTest {
 	@Test
 	void updateById() {
 		User user = new User();
-		user.setId(4);
+		user.setId("88");
 		user.setNickName("haha");
 		user.setUserAccount("haha");
 		user.setUserPwd("haha");
