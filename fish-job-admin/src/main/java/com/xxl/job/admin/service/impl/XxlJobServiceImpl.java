@@ -185,7 +185,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 	private boolean isNumeric(String str) {
 		try {
-			int result = Integer.valueOf(str);
+			int result = Integer.parseInt(str);
 			return true;
 		}
 		catch (NumberFormatException e) {
@@ -197,11 +197,11 @@ public class XxlJobServiceImpl implements XxlJobService {
 	public ReturnT<String> update(XxlJobInfo jobInfo) {
 
 		// valid base
-		if (jobInfo.getJobDesc() == null || jobInfo.getJobDesc().trim().length() == 0) {
+		if (jobInfo.getJobDesc() == null || jobInfo.getJobDesc().trim().isEmpty()) {
 			return new ReturnT<>(ReturnT.FAIL_CODE,
 					(I18nUtil.getString("system_please_input") + I18nUtil.getString("jobinfo_field_jobdesc")));
 		}
-		if (jobInfo.getAuthor() == null || jobInfo.getAuthor().trim().length() == 0) {
+		if (jobInfo.getAuthor() == null || jobInfo.getAuthor().trim().isEmpty()) {
 			return new ReturnT<>(ReturnT.FAIL_CODE,
 					(I18nUtil.getString("system_please_input") + I18nUtil.getString("jobinfo_field_author")));
 		}
@@ -217,11 +217,8 @@ public class XxlJobServiceImpl implements XxlJobService {
 				return new ReturnT<>(ReturnT.FAIL_CODE, "Cron" + I18nUtil.getString("system_unvalid"));
 			}
 		}
-		else if (scheduleTypeEnum == ScheduleTypeEnum.FIX_RATE /*
-																 * || scheduleTypeEnum ==
-																 * ScheduleTypeEnum.
-																 * FIX_DELAY
-																 */) {
+		// 或者是 scheduleTypeEnum == ScheduleTypeEnum.FIX_DELAY
+		else if (scheduleTypeEnum == ScheduleTypeEnum.FIX_RATE) {
 			if (jobInfo.getScheduleConf() == null) {
 				return new ReturnT<>(ReturnT.FAIL_CODE,
 						(I18nUtil.getString("schedule_type") + I18nUtil.getString("system_unvalid")));
@@ -254,10 +251,10 @@ public class XxlJobServiceImpl implements XxlJobService {
 		}
 
 		// 》ChildJobId valid
-		if (jobInfo.getChildJobId() != null && jobInfo.getChildJobId().trim().length() > 0) {
+		if (jobInfo.getChildJobId() != null && !jobInfo.getChildJobId().trim().isEmpty()) {
 			String[] childJobIds = jobInfo.getChildJobId().split(",");
 			for (String childJobIdItem : childJobIds) {
-				if (childJobIdItem != null && childJobIdItem.trim().length() > 0 && isNumeric(childJobIdItem)) {
+				if (childJobIdItem != null && !childJobIdItem.trim().isEmpty() && isNumeric(childJobIdItem)) {
 					XxlJobInfo childJobInfo = xxlJobInfoDao.loadById(Integer.parseInt(childJobIdItem));
 					if (childJobInfo == null) {
 						return new ReturnT<>(ReturnT.FAIL_CODE,

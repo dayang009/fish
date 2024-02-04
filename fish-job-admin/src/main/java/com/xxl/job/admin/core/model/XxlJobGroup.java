@@ -16,7 +16,7 @@ public class XxlJobGroup implements Serializable {
 
 	private static final long serialVersionUID = 6349474431468224317L;
 
-	private Integer id;
+	private int id;
 
 	private String appname;
 
@@ -25,7 +25,7 @@ public class XxlJobGroup implements Serializable {
 	/**
 	 * 执行器地址类型：0=自动注册、1=手动录入
 	 */
-	private Integer addressType = 0;
+	private int addressType = 0;
 
 	/**
 	 * 执行器地址列表，多地址逗号分隔(手动录入)
@@ -54,22 +54,11 @@ public class XxlJobGroup implements Serializable {
 	public XxlJobGroup() {
 	}
 
-	public XxlJobGroup(Integer id, String appname, String title, Integer addressType, String addressList,
-			Date updateTime, List<String> registryList) {
-		this.id = id;
-		this.appname = appname;
-		this.title = title;
-		this.addressType = addressType;
-		this.addressList = addressList;
-		this.updateTime = updateTime;
-		this.registryList = registryList;
-	}
-
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -89,11 +78,11 @@ public class XxlJobGroup implements Serializable {
 		this.title = title;
 	}
 
-	public Integer getAddressType() {
+	public int getAddressType() {
 		return addressType;
 	}
 
-	public void setAddressType(Integer addressType) {
+	public void setAddressType(int addressType) {
 		this.addressType = addressType;
 	}
 
@@ -115,13 +104,6 @@ public class XxlJobGroup implements Serializable {
 
 	public void setRegistryList(List<String> registryList) {
 		this.registryList = registryList;
-	}
-
-	@Override
-	public String toString() {
-		return "XxlJobGroup{" + "id=" + id + ", appname='" + appname + '\'' + ", title='" + title + '\''
-				+ ", addressType=" + addressType + ", addressList='" + addressList + '\'' + ", updateTime=" + updateTime
-				+ ", registryList=" + registryList + '}';
 	}
 
 }

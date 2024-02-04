@@ -1,5 +1,6 @@
 package com.xxl.job.admin.core.model;
 
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -37,6 +38,7 @@ public class XxlJobInfo implements Serializable {
 	/**
 	 * 报警邮件
 	 */
+	@Email
 	private String alarmEmail;
 
 	/**

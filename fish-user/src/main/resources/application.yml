@@ -10,10 +10,10 @@ spring:
   freemarker:
     check-template-location: false
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.18.99:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.18.99:5432/postgres?currentSchema=fish_dev&stringtype=unspecified
+    username: postgres
+    password: postgres
     druid:
       initial-size: 5
       max-active: 10
@@ -58,6 +58,7 @@ logging:
     web: info
     org.springframework.web: info
     com.netflix.eureka.registry: info
+    com.fish.user: debug
   file:
     name: ./logs/${spring.application.name}/${spring.application.name}.log
   logback:

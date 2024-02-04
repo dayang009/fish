@@ -20,9 +20,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -148,8 +150,8 @@ public class JobLogController {
 	public ReturnT<LogResult> logDetailCat(long logId, int fromLineNum) {
 		try {
 			// valid
-			XxlJobLog jobLog = xxlJobLogDao.load(logId); // todo, need to improve
-															// performance
+			XxlJobLog jobLog = xxlJobLogDao.load(logId);
+
 			if (jobLog == null) {
 				return new ReturnT<>(ReturnT.FAIL_CODE, I18nUtil.getString("joblog_logid_unvalid"));
 			}
@@ -165,6 +167,13 @@ public class JobLogController {
 				if (jobLog.getHandleCode() > 0) {
 					logResult.getContent().setEnd(true);
 				}
+			}
+
+			// fix xss
+			if (logResult.getContent() != null && StringUtils.hasText(logResult.getContent().getLogContent())) {
+				String newLogContent = logResult.getContent().getLogContent();
+				newLogContent = HtmlUtils.htmlEscape(newLogContent, "UTF-8");
+				logResult.getContent().setLogContent(newLogContent);
 			}
 
 			return logResult;

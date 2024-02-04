@@ -2,16 +2,16 @@ package com.fish.business.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.fish.business.config.SchedulerConfig;
+import com.fish.common.core.config.NotControllerResponseAdvice;
+import com.fish.common.core.util.RespResult;
+import com.fish.common.feign.client.UserClient;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -27,14 +27,19 @@ import java.util.concurrent.ScheduledFuture;
 public class TestController {
 
 	@Resource
-	private ThreadPoolTaskScheduler poolTaskScheduler;
+	private SchedulerConfig schedulerConfig;
+
+	@Resource
+	private UserClient userClient;
 
 	@Operation(summary = "添加一个定时任务")
 	@GetMapping("/demo01")
 	public void demo01(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date) {
-		ScheduledFuture<?> schedule = poolTaskScheduler.schedule(() -> System.out.println("模拟资源接口调用" + DateUtil.now()),
-				date);
-		SchedulerConfig.cache.put("ka-" + DateUtil.date(date), schedule);
+		ScheduledFuture<?> schedule = schedulerConfig.taskScheduler().schedule(() -> {
+			System.out.println("模拟资源接口调用" + DateUtil.now());
+			log.info("模拟定时任务触发");
+		}, date);
+		SchedulerConfig.cache.put(DateUtil.date(date).toString(), schedule);
 
 	}
 
@@ -45,6 +50,8 @@ public class TestController {
 		if (future != null) {
 			// 指定 ScheduledFuture 来停止当前线程
 			future.cancel(true);
+			System.out.println("任务删除成功" + DateUtil.now());
+			log.info("任务删除成功");
 		}
 	}
 
@@ -60,6 +67,19 @@ public class TestController {
 	@GetMapping("/demo04")
 	public Map<String, ScheduledFuture<?>> demo04() {
 		return SchedulerConfig.cache;
+	}
+
+	@NotControllerResponseAdvice
+	@Operation(summary = "测试Feign调用用户模块")
+	@GetMapping("/demo05")
+	public String demo05() {
+		return userClient.demo01();
+	}
+
+	@Operation(summary = "测试Feign调用用户模块")
+	@DeleteMapping("/demo06/{id}")
+	public RespResult<?> demo06(@PathVariable(value = "id") String id) {
+		return userClient.delete(id);
 	}
 
 }

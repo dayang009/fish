@@ -1,15 +1,12 @@
 package com.fish.common.feign.client;
 
-import com.fish.common.core.entity.Student;
 import com.fish.common.core.util.RespResult;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.validation.Valid;
-import java.util.List;
+import java.io.Serializable;
 
 @FeignClient(value = "fish-user", path = "/users")
 public interface UserClient {
@@ -17,7 +14,7 @@ public interface UserClient {
 	@GetMapping("/user1")
 	String demo01();
 
-	@PostMapping("/user")
-	RespResult<String> addUser(@Validated @RequestBody List<@Valid Student> users);
+	@DeleteMapping("/{id}")
+	RespResult<?> delete(@PathVariable(value = "id") Serializable id);
 
 }

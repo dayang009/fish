@@ -60,7 +60,7 @@ public class UserController {
 		return RespResult.success("用户删除成功");
 	}
 
-	@PutMapping("")
+	@PutMapping("/")
 	public RespResult<?> update(@RequestBody @Validated User user) {
 		int i = userMapper.updateById(user);
 		if (i == 0) {

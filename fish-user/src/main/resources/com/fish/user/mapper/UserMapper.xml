@@ -94,7 +94,7 @@
 		select
 		<include refid="Base_Column_List"/>
 		from t_user
-		where id = #{id}
+		where id = #{id} and delete_flag = false
 	</select>
 
 	<select id="selectOne" parameterType="com.fish.user.entity.User" resultType="com.fish.user.entity.User">

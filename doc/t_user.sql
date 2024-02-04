@@ -20,8 +20,8 @@ create table if not exists "t_user"
     "phone"        varchar(20),
     "email"        varchar(100),
     "admin_flag"   int2         not null default 0,
-    "create_time"  timestamp(3) not null default current_timestamp,
-    "update_time"  timestamp(0) not null default current_timestamp,
+    "create_time"  timestamp(3)  default current_timestamp,
+    "update_time"  timestamp(0)  default current_timestamp,
     "delete_flag"  bool         not null default false
 )
 ;

@@ -60,10 +60,10 @@ public class JobInfoController {
 		model.addAttribute("MisfireStrategyEnum", MisfireStrategyEnum.values()); // 调度过期策略
 
 		// 执行器列表
-		List<XxlJobGroup> jobGroupList_all = xxlJobGroupDao.findAll();
+		List<XxlJobGroup> jobGroupListAll = xxlJobGroupDao.findAll();
 
 		// filter group
-		List<XxlJobGroup> jobGroupList = filterJobGroupByRole(request, jobGroupList_all);
+		List<XxlJobGroup> jobGroupList = filterJobGroupByRole(request, jobGroupListAll);
 		if (jobGroupList == null || jobGroupList.isEmpty()) {
 			throw new XxlJobException(I18nUtil.getString("jobgroup_empty"));
 		}
@@ -75,19 +75,19 @@ public class JobInfoController {
 	}
 
 	public static List<XxlJobGroup> filterJobGroupByRole(HttpServletRequest request,
-			List<XxlJobGroup> jobGroupList_all) {
+			List<XxlJobGroup> jobGroupListAll) {
 		List<XxlJobGroup> jobGroupList = new ArrayList<>();
-		if (jobGroupList_all != null && !jobGroupList_all.isEmpty()) {
+		if (jobGroupListAll != null && !jobGroupListAll.isEmpty()) {
 			XxlJobUser loginUser = (XxlJobUser) request.getAttribute(LoginService.LOGIN_IDENTITY_KEY);
 			if (loginUser.getRole() == 1) {
-				jobGroupList = jobGroupList_all;
+				jobGroupList = jobGroupListAll;
 			}
 			else {
 				List<String> groupIdStrs = new ArrayList<>();
 				if (loginUser.getPermission() != null && !loginUser.getPermission().trim().isEmpty()) {
 					groupIdStrs = Arrays.asList(loginUser.getPermission().trim().split(","));
 				}
-				for (XxlJobGroup groupItem : jobGroupList_all) {
+				for (XxlJobGroup groupItem : jobGroupListAll) {
 					if (groupIdStrs.contains(String.valueOf(groupItem.getId()))) {
 						jobGroupList.add(groupItem);
 					}

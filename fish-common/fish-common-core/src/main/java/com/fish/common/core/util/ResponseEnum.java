@@ -22,6 +22,7 @@ public enum ResponseEnum implements IResult {
     USER_ERROR("A0001", "用户端错误"),
     USER_REQ_PARAS_ERROR("A0400", "用户请求参数错误"),
 	USER_NULL_PARAS_ERROR("A0500", "用户请求的参数有空值"),
+	NOT_AUTH("A0600", "操作没有被授权"),
 
 
     SYSTEM_RUN_ERROR("B0001", "系统执行出错"),
@@ -44,6 +45,7 @@ public enum ResponseEnum implements IResult {
     SYSTEM_ERROR("5000", "系统错误，请稍后再试"),
     DATE_TIME_PARSE_ERROR("5001", "日期时间解析异常"),
 	TOKEN_PARSE_ERROR("5002", "Token 解析异常"),
+	BAD_SQL_GRAMMAR("6000", "错误的 SQL 语法异常")
     ;
     // @formatter:on
 

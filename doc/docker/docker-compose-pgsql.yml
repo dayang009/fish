@@ -1,13 +1,16 @@
 version: '3.8'
 
 services:
-  pgsql:
-    image: postgres:14.9
+
+  postgresql:
+    image: postgres:15.5
     restart: always
     privileged: true
     container_name: postgres
     ports:
     - "5432:5432"
+    networks:
+    - pgsql-app
     volumes:
     - ./pgdata:/var/lib/postgresql/data/pgdata
     environment:
@@ -17,3 +20,22 @@ services:
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
     - PGDATA=/var/lib/postgresql/data/pgdata
+
+  pgadmin4:
+    image: dpage/pgadmin4:8.2
+    restart: always
+    privileged: true
+    container_name: pgadmin
+    ports:
+    - "5436:80"
+    networks:
+    - pgsql-app
+    depends_on:
+    - postgresql
+    environment:
+    - PGADMIN_DEFAULT_EMAIL=dayangtop@163.com
+    - PGADMIN_DEFAULT_PASSWORD=qwer1234!@#$
+
+networks:
+  pgsql-app:
+    driver: bridge
