@@ -1,5 +1,5 @@
 server:
-  port: 36905
+  port: 36911
 
 spring:
   application:
@@ -17,7 +17,6 @@ spring:
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
         refresh-enabled: true
-        # 用于共享的配置文件
         shared-configs:
         - data-id: share-fish-config.yaml
           refresh: true
@@ -43,7 +42,10 @@ eureka:
       defaultZone: http://@eureka.fish.ip@:@eureka.fish.port@/eureka/
 
 
-xxljob:
-  admin-addresses: http://${artifactId:127.0.0.1}:36903/xxl-job-admin
-  appname: default-executor
-  port: 9898
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+#    org.springframework.boot.autoconfigure: DEBUG

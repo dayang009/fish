@@ -42,7 +42,7 @@ public class XmlFileListener extends FileAlterationListenerAdaptor {
 
 	@Override
 	public void onFileCreate(File file) {
-		System.out.println("文件创建" + file.getAbsolutePath());
+		log.info("文件创建 {}", file.getAbsolutePath());
 		fileService.handleXmlFile(file);
 	}
 

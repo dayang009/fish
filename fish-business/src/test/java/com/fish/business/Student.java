@@ -15,6 +15,11 @@ public class Student implements Serializable {
 	public Student() {
 	}
 
+	public Student(String name, Integer age) {
+		this.name = name;
+		this.age = age;
+	}
+
 	public Student(String id, String name, Integer age) {
 		this.id = id;
 		this.name = name;

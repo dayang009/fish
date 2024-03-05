@@ -1,5 +1,5 @@
 server:
-  port: 36901
+  port: ${FISH_GATEWAY_PORT:36901}
 
 spring:
   application:
@@ -83,3 +83,9 @@ management:
     web:
       exposure:
         include: "*"
+
+logging:
+  level:
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: debug
+    org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler: debug
+    org.springframework.core.codec.CharSequenceEncoder: debug

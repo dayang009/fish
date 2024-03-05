@@ -1,5 +1,8 @@
 package com.fish.business;
 
-class BusinessApplicationTest {
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest(classes = { BusinessApplication.class })
+public class BusinessApplicationTest {
 
 }

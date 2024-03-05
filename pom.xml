@@ -21,6 +21,7 @@
         <module>fish-flow</module>
         <module>fish-gateway</module>
         <module>fish-job-admin</module>
+        <module>fish-oauth</module>
         <module>fish-register</module>
         <module>fish-user</module>
     </modules>
@@ -280,6 +281,13 @@
                 <version>0.4.0</version>
             </dependency>
 
+            <!-- Spring Authorization Server -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-oauth2-authorization-server</artifactId>
+                <version>0.4.5</version>
+            </dependency>
+
             <!-- SpringBoot 聚合依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -307,11 +315,28 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- 监控服务聚合依赖 -->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>2.7.15</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- Swagger 增强聚合依赖 -->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-dependencies</artifactId>
                 <version>4.4.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-dependencies</artifactId>
+                <version>4.5.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -477,6 +502,7 @@
                 <version>3.3.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                    <propertiesEncoding>UTF-8</propertiesEncoding>
                     <!-- 这些后缀结尾的文件不进行编译 -->
                     <nonFilteredFileExtensions>
                         <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
@@ -560,7 +586,7 @@
                 <nacos.fish.username>nacos</nacos.fish.username>
                 <nacos.fish.password>nacos</nacos.fish.password>
                 <nacos.fish.namespace>fish_dev</nacos.fish.namespace>
-                <nacos.fish.group>FISH</nacos.fish.group>
+                <nacos.fish.group>DEFAULT_GROUP</nacos.fish.group>
                 <eureka.fish.ip>127.0.0.1</eureka.fish.ip>
                 <eureka.fish.port>36900</eureka.fish.port>
             </properties>

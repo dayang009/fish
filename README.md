@@ -45,6 +45,12 @@ alter table public.t_user
     alter column id set default nextval('public.t_user_id_seq')
 ```
 
+## 修改版本号
+
+``` shell
+mvn version:set -DnowVersion=0.1.1
+```
+
 
 
 
