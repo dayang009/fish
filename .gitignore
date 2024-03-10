@@ -10,6 +10,8 @@ transaction-logs/
 *.log
 *.ctxt
 
+pom.xml.versionsBackup
+
 # Package Files #
 *.jar
 *.war

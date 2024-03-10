@@ -1,6 +1,6 @@
 package com.xxl.job.core.util;
 
-import com.xxl.job.core.biz.model.ReturnT;
+import com.fish.common.core.util.ReturnT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

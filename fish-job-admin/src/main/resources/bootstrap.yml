@@ -36,6 +36,9 @@ spring:
         server-addr: @nacos.fish.ip@:@nacos.fish.port@
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
+    inetutils:
+      ignored-interfaces:
+      - VMware.*
   freemarker:
     suffix: ".ftl"
     charset: UTF-8

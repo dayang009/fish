@@ -53,3 +53,4 @@ logging:
     com.netflix.eureka.registry: warn
     com.fish: info
     com.xxl.job.admin.dao: info
+    com.alibaba.cloud.nacos.client.NacosPropertySourceBuilder: error

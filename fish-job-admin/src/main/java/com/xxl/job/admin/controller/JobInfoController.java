@@ -1,5 +1,6 @@
 package com.xxl.job.admin.controller;
 
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.controller.annotation.PermissionLimit;
 import com.xxl.job.admin.core.exception.XxlJobException;
 import com.xxl.job.admin.core.model.XxlJobGroup;
@@ -15,7 +16,6 @@ import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.dao.XxlJobGroupDao;
 import com.xxl.job.admin.service.LoginService;
 import com.xxl.job.admin.service.XxlJobService;
-import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.glue.GlueTypeEnum;
 import com.xxl.job.core.util.DateUtil;
@@ -122,24 +122,28 @@ public class JobInfoController {
 		return xxlJobService.add(jobInfo);
 	}
 
+	@PermissionLimit(limit = false)
 	@RequestMapping("/update")
 	@ResponseBody
 	public ReturnT<String> update(XxlJobInfo jobInfo) {
 		return xxlJobService.update(jobInfo);
 	}
 
+	@PermissionLimit(limit = false)
 	@RequestMapping("/remove")
 	@ResponseBody
 	public ReturnT<String> remove(int id) {
 		return xxlJobService.remove(id);
 	}
 
+	@PermissionLimit(limit = false)
 	@RequestMapping("/stop")
 	@ResponseBody
 	public ReturnT<String> pause(int id) {
 		return xxlJobService.stop(id);
 	}
 
+	@PermissionLimit(limit = false)
 	@RequestMapping("/start")
 	@ResponseBody
 	public ReturnT<String> start(int id) {

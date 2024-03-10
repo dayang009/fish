@@ -1,4 +1,4 @@
-package com.xxl.job.core.biz.model;
+package com.fish.common.core.util;
 
 import java.io.Serializable;
 

@@ -4,6 +4,9 @@ spring:
   profiles:
     active: @profiles.active@
   cloud:
+    inetutils:
+      ignored-interfaces:
+      - VMware.*
     nacos:
       username: @nacos.fish.username@
       password: @nacos.fish.password@

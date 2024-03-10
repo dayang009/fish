@@ -45,13 +45,37 @@ alter table public.t_user
     alter column id set default nextval('public.t_user_id_seq')
 ```
 
-## 修改版本号
+### 修改版本号
 
 ``` shell
 mvn version:set -DnowVersion=0.1.1
 ```
 
+### 提交版本号
 
+``` bash
+mvn versions:commit
+```
+
+### 回滚版本号
+
+``` bash
+mvn versions:revert
+```
+
+
+
+https://www.mojohaus.org/versions/versions-maven-plugin/use-next-releases-mojo.html
+
+
+
+versions:use-next-releases searches the pom for all non-SNAPSHOT versions which have been a newer release and replaces them with the next release version.
+versions:use-latest-releases searches the pom for all non-SNAPSHOT versions which have been a newer release and replaces them with the latest release version.
+versions:use-next-snapshots searches the pom for all non-SNAPSHOT versions which have been a newer -SNAPSHOT version and replaces them with the next -SNAPSHOT version.
+versions:use-latest-snapshots searches the pom for all non-SNAPSHOT versions which have been a newer -SNAPSHOT version and replaces them with the latest -SNAPSHOT version.
+versions:use-next-versions searches the pom for all versions which have been a newer version and replaces them with the next version.
+versions:use-latest-versions searches the pom for all versions which have been a newer version and replaces them with the latest version.
+———————————————
 
 
 
@@ -530,6 +554,22 @@ docker run -d \
 
 keytool -import -alias mycert -filewww.xxx.com+5.pem -keystore D:\cert\www.xxx.com+5.jks
 ```
+
+
+
+## 远程调试参数
+
+``` bash
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar YourJavaApp.jar
+```
+
+> 上边这条命令的作用是设置Java的远程调试参数，具体解释如下
+
+- `-agentlib:jdwp`:指定使用 jdwp 调试协议
+- `transport=dt_socket`: 使用 socket 传输方式
+- `server=y`: 作为调试服务器
+- `suspend=n`:不暂停程序等待调试器链接
+- `address=localhost:5005`: 指定调试器连接的地址和端口号
 
 
 

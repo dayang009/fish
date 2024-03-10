@@ -1,5 +1,6 @@
 package com.xxl.job.core.biz;
 
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.biz.model.*;
 
 /**

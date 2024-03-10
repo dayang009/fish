@@ -24,6 +24,13 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.fish</groupId>
+            <artifactId>fish-common-core</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- ********************** embed server: netty + gson ********************** -->
         <dependency>
             <groupId>io.netty</groupId>

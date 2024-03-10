@@ -1,7 +1,7 @@
 package com.xxl.job.admin.core.route.strategy;
 
 import com.xxl.job.admin.core.route.ExecutorRouter;
-import com.xxl.job.core.biz.model.ReturnT;
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
 
 import java.nio.charset.StandardCharsets;

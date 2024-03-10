@@ -15,6 +15,6 @@ public interface UserClient {
 	String demo01();
 
 	@DeleteMapping("/{id}")
-	RespResult<?> delete(@PathVariable(value = "id") Serializable id);
+	RespResult<String> delete(@PathVariable(value = "id") Serializable id);
 
 }

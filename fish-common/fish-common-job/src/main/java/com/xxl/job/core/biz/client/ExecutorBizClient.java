@@ -1,5 +1,6 @@
 package com.xxl.job.core.biz.client;
 
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.biz.ExecutorBiz;
 import com.xxl.job.core.biz.model.*;
 import com.xxl.job.core.util.XxlJobRemotingUtil;

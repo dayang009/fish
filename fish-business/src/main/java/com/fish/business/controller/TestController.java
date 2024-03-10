@@ -1,12 +1,15 @@
 package com.fish.business.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.http.HttpUtil;
 import com.fish.business.config.SchedulerConfig;
 import com.fish.common.core.config.NotControllerResponseAdvice;
 import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.util.RespResult;
+import com.fish.common.core.util.YangUtil;
+import com.fish.common.feign.client.JobInfoClient;
 import com.fish.common.feign.client.UserClient;
-import com.fish.common.feign.client.XxlJobClient;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +38,7 @@ public class TestController {
 	private UserClient userClient;
 
 	@Resource
-	private XxlJobClient xxlJobClient;
+	private JobInfoClient jobInfoClient;
 
 	@Operation(summary = "添加一个定时任务")
 	@GetMapping("/demo01")
@@ -91,36 +94,48 @@ public class TestController {
 	@Operation(summary = "测试 Feign 调用 XXL-JOB 模块")
 	@GetMapping("/demo07")
 	public RespResult<?> demo07() {
+
 		XxlJobInfo xxlJobInfo = new XxlJobInfo();
-		xxlJobInfo.setId(0);
+		// 执行器，只有一个写 1
 		xxlJobInfo.setJobGroup(1);
 		xxlJobInfo.setJobDesc("任务描述");
-		xxlJobInfo.setAddTime(null);
-		xxlJobInfo.setUpdateTime(null);
 		xxlJobInfo.setAuthor("dayang");
 		xxlJobInfo.setAlarmEmail("dayangtop@163.com");
 		xxlJobInfo.setScheduleType("CRON");
-		xxlJobInfo.setScheduleConf("0 0,10,20,30,40,50 * * * ?");
+		xxlJobInfo.setScheduleConf(YangUtil.dateToCron(DateUtil.offsetSecond(new Date(), 5)));
+		/*
+		 * DO_NOTHING ===> 任务过期了忽略，什么也不执行 FIRE_ONCE_NOW ===> 添加的任务已经过期，失火了，立即执行一次
+		 */
 		xxlJobInfo.setMisfireStrategy("DO_NOTHING");
+		// 路由策略，第一个 FIRST，有多个执行器的时候才生效
 		xxlJobInfo.setExecutorRouteStrategy("FIRST");
-		xxlJobInfo.setExecutorHandler("JobHandler");
+		// JobHandler，执行器，任务的名称
+		xxlJobInfo.setExecutorHandler("test");
+		// 传入的参数
 		xxlJobInfo.setExecutorParam("param1, param2");
+		// 阻塞处理策略，单机串行 SERIAL_EXECUTION
 		xxlJobInfo.setExecutorBlockStrategy("SERIAL_EXECUTION");
+		// 任务执行超时时间，单位秒，大于 0 时候生效
 		xxlJobInfo.setExecutorTimeout(0);
+		// 重试次数
 		xxlJobInfo.setExecutorFailRetryCount(0);
 		xxlJobInfo.setGlueType("BEAN");
 		xxlJobInfo.setGlueSource("");
+		// 备注
 		xxlJobInfo.setGlueRemark("GLUE代码初始化");
-		xxlJobInfo.setGlueUpdatetime(null);
 		xxlJobInfo.setChildJobId("");
-		xxlJobInfo.setTriggerStatus(1);
+		// 是否启用
+		xxlJobInfo.setTriggerStatus(0);
 		xxlJobInfo.setTriggerLastTime(0L);
 		xxlJobInfo.setTriggerNextTime(0L);
 
-		RespResult<String> add = xxlJobClient.add(xxlJobInfo);
+		// 这种方式调用有问题，接收到的参数都为空
+		// ReturnT<String> add = jobInfoClient.add(xxlJobInfo);
+
+		String add = HttpUtil.post("http://127.0.0.1:36903/xxl-job-admin/jobinfo/add", BeanUtil.beanToMap(xxlJobInfo));
 
 		log.info("feign调用返回结果 ===> {}", add);
-		return add;
+		return RespResult.success(add);
 	}
 
 }
