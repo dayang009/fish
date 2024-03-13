@@ -213,7 +213,7 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>5.8.26</version>
+                <version>5.8.25</version>
             </dependency>
 
             <!-- Token 生成和解析 -->
