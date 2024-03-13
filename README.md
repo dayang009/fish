@@ -573,3 +573,37 @@ java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar You
 
 
 
+docker pull maven:3.9.6-ibmjava-8
+
+
+
+docker pull maven:3.6.3-jdk-8-slim
+
+
+
+
+
+https://www.win-rar.com/fileadmin/winrar-versions/sc/sc20240306/rrlb/winrar-x64-700sc.exe
+
+
+
+
+
+1252
+
+
+
+2022-10-2 500
+
+2023-9-20  1200
+
+
+
+![image-20240311211006525](C:\Users\dayang\AppData\Roaming\Typora\typora-user-images\image-20240311211006525.png)
+
+
+
+
+
+
+

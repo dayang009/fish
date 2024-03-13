@@ -5,11 +5,14 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.http.HttpUtil;
 import com.fish.business.config.SchedulerConfig;
 import com.fish.common.core.config.NotControllerResponseAdvice;
+import com.fish.common.core.entity.Student;
 import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.util.RespResult;
 import com.fish.common.core.util.YangUtil;
 import com.fish.common.feign.client.JobInfoClient;
 import com.fish.common.feign.client.UserClient;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +22,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 
 @Tag(name = "测试控制参数")
@@ -136,6 +139,71 @@ public class TestController {
 
 		log.info("feign调用返回结果 ===> {}", add);
 		return RespResult.success(add);
+	}
+
+	@GetMapping("/demo08")
+	public void demo08(HttpServletRequest request) {
+		String remoteAddr = request.getRemoteAddr();
+
+		log.info("调用方地址 ===> {}", remoteAddr);
+		List<Student> testList = this.getTestList();
+		Gson gson = YangUtil.getGson();
+		String json = gson.toJson(testList);
+
+		List<Student> students = gson.fromJson(json, new TypeToken<List<Student>>() {
+		}.getType());
+		log.info(students.toString());
+
+	}
+
+	private List<Student> getTestList() {
+		Student s1 = new Student();
+		s1.setId("111");
+		s1.setNickName("zhangSan");
+		s1.setUserAccount("aaabbb");
+		s1.setUserPwd("123456");
+		s1.setGender(0);
+		s1.setAge(18);
+		s1.setPhone("18855554444");
+		s1.setEmail("123@qq.com");
+		s1.setAdminFlag(0);
+		s1.setCreateTime(LocalDateTime.now());
+		s1.setUpdateTime(LocalDateTime.now());
+		s1.setDeleteFlag(false);
+
+		Student s2 = new Student();
+		s2.setId("222");
+		s2.setNickName("liSi");
+		s2.setUserAccount("85214adf24");
+		s2.setUserPwd("963258");
+		s2.setGender(1);
+		s2.setAge(88);
+		s2.setPhone("19955557741");
+		s2.setEmail("147258@qq.com");
+		s2.setAdminFlag(1);
+		s2.setCreateTime(LocalDateTime.now());
+		s2.setUpdateTime(LocalDateTime.now());
+		s2.setDeleteFlag(false);
+
+		Student s3 = new Student();
+		s3.setId("333");
+		s3.setNickName("");
+		s3.setUserAccount("");
+		s3.setUserPwd("");
+		s3.setGender(0);
+		s3.setAge(0);
+		s3.setPhone("19955552222");
+		s3.setEmail("hahah@163.com");
+		s3.setAdminFlag(0);
+		s3.setCreateTime(LocalDateTime.now());
+		s3.setUpdateTime(LocalDateTime.now());
+		s3.setDeleteFlag(true);
+
+		List<Student> students = new ArrayList<>();
+		students.add(s1);
+		students.add(s2);
+		students.add(s3);
+		return students;
 	}
 
 }

@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import java.io.File;
 
 /**
- * 自定义文件监听类并继承 FileAlterationListenerAdaptor 实现对文件与目录的创建，修改，删除事件的处理
+ * 自定义文件监听类并继承 {@link FileAlterationListenerAdaptor} 实现对文件与目录的创建，修改，删除事件的处理
  *
  * @author dayang
  */
@@ -22,33 +22,33 @@ public class XmlFileListener extends FileAlterationListenerAdaptor {
 
 	@Override
 	public void onDirectoryChange(File directory) {
-		System.out.println("目录改变：" + directory.getAbsolutePath());
+		log.info("目录改变 ===> {}", directory.getAbsolutePath());
 	}
 
 	@Override
 	public void onDirectoryCreate(File directory) {
-		System.out.println("目录新建：" + directory.getAbsolutePath());
+		log.info("目录新建 ===> {}", directory.getAbsolutePath());
 	}
 
 	@Override
 	public void onDirectoryDelete(File directory) {
-		System.out.println("目录删除：" + directory.getAbsolutePath());
+		log.info("目录删除 ===> {}", directory.getAbsolutePath());
 	}
 
 	@Override
 	public void onFileChange(File file) {
-		System.out.println("文件改变" + file.getAbsolutePath());
+		log.info("文件改变 ===> {}", file.getAbsolutePath());
 	}
 
 	@Override
 	public void onFileCreate(File file) {
-		log.info("文件创建 {}", file.getAbsolutePath());
+		log.info("文件创建 ===> {}", file.getAbsolutePath());
 		fileService.handleXmlFile(file);
 	}
 
 	@Override
 	public void onFileDelete(File file) {
-		System.out.println("文件删除" + file.getAbsolutePath());
+		log.info("文件删除 ===> {}", file.getAbsolutePath());
 	}
 
 }

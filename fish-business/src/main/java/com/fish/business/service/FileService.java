@@ -22,7 +22,7 @@ public class FileService {
 
 	public void handleXmlFile(@RequestParam File file) {
 		String s1 = FileUtil.readUtf8String(file);
-		// String s = analysisFile(file);
+		String s = analysisFile(file);
 		JSONObject entries = JSONUtil.parseFromXml(s1);
 		JSONObject setString = entries.getJSONObject("settings");
 
