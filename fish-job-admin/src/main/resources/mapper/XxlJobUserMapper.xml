@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxl.job.admin.dao.XxlJobUserDao">
 
-	<resultMap id="XxlJobUser" type="com.xxl.job.admin.core.model.XxlJobUser" >
+	<resultMap id="XxlJobUser" type="com.fish.common.core.entity.XxlJobUser" >
 		<result column="id" property="id" />
 		<result column="username" property="username" />
 	    <result column="password" property="password" />
@@ -53,7 +53,7 @@
 		where t.username = #{username}
 	</select>
 
-	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobUser" useGeneratedKeys="true" keyProperty="id" >
+	<insert id="save" parameterType="com.fish.common.core.entity.XxlJobUser" useGeneratedKeys="true" keyProperty="id" >
 		insert into xxl_job_user (
 			username,
 			password,
@@ -67,7 +67,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.xxl.job.admin.core.model.XxlJobUser" >
+	<update id="update" parameterType="com.fish.common.core.entity.XxlJobUser" >
 		update xxl_job_user
 		set
 		<if test="password != null and password != ''">

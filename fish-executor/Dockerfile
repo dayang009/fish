@@ -1,7 +1,5 @@
 FROM alibabadragonwell/dragonwell:8-anolis
 
-MAINTAINER dayang <dayangtop@163.com>
-
 WORKDIR /fish-executor
 
 ARG JAR_FILE=target/fish-executor.jar

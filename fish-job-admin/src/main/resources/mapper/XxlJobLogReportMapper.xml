@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxl.job.admin.dao.XxlJobLogReportDao">
 	
-	<resultMap id="XxlJobLogReport" type="com.xxl.job.admin.core.model.XxlJobLogReport" >
+	<resultMap id="XxlJobLogReport" type="com.fish.common.core.entity.XxlJobLogReport" >
 		<result column="id" property="id" />
 	    <result column="trigger_day" property="triggerDay" />
 		<result column="running_count" property="runningCount" />
@@ -19,7 +19,7 @@
 		t.fail_count
 	</sql>
 	
-	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobLogReport" useGeneratedKeys="true" keyProperty="id" >
+	<insert id="save" parameterType="com.fish.common.core.entity.XxlJobLogReport" useGeneratedKeys="true" keyProperty="id" >
 		insert into xxl_job_log_report (
 			trigger_day,
 			running_count,

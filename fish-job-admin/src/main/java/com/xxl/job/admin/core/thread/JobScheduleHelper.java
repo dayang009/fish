@@ -3,7 +3,7 @@ package com.xxl.job.admin.core.thread;
 import cn.hutool.core.collection.CollectionUtil;
 import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.xxl.job.admin.core.cron.CronExpression;
-import com.xxl.job.admin.core.model.XxlJobInfo;
+import com.fish.common.core.entity.XxlJobInfo;
 import com.xxl.job.admin.core.scheduler.MisfireStrategyEnum;
 import com.xxl.job.admin.core.scheduler.ScheduleTypeEnum;
 import com.xxl.job.admin.core.trigger.TriggerTypeEnum;

@@ -1,11 +1,11 @@
 package com.xxl.job.admin.controller;
 
+import com.fish.common.core.entity.XxlJobGroup;
+import com.fish.common.core.entity.XxlJobInfo;
+import com.fish.common.core.entity.XxlJobUser;
 import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.controller.annotation.PermissionLimit;
 import com.xxl.job.admin.core.exception.XxlJobException;
-import com.xxl.job.admin.core.model.XxlJobGroup;
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.model.XxlJobUser;
 import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.xxl.job.admin.core.scheduler.MisfireStrategyEnum;
 import com.xxl.job.admin.core.scheduler.ScheduleTypeEnum;
@@ -106,6 +106,7 @@ public class JobInfoController {
 		}
 	}
 
+	@PermissionLimit(limit = false)
 	@RequestMapping("/pageList")
 	@ResponseBody
 	public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
@@ -150,9 +151,9 @@ public class JobInfoController {
 		return xxlJobService.start(id);
 	}
 
+	@PermissionLimit(limit = false)
 	@RequestMapping("/trigger")
 	@ResponseBody
-	// @PermissionLimit(limit = false)
 	public ReturnT<String> triggerJob(int id, String executorParam, String addressList) {
 		// force cover job param
 		if (executorParam == null) {

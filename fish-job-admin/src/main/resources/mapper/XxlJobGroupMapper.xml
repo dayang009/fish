@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxl.job.admin.dao.XxlJobGroupDao">
 
-	<resultMap id="XxlJobGroup" type="com.xxl.job.admin.core.model.XxlJobGroup">
+	<resultMap id="XxlJobGroup" type="com.fish.common.core.entity.XxlJobGroup">
 		<result column="id" property="id"/>
 		<result column="app_name" property="appname"/>
 		<result column="title" property="title"/>
@@ -36,12 +36,12 @@
 		order by t.app_name, t.title, t.id
 	</select>
 
-	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="com.fish.common.core.entity.XxlJobGroup" useGeneratedKeys="true" keyProperty="id">
 		insert into xxl_job_group (app_name, title, address_type, address_list, update_time)
 		values (#{appname}, #{title}, #{addressType}, #{addressList}, #{updateTime});
 	</insert>
 
-	<update id="update" parameterType="com.xxl.job.admin.core.model.XxlJobGroup">
+	<update id="update" parameterType="com.fish.common.core.entity.XxlJobGroup">
 		update xxl_job_group
 		set app_name     = #{appname},
 			title        = #{title},

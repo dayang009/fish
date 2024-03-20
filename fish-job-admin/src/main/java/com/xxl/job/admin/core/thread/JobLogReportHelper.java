@@ -1,7 +1,7 @@
 package com.xxl.job.admin.core.thread;
 
 import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
-import com.xxl.job.admin.core.model.XxlJobLogReport;
+import com.fish.common.core.entity.XxlJobLogReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

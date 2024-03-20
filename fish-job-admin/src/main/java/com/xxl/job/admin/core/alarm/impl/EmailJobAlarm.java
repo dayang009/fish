@@ -2,9 +2,9 @@ package com.xxl.job.admin.core.alarm.impl;
 
 import com.xxl.job.admin.core.alarm.JobAlarm;
 import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
-import com.xxl.job.admin.core.model.XxlJobGroup;
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.model.XxlJobLog;
+import com.fish.common.core.entity.XxlJobGroup;
+import com.fish.common.core.entity.XxlJobInfo;
+import com.fish.common.core.entity.XxlJobLog;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.fish.common.core.util.ReturnT;
 import org.slf4j.Logger;

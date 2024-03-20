@@ -1,8 +1,8 @@
 package com.xxl.job.admin.core.alarm;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.model.XxlJobLog;
+import com.fish.common.core.entity.XxlJobInfo;
+import com.fish.common.core.entity.XxlJobLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

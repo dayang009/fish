@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxl.job.admin.dao.XxlJobInfoDao">
-	<resultMap id="XxlJobInfo" type="com.xxl.job.admin.core.model.XxlJobInfo">
+	<resultMap id="XxlJobInfo" type="com.fish.common.core.entity.XxlJobInfo">
 		<result column="id" property="id"/>
 
 		<result column="job_group" property="jobGroup"/>
@@ -100,18 +100,18 @@
 				and t.trigger_status = #{triggerStatus}
 			</if>
 			<if test="jobDesc != null and jobDesc != ''">
-				and t.job_desc like concat(concat('%', #{jobDesc}), '%')
+				and t.job_desc like concat(concat('%', #{jobDesc}::text), '%')
 			</if>
 			<if test="executorHandler != null and executorHandler != ''">
-				and t.executor_handler like concat(concat('%', #{executorHandler}), '%')
+				and t.executor_handler like concat(concat('%', #{executorHandler}::text), '%')
 			</if>
 			<if test="author != null and author != ''">
-				and t.author like concat(concat('%', #{author}), '%')
+				and t.author like concat(concat('%', #{author}::text), '%')
 			</if>
 		</trim>
 	</select>
 
-	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobInfo" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="com.fish.common.core.entity.XxlJobInfo" useGeneratedKeys="true" keyProperty="id">
 		insert into xxl_job_info (job_group,
 								  job_desc,
 								  add_time,
@@ -167,7 +167,7 @@
 		where t.id = #{id}
 	</select>
 
-	<update id="update" parameterType="com.xxl.job.admin.core.model.XxlJobInfo">
+	<update id="update" parameterType="com.fish.common.core.entity.XxlJobInfo">
 		update xxl_job_info
 		set job_group                 = #{jobGroup},
 			job_desc                  = #{jobDesc},
@@ -223,7 +223,7 @@
 		limit #{pagesize}
 	</select>
 
-	<update id="scheduleUpdate" parameterType="com.xxl.job.admin.core.model.XxlJobInfo">
+	<update id="scheduleUpdate" parameterType="com.fish.common.core.entity.XxlJobInfo">
 		update xxl_job_info
 		set trigger_last_time = #{triggerLastTime},
 			trigger_next_time = #{triggerNextTime},

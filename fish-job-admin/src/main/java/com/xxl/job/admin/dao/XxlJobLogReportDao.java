@@ -1,6 +1,6 @@
 package com.xxl.job.admin.dao;
 
-import com.xxl.job.admin.core.model.XxlJobLogReport;
+import com.fish.common.core.entity.XxlJobLogReport;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

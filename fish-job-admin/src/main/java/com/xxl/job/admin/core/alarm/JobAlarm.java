@@ -1,7 +1,7 @@
 package com.xxl.job.admin.core.alarm;
 
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.model.XxlJobLog;
+import com.fish.common.core.entity.XxlJobInfo;
+import com.fish.common.core.entity.XxlJobLog;
 
 /**
  * @author xuxueli

@@ -1,8 +1,8 @@
 package com.xxl.job.admin.core.thread;
 
 import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
-import com.xxl.job.admin.core.model.XxlJobGroup;
-import com.xxl.job.admin.core.model.XxlJobRegistry;
+import com.fish.common.core.entity.XxlJobGroup;
+import com.fish.common.core.entity.XxlJobRegistry;
 import com.xxl.job.core.biz.model.RegistryParam;
 import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.enums.RegistryConfig;

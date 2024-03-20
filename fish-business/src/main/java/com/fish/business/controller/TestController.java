@@ -1,13 +1,12 @@
 package com.fish.business.controller;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.http.HttpUtil;
 import com.fish.business.config.SchedulerConfig;
 import com.fish.common.core.config.NotControllerResponseAdvice;
 import com.fish.common.core.entity.Student;
 import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.util.RespResult;
+import com.fish.common.core.util.ReturnT;
 import com.fish.common.core.util.YangUtil;
 import com.fish.common.feign.client.JobInfoClient;
 import com.fish.common.feign.client.UserClient;
@@ -105,11 +104,11 @@ public class TestController {
 		xxlJobInfo.setAuthor("dayang");
 		xxlJobInfo.setAlarmEmail("dayangtop@163.com");
 		xxlJobInfo.setScheduleType("CRON");
-		xxlJobInfo.setScheduleConf(YangUtil.dateToCron(DateUtil.offsetSecond(new Date(), 5)));
+		xxlJobInfo.setScheduleConf(YangUtil.dateToCron(DateUtil.offsetSecond(DateUtil.date(), 10)));
 		/*
 		 * DO_NOTHING ===> 任务过期了忽略，什么也不执行 FIRE_ONCE_NOW ===> 添加的任务已经过期，失火了，立即执行一次
 		 */
-		xxlJobInfo.setMisfireStrategy("DO_NOTHING");
+		xxlJobInfo.setMisfireStrategy("FIRE_ONCE_NOW");
 		// 路由策略，第一个 FIRST，有多个执行器的时候才生效
 		xxlJobInfo.setExecutorRouteStrategy("FIRST");
 		// JobHandler，执行器，任务的名称
@@ -132,13 +131,11 @@ public class TestController {
 		xxlJobInfo.setTriggerLastTime(0L);
 		xxlJobInfo.setTriggerNextTime(0L);
 
-		// 这种方式调用有问题，接收到的参数都为空
-		// ReturnT<String> add = jobInfoClient.add(xxlJobInfo);
-
-		String add = HttpUtil.post("http://127.0.0.1:36903/xxl-job-admin/jobinfo/add", BeanUtil.beanToMap(xxlJobInfo));
+		ReturnT<String> add = jobInfoClient.add(xxlJobInfo);
+		ReturnT<String> start = jobInfoClient.start(add.getContent());
 
 		log.info("feign调用返回结果 ===> {}", add);
-		return RespResult.success(add);
+		return RespResult.success(start);
 	}
 
 	@GetMapping("/demo08")

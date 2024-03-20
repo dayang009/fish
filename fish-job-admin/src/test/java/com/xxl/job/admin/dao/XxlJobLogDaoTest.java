@@ -1,6 +1,6 @@
 package com.xxl.job.admin.dao;
 
-import com.xxl.job.admin.core.model.XxlJobLog;
+import com.fish.common.core.entity.XxlJobLog;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

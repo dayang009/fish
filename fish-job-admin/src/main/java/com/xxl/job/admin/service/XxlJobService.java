@@ -1,6 +1,6 @@
 package com.xxl.job.admin.service;
 
-import com.xxl.job.admin.core.model.XxlJobInfo;
+import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.util.ReturnT;
 
 import java.util.Date;

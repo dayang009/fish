@@ -1,4 +1,4 @@
-package com.xxl.job.admin.core.model;
+package com.fish.common.core.entity;
 
 import java.io.Serializable;
 import java.util.Date;

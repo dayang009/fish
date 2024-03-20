@@ -1,6 +1,6 @@
 package com.xxl.job.admin.service;
 
-import com.xxl.job.admin.core.model.XxlJobUser;
+import com.fish.common.core.entity.XxlJobUser;
 import com.xxl.job.admin.core.util.CookieUtil;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.core.util.JacksonUtil;

@@ -5,7 +5,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * xxl-job info {@link com.xxl.job.admin.core.model.XxlJobInfo}
+ * xxl-job info
+ *
+ * @author xuxueli
+ * @since 2016-1-12 18:25:49
  */
 public class XxlJobInfo implements Serializable {
 

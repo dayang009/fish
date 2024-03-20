@@ -2,9 +2,9 @@ package com.xxl.job.admin.service.impl;
 
 import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.core.cron.CronExpression;
-import com.xxl.job.admin.core.model.XxlJobGroup;
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.model.XxlJobLogReport;
+import com.fish.common.core.entity.XxlJobGroup;
+import com.fish.common.core.entity.XxlJobInfo;
+import com.fish.common.core.entity.XxlJobLogReport;
 import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.xxl.job.admin.core.scheduler.MisfireStrategyEnum;
 import com.xxl.job.admin.core.scheduler.ScheduleTypeEnum;

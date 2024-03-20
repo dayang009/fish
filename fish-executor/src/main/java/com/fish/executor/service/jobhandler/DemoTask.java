@@ -13,6 +13,7 @@ public class DemoTask {
 	public void demo01() {
 		String jobParam = XxlJobHelper.getJobParam();
 		log.info(jobParam);
+		XxlJobHelper.handleSuccess("处理成功");
 
 	}
 
