@@ -14,6 +14,7 @@
 		<result property="phone" column="phone" jdbcType="VARCHAR"/>
 		<result property="email" column="email" jdbcType="VARCHAR"/>
 		<result property="adminFlag" column="admin_flag" jdbcType="SMALLINT"/>
+		<result property="restaurant" column="restaurant" jdbcType="VARCHAR"/>
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
 		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
 		<result property="deleteFlag" column="delete_flag" jdbcType="BOOLEAN"/>
@@ -22,16 +23,49 @@
 	<sql id="Base_Column_List">
 		id,nick_name,user_account,
         user_pwd,gender,age,
-        phone,email,admin_flag,
+        phone,email,admin_flag,restaurant,
         create_time,update_time,delete_flag
+	</sql>
+
+	<sql id="insertkey">
+		<trim suffixOverrides=",">
+			<if test="nick_name != null and nick_name != ''">nick_name,</if>
+			<if test="user_account != null and user_account != ''">user_account,</if>
+			<if test="user_pwd != null and user_pwd != ''">user_pwd,</if>
+			<if test="gender != null and gender != ''">gender,</if>
+			<if test="age != null and age != ''">age,</if>
+			<if test="phone != null and phone != ''">phone,</if>
+			<if test="email != null and email != ''">email,</if>
+			<if test="admin_flag != null and admin_flag != ''">admin_flag,</if>
+			<if test="restaurant != null and restaurant != ''">restaurant,</if>
+		</trim>
+	</sql>
+
+	<sql id="insertvalue">
+		<trim suffixOverrides=",">
+			<if test="nickName != null and nickName != ''">#{nickName},</if>
+			<if test="userAccount != null and userAccount != ''">#{userAccount},</if>
+			<if test="userPwd != null and userPwd != ''">#{userPwd},</if>
+			<if test="gender != null and gender != ''">#{gender},</if>
+			<if test="age != null and age != ''">#{age},</if>
+			<if test="phone != null and phone != ''">#{phone},</if>
+			<if test="email != null and email != ''">#{email},</if>
+			<if test="adminFlag != null and adminFlag != ''">#{adminFlag},</if>
+			<if test="restaurant != null and restaurant != ''">#{restaurant},</if>
+		</trim>
 	</sql>
 
 	<!-- 主键自增回填 -->
 	<insert id="insert" parameterType="com.fish.user.entity.User" useGeneratedKeys="true" keyProperty="id">
-		insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email, admin_flag, create_time,
+		insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email, admin_flag, restaurant, create_time,
 						   update_time)
 		values (default, #{nickName}, #{userAccount}, #{userPwd}, #{gender}, #{age}, #{phone}, #{email}, #{adminFlag},
-				#{createTime}, #{updateTime})
+				#{restaurant},#{createTime}, #{updateTime})
+	</insert>
+
+	<insert id="insertIf" parameterType="com.fish.user.entity.User">
+		insert into t_user(<include refid="insertkey"></include>)
+		values (<include refid="insertvalue"></include>)
 	</insert>
 
 	<insert id="insertBatchSomeColumn" parameterType="list">

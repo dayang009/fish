@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * t_user
@@ -74,6 +75,8 @@ public class User implements Serializable {
 	 * 0-普通用户，1-管理员
 	 */
 	private Integer adminFlag = 0;
+
+	private List<Restaurant> restaurant;
 
 	/**
 	 * 创建时间 前端上送 2020年10月10日11时17分31秒

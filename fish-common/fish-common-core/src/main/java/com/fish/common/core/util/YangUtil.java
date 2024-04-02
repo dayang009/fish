@@ -2,7 +2,9 @@ package com.fish.common.core.util;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 import com.fish.common.core.config.LocalDateTimeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,12 +45,14 @@ public class YangUtil {
 			.create();
 	}
 
-	public static String getIpAddr(HttpServletRequest request) {
-		if (request == null) {
-			return "unknown";
+	public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
+		String[] headers = { "X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP",
+				"HTTP_X_FORWARDED_FOR" };
+		if (ArrayUtil.isNotEmpty(otherHeaderNames)) {
+			headers = ArrayUtil.addAll(headers, otherHeaderNames);
 		}
-		String ip = request.getHeader("x-forwarded-for");
-		return "0.0.0.0";
+
+		return ServletUtil.getClientIPByHeader(request, headers);
 	}
 
 }
