@@ -31,7 +31,7 @@ public class DirtyRecordRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		log.info(this.getClass().getName() + " ==> 开启文件夹监听功能，监听路径 {}", filePath);
+		log.info("开启文件夹监听功能，监听路径 {}", filePath);
 		XmlFileListener xmlFileListener = SpringUtil.getBean(XmlFileListener.class);
 		FileMonitor fileMonitor = new FileMonitor();
 		fileMonitor.monitor(filePath, xmlFileListener);

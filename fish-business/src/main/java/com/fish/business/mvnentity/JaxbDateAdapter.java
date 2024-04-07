@@ -1,5 +1,6 @@
 package com.fish.business.mvnentity;
 
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
@@ -10,22 +11,19 @@ import java.util.Date;
  *
  * @author dayang
  */
-public class JaxbDateAdapter extends XmlAdapter<String, Date> {
-
-	private static final String STD_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+public final class JaxbDateAdapter extends XmlAdapter<String, Date> {
 
 	@Override
-	public Date unmarshal(String v) throws Exception {
+	public Date unmarshal(String v) {
 		if (v == null) {
 			return null;
 		}
-		return DateUtil.parse(v, STD_DATE_FORMAT);
-		// return new SimpleDateFormat(STD_DATE_FORMAT).parse(v);
+		return DateUtil.parse(v, DatePattern.NORM_DATETIME_PATTERN);
 	}
 
 	@Override
 	public String marshal(Date v) {
-		return DateUtil.format(v, STD_DATE_FORMAT);
+		return DateUtil.format(v, DatePattern.NORM_DATETIME_PATTERN);
 	}
 
 }

@@ -38,7 +38,7 @@
 		</dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
+            <artifactId>hutool-extra</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

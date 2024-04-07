@@ -115,7 +115,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.2.21</version>
+                <version>1.2.22</version>
             </dependency>
             <!-- https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md -->
             <dependency>
@@ -209,13 +209,6 @@
             </dependency>
 
 
-            <!-- 工具类库 -->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>5.8.26</version>
-            </dependency>
-
             <!-- Token 生成和解析 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -269,6 +262,13 @@
                 <version>1.4.20</version>
             </dependency>
 
+            <!-- Commons项目中用来处理常用的编码方法的工具类包，例如 SHA1、MD5、Base64等等。 -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.16.1</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy</artifactId>
@@ -311,6 +311,15 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>2021.0.6.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- https://hutool.cn -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>5.8.27</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

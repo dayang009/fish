@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  *
  * @author dayang
  */
-public class JaxbNewDateAdapter extends XmlAdapter<String, LocalDateTime> {
+public final class JaxbNewDateAdapter extends XmlAdapter<String, LocalDateTime> {
 
 	@Override
 	public LocalDateTime unmarshal(String v) {

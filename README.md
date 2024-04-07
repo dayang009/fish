@@ -20,12 +20,11 @@ Hello World!!!
 | mybatis-plus                   | v3.5.5      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml) |                                                              |
 | pagehelper-spring-boot-starter | v2.1.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/pagehelper/pagehelper-spring-boot-starter/maven-metadata.xml) | MyBatis 推荐分页插件                                         |
 | dynamic-datasource             | v3.6.1      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml) | 指 dynamic-datasource-spring-boot-starter                    |
-| druid-spring-boot-starter      | v1.2.21     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/druid-spring-boot-starter/maven-metadata.xml) | 德鲁伊链接池                                                 |
+| druid-spring-boot-starter      | v1.2.22     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/druid-spring-boot-starter/maven-metadata.xml) | 德鲁伊链接池                                                 |
 | knife4j                        | v4.4.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/xiaoymin/knife4j-dependencies/maven-metadata.xml) | Knife4j是一个集Swagger2和OpenAPI3为一体的增强解决方案        |
 | springdoc                      | 1.7.0       | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml) | 用于生成 API doc，支持从 javadoc 中获取字段注释              |
 | guava                          | v32.1.3-jre | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml) |                                                              |
-| fastjson                       | 2.0.46      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml) | 使用的是不带英文后缀的版本                                   |
-| hutool                         | v5.8.25     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml) | Hutool 是一个小而全的 Java 工具类库                          |
+| hutool                         | v5.8.27     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml) | Hutool 是一个小而全的 Java 工具类库                          |
 
 
 
@@ -86,6 +85,7 @@ versions:use-latest-versions searches the pom for all versions which have been a
 delRepo.sh
 
 ``` bash
+#!/usr/bin/env bash
 echo search ing ...
 find . -name "*lastUpdated" | xargs rm -rf
 find . -name "_remote.repositories" | xargs rm -rf
@@ -151,6 +151,38 @@ pom.xml
 
 </project>
 ```
+
+
+
+## Hutool 包含组件
+
+一个Java基础工具类，对文件、流、加密解密、转码、正则、线程、XML等JDK方法进行封装，组成各种Util工具类，同时提供以下组件：
+
+
+
+| 模块               | 介绍                                                         |
+| ------------------ | ------------------------------------------------------------ |
+| hutool-aop         | JDK动态代理封装，提供非IOC下的切面支持                       |
+| hutool-bloomFilter | 布隆过滤，提供一些Hash算法的布隆过滤                         |
+| hutool-cache       | 简单缓存实现                                                 |
+| hutool-core        | 核心，包括Bean操作、日期、各种Util等                         |
+| hutool-cron        | 定时任务模块，提供类Crontab表达式的定时任务                  |
+| hutool-crypto      | 加密解密模块，提供对称、非对称和摘要算法封装                 |
+| hutool-db          | JDBC封装后的数据操作，基于ActiveRecord思想                   |
+| hutool-dfa         | 基于DFA模型的多关键字查找                                    |
+| hutool-extra       | 扩展模块，对第三方封装（模板引擎、邮件、Servlet、二维码、Emoji、FTP、分词等） |
+| hutool-http        | 基于HttpUrlConnection的Http客户端封装                        |
+| hutool-log         | 自动识别日志实现的日志门面                                   |
+| hutool-script      | 脚本执行封装，例如Javascript                                 |
+| hutool-setting     | 功能更强大的Setting配置文件和Properties封装                  |
+| hutool-system      | 系统参数调用封装（JVM信息等）                                |
+| hutool-json        | JSON实现                                                     |
+| hutool-captcha     | 图片验证码实现                                               |
+| hutool-poi         | 针对POI中Excel和Word的封装                                   |
+| hutool-socket      | 基于Java的NIO和AIO的Socket封装                               |
+| hutool-jwt         | JSON Web Token (JWT)封装实现                                 |
+
+
 
 
 
@@ -602,6 +634,26 @@ https://www.win-rar.com/fileadmin/winrar-versions/sc/sc20240306/rrlb/winrar-x64-
 ![image-20240311211006525](C:\Users\dayang\AppData\Roaming\Typora\typora-user-images\image-20240311211006525.png)
 
 
+
+
+
+fish_profiles_active:
+
+fish_nacos_ip:
+
+fish_nacos_port:
+
+fish_nacos_username:
+
+fish_nacos_password:
+
+fish_nacos_namespace:
+
+fish_nacos_group:
+
+fish_eureka_ip:
+
+fish_eureka_port:
 
 
 

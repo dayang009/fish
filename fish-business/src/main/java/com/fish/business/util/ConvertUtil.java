@@ -1,5 +1,6 @@
 package com.fish.business.util;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import org.apache.commons.lang.CharEncoding;
 import org.dom4j.Element;
@@ -13,7 +14,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,7 +85,7 @@ public class ConvertUtil {
 				field.set(obj, rootElt.elementTextTrim(name));
 			}
 			else if (field.getType().equals(java.util.Date.class)) {
-				field.set(obj, Date.parse(rootElt.elementTextTrim(name)));
+				field.set(obj, DateUtil.parse(rootElt.elementTextTrim(name)));
 			}
 			else if (field.getType().equals(Boolean.class) || field.getType().equals(boolean.class)) {
 				field.set(obj, Boolean.parseBoolean(rootElt.elementTextTrim(name)));

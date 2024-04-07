@@ -1,5 +1,6 @@
 package com.fish.user.controller;
 
+import com.fish.user.entity.Restaurant;
 import com.fish.user.entity.User;
 import com.fish.user.mapper.UserMapper;
 import com.google.common.collect.Lists;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,6 +73,18 @@ public class TestController {
 	@GetMapping("/demo04")
 	public User demo04() {
 		User user = new User();
+		user.setNickName("HelloWorld");
+		user.setUserAccount("1729806750");
+		user.setUserPwd("963258");
+		user.setGender(0);
+		user.setAge(10);
+		user.setPhone("18855556666");
+		user.setEmail("123@qq.com");
+		user.setAdminFlag(0);
+		Restaurant restaurant1 = new Restaurant("666", "数字谷", "北京", new Date());
+		Restaurant restaurant2 = new Restaurant("888", "数字谷", "上海", new Date());
+		user.setRestaurant(Lists.newArrayList(restaurant1, restaurant2));
+		userMapper.insert(user);
 		return user;
 	}
 

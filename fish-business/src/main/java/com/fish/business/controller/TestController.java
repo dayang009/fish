@@ -2,6 +2,9 @@ package com.fish.business.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.fish.business.config.SchedulerConfig;
+import com.fish.business.mvnentity.MirrorDTO;
+import com.fish.business.mvnentity.ServerDTO;
+import com.fish.business.mvnentity.SettingsRoot;
 import com.fish.common.core.config.NotControllerResponseAdvice;
 import com.fish.common.core.entity.Student;
 import com.fish.common.core.entity.XxlJobInfo;
@@ -150,6 +153,20 @@ public class TestController {
 		List<Student> students = gson.fromJson(json, new TypeToken<List<Student>>() {
 		}.getType());
 		log.info(students.toString());
+
+	}
+
+	@GetMapping("/demo09")
+	public void demo09(HttpServletRequest request) {
+		SettingsRoot settingsRoot = new SettingsRoot();
+		settingsRoot.setLocalRepository("");
+		settingsRoot.setInteractiveMode("");
+		settingsRoot.setOffline("");
+		settingsRoot.setPluginGroup(new ArrayList<String>());
+		settingsRoot.setServerDTOList(new ArrayList<ServerDTO>());
+		settingsRoot.setMirrorDTOList(new ArrayList<MirrorDTO>());
+		settingsRoot.setNowDate(new Date());
+		settingsRoot.setEndTime(LocalDateTime.now());
 
 	}
 
