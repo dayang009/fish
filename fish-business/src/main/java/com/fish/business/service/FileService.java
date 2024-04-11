@@ -6,6 +6,7 @@ import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fish.business.mvnentity.SettingsRoot;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -15,6 +16,7 @@ import org.dom4j.io.SAXReader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.List;
 
@@ -24,6 +26,9 @@ import java.util.List;
 @Slf4j
 @Service
 public class FileService {
+
+	@Resource
+	private Gson gson;
 
 	public void handleXmlFile(@RequestParam File file) {
 		String s1 = FileUtil.readUtf8String(file);
@@ -49,12 +54,6 @@ public class FileService {
 		}
 		JacksonXmlModule jacksonXmlModule = new JacksonXmlModule();
 		XmlMapper xmlMapper = new XmlMapper(jacksonXmlModule);
-		// try {
-		// SettingsRoot settingsRoot = xmlMapper.readValue(file, SettingsRoot.class);
-		// System.out.println(YangUtil.getGson().toJson(settingsRoot));
-		// } catch (IOException e) {
-		// throw new RuntimeException(e);
-		// }
 
 		Element rootElement = document.getRootElement();
 

@@ -45,7 +45,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-		<!-- MyBatis 集成 SpringBoot -->
+        <!-- MyBatis 集成 SpringBoot -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -55,27 +55,22 @@
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-		<!-- 参数校验 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-
-		<!-- 事务支持 -->
-		<!-- <dependency> -->
-		<!-- 	<groupId>org.springframework.boot</groupId> -->
-		<!-- 	<artifactId>spring-boot-starter-jta-atomikos</artifactId> -->
-		<!-- </dependency> -->
-        <!-- 德鲁伊连接池 -->
+        <!-- 参数校验 -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+
         <!-- PGSQL 数据库驱动 -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
         </dependency>
         <!-- MySQL 数据库依赖 -->
         <dependency>
@@ -93,6 +88,10 @@
         <dependency>
             <groupId>com.oracle.database.nls</groupId>
             <artifactId>orai18n</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -125,7 +124,7 @@
 		<!-- 糊涂工具包 -->
 		<dependency>
 			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-all</artifactId>
+			<artifactId>hutool-core</artifactId>
 		</dependency>
 		<!-- 引入websocket -->
 		<dependency>

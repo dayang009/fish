@@ -1,36 +1,34 @@
 server:
-  port: @eureka.fish.port@
+  port: ${fish_eureka_port:8761}
 
 spring:
   application:
-    name: @artifactId@
-  profiles:
-    active: @profiles.active@
+    name: ${artifactId}
   cloud:
     inetutils:
       ignored-interfaces:
       - VMware.*
     nacos:
-      username: @nacos.fish.username@
-      password: @nacos.fish.password@
+      username: ${fish_nacos_username:nacos}
+      password: ${fish_nacos_password:nacos}
       config:
         enabled: true
-        server-addr: @nacos.fish.ip@:@nacos.fish.port@
+        server-addr: ${fish_nacos_ip:localhost}:${fish_nacos_port:8848}
         file-extension: yaml
-        namespace: @nacos.fish.namespace@
-        group: @nacos.fish.group@
+        namespace: ${fish_nacos_namespace}
+        group: ${fish_nacos_group:DEFAULT_GROUP}
         refresh-enabled: true
         # 用于共享的配置文件
         shared-configs:
         - data-id: share-fish-config.yaml
           refresh: true
-        - data-id: share-fish-config-@profiles.active@.yaml
+        - data-id: share-fish-config-${fish_profiles_active:dev}.yaml
           refresh: true
 
 eureka:
   instance:
     # 不配置的话默认为电脑名
-    hostname: @eureka.fish.ip@
+    hostname: ${fish_eureka_ip:localhost}
     # 客户端向服务端发送心跳的时间间隔，默认 30 秒
     lease-renewal-interval-in-seconds: 30
     # 最后一次收到心跳后，超过 90 秒，则会把服务从清单中剔除，禁止服务调用发送到实例上，

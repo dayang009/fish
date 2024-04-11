@@ -1,14 +1,13 @@
 package com.fish.user.config.type;
 
-import com.fish.common.core.util.YangUtil;
 import com.fish.user.entity.Restaurant;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
 
+import javax.annotation.Resource;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +16,9 @@ import java.sql.SQLException;
 @MappedTypes(Restaurant.class)
 @MappedJdbcTypes(JdbcType.VARCHAR)
 public class RestaurantTypeHandler extends BaseTypeHandler<Restaurant> {
+
+	@Resource
+	private Gson gson;
 
 	/**
 	 * 插入时设置参数类型
@@ -30,7 +32,6 @@ public class RestaurantTypeHandler extends BaseTypeHandler<Restaurant> {
 	@Override
 	public void setNonNullParameter(PreparedStatement ps, int i, Restaurant parameter, JdbcType jdbcType)
 			throws SQLException {
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		ps.setString(i, gson.toJson(parameter));
 	}
@@ -45,7 +46,7 @@ public class RestaurantTypeHandler extends BaseTypeHandler<Restaurant> {
 	 */
 	@Override
 	public Restaurant getNullableResult(ResultSet rs, String columnName) throws SQLException {
-		return YangUtil.getGson().fromJson(rs.getString(columnName), Restaurant.class);
+		return gson.fromJson(rs.getString(columnName), Restaurant.class);
 	}
 
 	/**
@@ -57,7 +58,7 @@ public class RestaurantTypeHandler extends BaseTypeHandler<Restaurant> {
 	 */
 	@Override
 	public Restaurant getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-		return YangUtil.getGson().fromJson(rs.getString(columnIndex), Restaurant.class);
+		return gson.fromJson(rs.getString(columnIndex), Restaurant.class);
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class RestaurantTypeHandler extends BaseTypeHandler<Restaurant> {
 	 */
 	@Override
 	public Restaurant getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-		return YangUtil.getGson().fromJson(cs.getString(columnIndex), Restaurant.class);
+		return gson.fromJson(cs.getString(columnIndex), Restaurant.class);
 	}
 
 }

@@ -16,12 +16,8 @@ spring:
     url: jdbc:postgresql://192.168.18.99:5432/postgres?currentSchema=fish_dev&stringtype=unspecified
     username: postgres
     password: postgres
-    druid:
-      initial-size: 5
-      max-active: 10
-      min-idle: 10
-      max-wait: 60000
-      time-between-eviction-runs-millis: 100000
+    type: com.zaxxer.hikari.HikariDataSource
+
   redis:
     host: 192.168.18.99
     port: 6379

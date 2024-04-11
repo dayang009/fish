@@ -45,6 +45,9 @@ public class TestController {
 	@Resource
 	private JobInfoClient jobInfoClient;
 
+	@Resource
+	private Gson gson;
+
 	@Operation(summary = "添加一个定时任务")
 	@GetMapping("/demo01")
 	public void demo01(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date) {
@@ -147,12 +150,20 @@ public class TestController {
 
 		log.info("调用方地址 ===> {}", remoteAddr);
 		List<Student> testList = this.getTestList();
-		Gson gson = YangUtil.getGson();
 		String json = gson.toJson(testList);
 
 		List<Student> students = gson.fromJson(json, new TypeToken<List<Student>>() {
 		}.getType());
 		log.info(students.toString());
+
+		// JsonArray jsonElements = gson.fromJson(json, JsonArray.class);
+		// List<JsonObject> list = jsonElements.asList();
+		// list.stream().map(new Function<JsonElement, String>() {
+		// @Override
+		// public String apply(JsonElement jsonElement) {
+		// return jsonElement.;
+		// }
+		// });
 
 	}
 

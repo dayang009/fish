@@ -55,7 +55,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}")
-	public RespResult<?> delete(@PathVariable(value = "id") Serializable id) {
+	public RespResult<?> delete(@PathVariable Serializable id) {
 		userMapper.deleteById(id);
 		return RespResult.success("用户删除成功");
 	}

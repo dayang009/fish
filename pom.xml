@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <name>fish</name>
-    <description>大鱼微服务</description>
+    <description>FishCloud</description>
     <url>https://dayang.plus</url>
 
     <modules>
@@ -33,9 +33,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.7.18</spring-boot.version>
-        <openfeign-starter.version>3.1.8</openfeign-starter.version>
-        <docker.host>http://192.168.18.8:2375</docker.host>
-        <docker.registry>192.168.18.8</docker.registry>
+        <gson.version>2.10.1</gson.version>
+        <mybatis-plus.version>3.5.6</mybatis-plus.version>
+        <docker.host>127.0.0.1</docker.host>
+        <docker.registry>127.0.0.1</docker.registry>
     </properties>
 
     <dependencies>
@@ -91,19 +92,19 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.5.5</version>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter-test</artifactId>
-                <version>3.5.5</version>
+                <version>${mybatis-plus.version}</version>
                 <scope>test</scope>
             </dependency>
             <!-- 代码生成器 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.5.5</version>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <!-- https://www.kancloud.cn/tracy5546/dynamic-datasource/2264611 -->
             <dependency>
@@ -161,16 +162,6 @@
                 <artifactId>easyexcel</artifactId>
                 <version>3.3.3</version>
             </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>2.0.46</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>2.0.46</version>
-            </dependency>
 
             <!-- excel工具 -->
             <dependency>
@@ -208,12 +199,18 @@
                 <version>32.1.3-jre</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+
 
             <!-- Token 生成和解析 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-api</artifactId>
-                <version>0.12.4</version>
+                <version>0.12.5</version>
             </dependency>
 
             <!-- Java implementation of JSON Web Token (JWT)  -->
@@ -246,7 +243,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
-                <version>1.26.0</version>
+                <version>1.26.1</version>
             </dependency>
 
             <!-- flexible XML framework for Java  -->
@@ -548,7 +545,7 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.43.4</version>
+                <version>0.44.0</version>
                 <configuration>
                     <authConfig>
                         <push>
@@ -574,61 +571,6 @@
         </plugins>
 
     </build>
-
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <!-- 环境标识，需要与配置文件的名称相对应 -->
-                <profiles.active>dev</profiles.active>
-                <nacos.fish.ip>127.0.0.1</nacos.fish.ip>
-                <nacos.fish.port>8848</nacos.fish.port>
-                <nacos.fish.username>nacos</nacos.fish.username>
-                <nacos.fish.password>nacos</nacos.fish.password>
-                <nacos.fish.namespace>fish_dev</nacos.fish.namespace>
-                <nacos.fish.group>DEFAULT_GROUP</nacos.fish.group>
-                <eureka.fish.ip>127.0.0.1</eureka.fish.ip>
-                <eureka.fish.port>36900</eureka.fish.port>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-
-        <profile>
-            <id>test</id>
-            <properties>
-                <!-- 环境标识，需要与配置文件的名称相对应 -->
-                <profiles.active>test</profiles.active>
-                <nacos.fish.ip>192.168.18.99</nacos.fish.ip>
-                <nacos.fish.port>8848</nacos.fish.port>
-                <nacos.fish.username>nacos</nacos.fish.username>
-                <nacos.fish.password>nacos</nacos.fish.password>
-                <nacos.fish.namespace>fish_test</nacos.fish.namespace>
-                <nacos.fish.group>FISH</nacos.fish.group>
-                <eureka.fish.ip>192.168.18.99</eureka.fish.ip>
-                <eureka.fish.port>36900</eureka.fish.port>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>prod</id>
-            <properties>
-                <!-- 环境标识，需要与配置文件的名称相对应 -->
-                <profiles.active>prod</profiles.active>
-                <nacos.fish.ip>192.168.18.99</nacos.fish.ip>
-                <nacos.fish.port>8848</nacos.fish.port>
-                <nacos.fish.username>nacos</nacos.fish.username>
-                <nacos.fish.password>nacos</nacos.fish.password>
-                <nacos.fish.namespace>fish_prod</nacos.fish.namespace>
-                <nacos.fish.group>FISH</nacos.fish.group>
-                <eureka.fish.ip>192.168.18.99</eureka.fish.ip>
-                <eureka.fish.port>36900</eureka.fish.port>
-            </properties>
-        </profile>
-
-    </profiles>
 
 
 </project>

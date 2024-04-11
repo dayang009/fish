@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 餐厅表
+ * 餐厅表 {@link User}
  *
  * @author dayang
  */
