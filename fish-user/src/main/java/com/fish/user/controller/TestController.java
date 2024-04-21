@@ -1,5 +1,8 @@
 package com.fish.user.controller;
 
+import cn.hutool.http.HttpUtil;
+import com.fish.common.core.config.NotControllerResponseAdvice;
+import com.fish.user.config.LoginGiteeConfig;
 import com.fish.user.entity.Restaurant;
 import com.fish.user.entity.User;
 import com.fish.user.mapper.UserMapper;
@@ -12,10 +15,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 /**
  * @author dayang
@@ -32,13 +35,16 @@ public class TestController {
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
 
+	@Resource
+	private LoginGiteeConfig loginGiteeConfig;
+
 	@PostMapping("/demo01")
 	public Integer demo01(@RequestBody String id) {
 		User user = new User();
 		user.setId(id);
 		user.setNickName("haha");
 		user.setUserAccount("haha");
-		user.setUserPwd("haha");
+		user.setUserPassword("haha");
 
 		int i = userMapper.updateById(user);
 		return i;
@@ -75,7 +81,7 @@ public class TestController {
 		User user = new User();
 		user.setNickName("HelloWorld");
 		user.setUserAccount("1729806750");
-		user.setUserPwd("963258");
+		user.setUserPassword("963258");
 		user.setGender(0);
 		user.setAge(10);
 		user.setPhone("18855556666");
@@ -86,6 +92,25 @@ public class TestController {
 		user.setRestaurant(Lists.newArrayList(restaurant1, restaurant2));
 		userMapper.insert(user);
 		return user;
+	}
+
+	/**
+	 * 应用通过 浏览器 或 Webview 将用户引导到码云三方认证页面上
+	 */
+	@NotControllerResponseAdvice
+	@GetMapping("/gitee-login")
+	public String giteeLogin() throws UnsupportedEncodingException {
+
+		String redirectUri = URLEncoder.encode(loginGiteeConfig.getRedirectUri(), StandardCharsets.UTF_8.name());
+
+		Map<String, Object> giteeReqMap = new HashMap<>();
+		giteeReqMap.put("client_id", loginGiteeConfig.getClientId());
+		giteeReqMap.put("redirect_uri", redirectUri);
+		giteeReqMap.put("response_type", loginGiteeConfig.getResponseType());
+		giteeReqMap.put("state", loginGiteeConfig.getState());
+
+		String s = HttpUtil.get("https://gitee.com/oauth/authorize", giteeReqMap);
+		return s;
 	}
 
 }

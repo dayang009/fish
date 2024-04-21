@@ -4,11 +4,11 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fish.user.mapper.UserMapper">
 
-	<resultMap id="BaseResultMap" type="com.fish.user.entity.User">
+	<resultMap id="BaseResultMap" type="user">
 		<id property="id" column="id" jdbcType="OTHER"/>
 		<result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
 		<result property="userAccount" column="user_account" jdbcType="VARCHAR"/>
-		<result property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
+		<result property="userPassword" column="user_password" jdbcType="VARCHAR"/>
 		<result property="gender" column="gender" jdbcType="SMALLINT"/>
 		<result property="age" column="age" jdbcType="INTEGER"/>
 		<result property="phone" column="phone" jdbcType="VARCHAR"/>
@@ -22,7 +22,7 @@
 
 	<sql id="Base_Column_List">
 		id,nick_name,user_account,
-        user_pwd,gender,age,
+		user_password,gender,age,
         phone,email,admin_flag,restaurant,
         create_time,update_time,delete_flag
 	</sql>
@@ -31,7 +31,7 @@
 		<trim suffixOverrides=",">
 			<if test="nick_name != null and nick_name != ''">nick_name,</if>
 			<if test="user_account != null and user_account != ''">user_account,</if>
-			<if test="user_pwd != null and user_pwd != ''">user_pwd,</if>
+			<if test="user_passwd != null and user_passwd != ''">user_passwd,</if>
 			<if test="gender != null and gender != ''">gender,</if>
 			<if test="age != null and age != ''">age,</if>
 			<if test="phone != null and phone != ''">phone,</if>
@@ -45,7 +45,7 @@
 		<trim suffixOverrides=",">
 			<if test="nickName != null and nickName != ''">#{nickName},</if>
 			<if test="userAccount != null and userAccount != ''">#{userAccount},</if>
-			<if test="userPwd != null and userPwd != ''">#{userPwd},</if>
+			<if test="userPassword != null and userPassword != ''">#{userPassword},</if>
 			<if test="gender != null and gender != ''">#{gender},</if>
 			<if test="age != null and age != ''">#{age},</if>
 			<if test="phone != null and phone != ''">#{phone},</if>
@@ -56,20 +56,20 @@
 	</sql>
 
 	<!-- 主键自增回填 -->
-	<insert id="insert" parameterType="com.fish.user.entity.User" useGeneratedKeys="true" keyProperty="id">
-		insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email, admin_flag, restaurant, create_time,
+	<insert id="insert" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+		insert into fish_id_user(id, nick_name, user_account, user_password, gender, age, phone, email, admin_flag, restaurant,
 						   update_time)
-		values (default, #{nickName}, #{userAccount}, #{userPwd}, #{gender}, #{age}, #{phone}, #{email}, #{adminFlag},
-				#{restaurant},#{createTime}, #{updateTime})
+		values (default, #{nickName}, #{userAccount}, #{userPassword}, #{gender}, #{age}, #{phone}, #{email}, #{adminFlag},
+				#{restaurant}, #{updateTime})
 	</insert>
 
-	<insert id="insertIf" parameterType="com.fish.user.entity.User">
-		insert into t_user(<include refid="insertkey"></include>)
+	<insert id="insertIf" parameterType="user">
+		insert into fish_id_user(<include refid="insertkey"></include>)
 		values (<include refid="insertvalue"></include>)
 	</insert>
 
 	<insert id="insertBatchSomeColumn" parameterType="list">
-        insert into t_user(id, nick_name, user_account, user_pwd, gender, age, phone, email)
+        insert into fish_id_user(id, nick_name, user_account, user_pwd, gender, age, phone, email)
         values
         <foreach collection="list" item="item" separator=",">
             (default,
@@ -84,8 +84,8 @@
 
     </insert>
 
-	<update id="updateById" parameterType="com.fish.user.entity.User">
-		update t_user
+	<update id="updateById" parameterType="user">
+		update fish_id_user
 		<set>
 			<if test="nickName != null and nickName != ''">
 				 nick_name = #{nickName},
@@ -93,8 +93,8 @@
 			<if test="userAccount != null and userAccount != ''">
 				user_account = #{userAccount},
 			</if>
-			<if test="userPwd != null and userPwd != ''">
-				user_pwd = #{userPwd},
+			<if test="userPassword != null and userPassword != ''">
+				pwd = #{userPassword},
 			</if>
 			<if test="gender != null and gender != ''">
 				gender = #{gender},
@@ -117,30 +117,43 @@
 	</delete>
 
 	<delete id="deleteById">
-		update t_user
+		update fish_id_user
 		set delete_flag = true
 		where id = #{id}
 	</delete>
 
 	<delete id="deleteByMap"></delete>
 
-	<select id="selectById" resultType="com.fish.user.entity.User">
+	<select id="selectById" resultType="user">
 		select
 		<include refid="Base_Column_List"/>
-		from t_user
+		from fish_id_user
 		where id = #{id} and delete_flag = false
 	</select>
 
-	<select id="selectOne" parameterType="com.fish.user.entity.User" resultType="com.fish.user.entity.User">
-
-	</select>
-
-	<select id="selectBatchIds" resultType="com.fish.user.entity.User"></select>
-
-	<select id="selectByIds" resultType="com.fish.user.entity.User">
+	<select id="selectOne" parameterType="user" resultType="user">
 		select
 		<include refid="Base_Column_List"/>
-		from t_user
+		from fish_id_user
+		<where>
+			<if test="nickName != null and nickName != ''">
+				and nick_name = #{nickName}
+			</if>
+			<if test="userAccount != null and userAccount != ''">
+				and user_account = #{userAccount}
+			</if>
+			<if test="userPassword != null and userPassword != ''">
+				and user_password = #{userPassword}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectBatchIds" resultType="user"></select>
+
+	<select id="selectByIds" resultType="user">
+		select
+		<include refid="Base_Column_List"/>
+		from fish_id_user
 		where id in
 		<foreach item="id" index="" collection="list" open="(" separator="," close=")">
 			#{id}

@@ -23,7 +23,7 @@ public class UserApplicationTest {
 		User user = new User();
 		user.setNickName("zhangSan");
 		user.setUserAccount("1729806");
-		user.setUserPwd("123456");
+		user.setUserPassword("123456");
 		user.setGender(0);
 		user.setAge(10);
 		user.setPhone("1883522");

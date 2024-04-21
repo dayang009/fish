@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  vsftpd:
+    image: fauria/vsftpd:latest
+    restart: always
+    privileged: true
+    container_name: vsftpd
+    ports:
+    - "20:20"
+    - "21:21"
+    - "21100-21110:21100-21110"
+    volumes:
+    - ./ftpData:/home/vsftpd
+    - ./ftpLog/:/var/log/
+    environment:
+    - FTP_USER=admin
+    - FTP_PASS=admin123
+    - PASV_ADDRESS=127.0.0.1
+    - PASV_MIN_PORT=21100
+    - PASV_MAX_PORT=21110
+    - TZ=Asia/Shanghai

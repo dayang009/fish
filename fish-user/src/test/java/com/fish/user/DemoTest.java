@@ -15,7 +15,7 @@ public class DemoTest {
 		User user = new User();
 		user.setNickName("HelloWorld");
 		user.setUserAccount("1729806750");
-		user.setUserPwd("963258");
+		user.setUserPassword("963258");
 		user.setGender(0);
 		user.setAge(10);
 		user.setPhone("18855556666");

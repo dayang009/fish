@@ -621,41 +621,5 @@ https://www.win-rar.com/fileadmin/winrar-versions/sc/sc20240306/rrlb/winrar-x64-
 
 
 
-1252
-
-
-
-2022-10-2 500
-
-2023-9-20  1200
-
-
-
-![image-20240311211006525](C:\Users\dayang\AppData\Roaming\Typora\typora-user-images\image-20240311211006525.png)
-
-
-
-
-
-fish_profiles_active:
-
-fish_nacos_ip:
-
-fish_nacos_port:
-
-fish_nacos_username:
-
-fish_nacos_password:
-
-fish_nacos_namespace:
-
-fish_nacos_group:
-
-fish_eureka_ip:
-
-fish_eureka_port:
-
-
-
 
 

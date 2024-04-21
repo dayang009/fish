@@ -14,26 +14,26 @@ spring:
     static-path-pattern: /static/**
   cloud:
     nacos:
-      username: ${fish_nacos_username:nacos}
-      password: ${fish_nacos_password:nacos}
+      username: ${FISH_NACOS_USERNAME:nacos}
+      password: ${FISH_NACOS_PASSWORD:nacos}
       config:
         enabled: true
-        server-addr: ${fish_nacos_ip:localhost}:${fish_nacos_port:8848}
+        server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
         file-extension: yaml
-        namespace: ${fish_nacos_namespace}
-        group: ${fish_nacos_group:DEFAULT_GROUP}
+        namespace: ${FISH_NACOS_NAMESPACE}
+        group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
         refresh-enabled: true
         # 用于共享的配置文件
         shared-configs:
         - data-id: share-fish-config.yaml
           refresh: true
-        - data-id: share-fish-config-${fish_profiles_active:dev}.yaml
+        - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
           refresh: true
       discovery:
         enabled: true
-        server-addr: ${fish_nacos_ip:localhost}:${fish_nacos_port:8848}
-        namespace: ${fish_nacos_namespace}
-        group: ${fish_nacos_group:DEFAULT_GROUP}
+        server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
+        namespace: ${FISH_NACOS_NAMESPACE}
+        group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
     inetutils:
       ignored-interfaces:
       - VMware.*
@@ -78,7 +78,7 @@ xxl:
 eureka:
   instance:
     # 默认为电脑名
-    hostname: ${fish_eureka_ip:localhost}
+    hostname: ${FISH_EUREKA_IP:localhost}
     # 测主机名为IP形式
     prefer-ip-address: true
     # 默认值为主机名+服务名+端口
@@ -86,7 +86,7 @@ eureka:
   client:
     enabled: false
     service-url:
-      defaultZone: http://${fish_eureka_ip:localhost}:${fish_eureka_port:8761}/eureka/
+      defaultZone: http://${FISH_EUREKA_IP:localhost}:${FISH_EUREKA_PORT:8761}/eureka/
 
 management:
   endpoints:

@@ -27,7 +27,7 @@ class UserMapperTest {
 		User user = new User();
 		user.setNickName("zhangSan");
 		user.setUserAccount("1729806");
-		user.setUserPwd("123456");
+		user.setUserPassword("123456");
 		user.setGender(0);
 		user.setAge(10);
 		user.setPhone("1883522");
@@ -56,7 +56,7 @@ class UserMapperTest {
 		user.setId("88");
 		user.setNickName("haha");
 		user.setUserAccount("haha");
-		user.setUserPwd("haha");
+		user.setUserPassword("haha");
 
 		int i = userMapper.updateById(user);
 		System.out.println(i);

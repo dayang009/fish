@@ -1,8 +1,8 @@
 package com.fish.user.entity;
 
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +17,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -4012301048914576672L;
@@ -29,6 +30,7 @@ public class User implements Serializable {
 	/**
 	 * 昵称
 	 */
+	@Schema(example = "mark")
 	private String nickName;
 
 	/**
@@ -40,10 +42,9 @@ public class User implements Serializable {
 	/**
 	 * 密码
 	 */
-	@Hidden
 	@NotBlank(message = "密码不能为空")
 	@Size(min = 6, max = 20, message = "密码位数必须在{min}和{max}之间")
-	private String userPwd;
+	private String userPassword;
 
 	/**
 	 * 性别：0---女，1---男
@@ -54,6 +55,7 @@ public class User implements Serializable {
 	/**
 	 * 年龄
 	 */
+	@Schema(example = "18")
 	@Min(value = 0, message = "年龄必须是非负")
 	@Max(value = 256, message = "年龄最大不能超过{value}")
 	private Integer age;
@@ -61,12 +63,14 @@ public class User implements Serializable {
 	/**
 	 * 手机号
 	 */
+	@Schema(example = "18866668888")
 	@Pattern(regexp = "^1[3456789]\\d{9}$", message = "手机号格式有误")
 	private String phone;
 
 	/**
 	 * 邮箱
 	 */
+	@Schema(example = "test@163.com")
 	@Email
 	@NotEmpty(message = "邮箱信息不能为空")
 	private String email;
@@ -95,10 +99,10 @@ public class User implements Serializable {
 	 */
 	private Boolean deleteFlag = Boolean.FALSE;
 
-	public User(String nickName, String userAccount, String userPwd, Integer gender, Integer age) {
+	public User(String nickName, String userAccount, String userPassword, Integer gender, Integer age) {
 		this.nickName = nickName;
 		this.userAccount = userAccount;
-		this.userPwd = userPwd;
+		this.userPassword = userPassword;
 		this.gender = gender;
 		this.age = age;
 	}

@@ -5,13 +5,13 @@ networks:
     external: false
 
 services:
-  server:
-    image: gitea/gitea:1.20.5
+  gitea:
+    image: gitea/gitea:1.21.11
     container_name: gitea
     privileged: true
     restart: always
     environment:
-    - APP_NAME="码出高效"
+    - APP_NAME="Code changes the world"
     - USER_UID=1000
     - USER_GID=1000
     - SSH_PORT=222
@@ -19,7 +19,7 @@ services:
     networks:
     - gitea
     volumes:
-    - ./gitea:/data
+    - ./giteaData:/data
     - /etc/timezone:/etc/timezone:ro
     - /etc/localtime:/etc/localtime:ro
     ports:

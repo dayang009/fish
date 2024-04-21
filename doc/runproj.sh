@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 
-#nohup java -Xmx2g -Xms2g -Xmn1g -jar fish-register.jar --spring.profiles.active=prod > /dev/null 2>&1 &
-#sleep 1;
-nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=36902 -Xmx2g -Xms2g -Xmn1g -jar fish-gateway.jar --spring.profiles.active=prod > /dev/null 2>&1 &
-sleep 1;
-nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=36904 -Xmx2g -Xms2g -Xmn1g -jar fish-job-admin.jar --spring.profiles.active=prod > /dev/null 2>&1 &
-sleep 1;
-nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=36906 -Xmx2g -Xms2g -Xmn1g -jar fish-executor.jar --spring.profiles.active=prod > /dev/null 2>&1 &
-sleep 1;
-nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=36908 -Xmx2g -Xms2g -Xmn1g -jar fish-business.jar --spring.profiles.active=prod > /dev/null 2>&1 &
-sleep 1;
-echo "Projects Start Success."
+echo "Projects Starting..."
+nohup java -jar fish-register.jar > /dev/null 2>&1 &
+sleep 5;
+echo "fish-register Start Success."
+nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=36902 -jar fish-gateway.jar > /dev/null 2>&1 &
+sleep 8;
+echo "fish-gateway Start Success."
+nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=36904 -jar fish-job-admin.jar > /dev/null 2>&1 &
+sleep 8;
+echo "fish-job-admin Start Success."
+nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=36906 -jar fish-executor.jar > /dev/null 2>&1 &
+sleep 8;
+echo "fish-executor Start Success."
+nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=36908 -jar fish-business.jar > /dev/null 2>&1 &
+sleep 5;
+echo "fish-business Start Success."

@@ -17,6 +17,14 @@ spring:
     username: postgres
     password: postgres
     type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      # 获取客户端等待池中连接的最大毫秒数
+      connection-timeout: 3000
+      # 允许连接在池中处于空闲状态的最长时间（以毫秒为单位）
+      idle-timeout: 30000
+
 
   redis:
     host: 192.168.18.99
@@ -37,6 +45,7 @@ mybatis:
     variables:
       fish: fish
   type-handlers-package: "com.fish.user.config.type"
+  type-aliases-package: "com.fish.user.entity"
 
 mybatis-plus:
   mapper-locations: "classpath*:/mapper/**/*.xml"
@@ -57,7 +66,7 @@ logging:
     web: info
     org.springframework.web: info
     com.netflix.eureka.registry: info
-    com.fish.user: debug
+    com.fish.user.mapper: debug
   file:
     name: ./logs/${spring.application.name}/${spring.application.name}.log
   logback:
@@ -78,6 +87,18 @@ pagehelper:
   defaultCount: true
   auto-runtime-dialect: true
   support-methods-arguments: true
+
+
+gitee:
+  client-id: "530bf84b9b5a14ae08d3f7875e0fd32997c3c7cd54d11cc30929c6fc847ae5f2"
+  client-secret: "8aea94ba14160eddf25ddb0740d584768692e460a6401d560155a90bde99178e"
+  redirect-uri: "http://dayang.icu:36909/users/gitee"
+  response-type: "code"
+  state: "GITEE"
+  grant-type: "authorization_code"
+  gitee-user-prefix: ${gitee.state}@
+  token-url: https://gitee.com/oauth/token?grant_type=${gitee.grant-type}&client_id=${gitee.client-id}&client_secret=${gitee.client-secret}&redirect_uri=${gitee.redirect-uri}&code=
+  user-url: https://gitee.com/api/v5/user?access_token=
 
 
 

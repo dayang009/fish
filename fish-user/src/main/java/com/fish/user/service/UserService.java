@@ -1,7 +1,12 @@
 package com.fish.user.service;
 
+import com.fish.common.core.exception.FishCloudException;
+import com.fish.common.core.util.ResponseEnum;
 import com.fish.user.entity.User;
+import com.fish.user.mapper.UserMapper;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -9,136 +14,144 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * 针对表【t_user】的数据库操作Service
- *
  * @author dayang
- * @since 2023-07-13 13:38:54
+ * @description 针对表【t_user】的数据库操作Service实现
+ * @createDate 2023-07-13 13:38:54
  */
-public interface UserService {
+@Service
+public class UserService {
 
-	/**
-	 * 插入一条记录（选择字段，策略插入）
-	 * @param user
-	 * @return
-	 */
-	boolean save(User user);
+	@Resource
+	private UserMapper userMapper;
 
-	/**
-	 * 插入（批量）
-	 * @param entityList 实体对象集合
-	 * @return
-	 */
-	boolean saveBatch(Collection<User> entityList);
+	public String login(String account, String password) {
+		User user = new User();
+		user.setUserAccount(account);
+		user.setUserPassword(password);
 
-	/**
-	 * 插入（批量）
-	 * @param entityList 实体对象集合
-	 * @param batchSize 插入批次数量
-	 * @return
-	 */
-	boolean saveBatch(Collection<User> entityList, int batchSize);
+		User user1 = userMapper.selectOne(user);
+		if (user1 != null) {
+			return "Login Success";
+		}
+		else {
+			return "Login Failed";
+		}
+	}
 
-	/**
-	 * TableId 注解存在更新记录，否插入一条记录
-	 * @param entity
-	 * @return
-	 */
-	boolean saveOrUpdate(User entity);
+	public String register(User user) {
+		if (this.checkUserExist(user.getUserAccount())) {
+			throw new FishCloudException(ResponseEnum.VALIDATE_ERROR, "用户已经存在");
+		}
+		userMapper.insert(user);
+		return "Register Success";
 
-	/**
-	 * 根据updateWrapper尝试更新，否继续执行saveOrUpdate(T)方法
-	 * @param entity
-	 * @param updateWrapper
-	 * @return
-	 */
-	boolean saveOrUpdate(User entity, Map updateWrapper);
+	}
 
-	// 批量修改插入
-	boolean saveOrUpdateBatch(Collection<User> entityList);
+	public boolean checkUserExist(String account) {
+		User user = new User();
+		user.setUserAccount(account);
+		User user1 = userMapper.selectOne(user);
+		return user1 != null;
+	}
 
-	// 批量修改插入
-	boolean saveOrUpdateBatch(Collection<User> entityList, int batchSize);
+	public boolean save(User user) {
+		return false;
+	}
 
-	/**
-	 * 根据 queryWrapper 设置的条件，删除记录
-	 * @param queryWrapper
-	 * @return
-	 */
-	boolean remove(User queryWrapper);
+	public boolean saveBatch(Collection<User> entityList) {
+		return false;
+	}
 
-	/**
-	 * 根据 ID 删除
-	 * @param id
-	 * @return
-	 */
-	boolean removeById(Serializable id);
+	public boolean saveBatch(Collection<User> entityList, int batchSize) {
+		return false;
+	}
 
-	// 根据 columnMap 条件，删除记录
-	boolean removeByMap(Map<String, Object> columnMap);
+	public boolean saveOrUpdate(User entity) {
+		return false;
+	}
 
-	// 删除（根据ID 批量删除）
-	boolean removeByIds(Collection<? extends Serializable> idList);
+	public boolean saveOrUpdate(User entity, Map updateWrapper) {
+		return false;
+	}
 
-	// 根据 ID 选择修改
-	boolean updateById(User entity);
+	public boolean saveOrUpdateBatch(Collection<User> entityList) {
+		return false;
+	}
 
-	// 根据ID 批量更新
-	boolean updateBatchById(Collection<User> entityList);
+	public boolean saveOrUpdateBatch(Collection<User> entityList, int batchSize) {
+		return false;
+	}
 
-	// 根据ID 批量更新
-	boolean updateBatchById(Collection<User> entityList, int batchSize);
+	public boolean remove(User queryWrapper) {
+		return false;
+	}
 
-	/**
-	 * 根据 ID 查询
-	 * @param id
-	 * @return
-	 */
-	User getById(Serializable id);
+	public boolean removeById(Serializable id) {
+		return false;
+	}
 
-	// 根据 Wrapper，查询一条记录。结果集，如果是多个会抛出异常，随机取一条加上限制条件 wrapper.last("LIMIT 1")
-	User getOne(Map<String, Object> map);
+	public boolean removeByMap(Map<String, Object> columnMap) {
+		return false;
+	}
 
-	// 根据 Wrapper，查询一条记录
-	User getOne(Map<String, Object> map, boolean throwEx);
+	public boolean removeByIds(Collection<? extends Serializable> idList) {
+		return false;
+	}
 
-	// 查询所有
-	List<User> list();
+	public boolean updateById(User entity) {
+		return false;
+	}
 
-	// 查询列表
-	List<User> list(Map map);
+	public boolean updateBatchById(Collection<User> entityList) {
+		return false;
+	}
 
-	/**
-	 * 查询（根据ID 批量查询）
-	 * @param idList
-	 * @return
-	 */
-	Collection<User> listByIds(Collection<? extends Serializable> idList);
+	public boolean updateBatchById(Collection<User> entityList, int batchSize) {
+		return false;
+	}
 
-	/**
-	 * 查询（根据 columnMap 条件）
-	 * @param columnMap
-	 * @return
-	 */
-	Collection<User> listByMap(Map<String, Object> columnMap);
+	public User getById(Serializable id) {
+		return null;
+	}
 
-	/**
-	 * 查询所有列表
-	 * @return
-	 */
-	List<Map<String, Object>> listMaps();
+	public User getOne(Map<String, Object> map) {
+		return null;
+	}
 
-	// 查询列表
-	List<Map<String, Object>> listMaps(Map<String, Object> queryWrapper);
+	public User getOne(Map<String, Object> map, boolean throwEx) {
+		return null;
+	}
 
-	// 查询全部记录
-	List<Object> listObjs();
+	public List<User> list() {
+		return null;
+	}
 
-	/**
-	 * 查询全部记录
-	 * @param mapper
-	 * @param <V>
-	 * @return
-	 */
-	<V> List<V> listObjs(Function<? super Object, V> mapper);
+	public List<User> list(Map map) {
+		return null;
+	}
+
+	public Collection<User> listByIds(Collection<? extends Serializable> idList) {
+		return null;
+	}
+
+	public Collection<User> listByMap(Map<String, Object> columnMap) {
+		return null;
+	}
+
+	public List<Map<String, Object>> listMaps() {
+		return null;
+	}
+
+	public List<Map<String, Object>> listMaps(Map<String, Object> queryWrapper) {
+		return null;
+	}
+
+	public List<Object> listObjs() {
+		return null;
+	}
+
+	public <V> List<V> listObjs(Function<? super Object, V> mapper) {
+		return null;
+	}
 
 }
