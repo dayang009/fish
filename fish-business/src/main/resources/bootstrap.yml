@@ -9,14 +9,23 @@ spring:
       username: ${FISH_NACOS_USERNAME:nacos}
       password: ${FISH_NACOS_PASSWORD:nacos}
       server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
+      config:
+        enabled: true
+        file-extension: yaml
+        namespace: ${FISH_NACOS_NAMESPACE}
+        group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
+        shared-configs:
+        - data-id: share-fish-config.yaml
+          refresh: true
+        - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
+          refresh: true
+      discovery:
+        enabled: true
+        namespace: ${FISH_NACOS_NAMESPACE}
+        group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
     inetutils:
       ignored-interfaces:
       - VMware.*
-  config:
-    import:
-    - nacos:share-fish-config.yaml
-    - optional:nacos:share-fish-config.yaml
-    - optional:nacos:share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml?group=${FISH_NACOS_GROUP:DEFAULT_GROUP}&refreshEnabled=true
 
 eureka:
   instance:

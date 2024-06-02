@@ -8,21 +8,19 @@ spring:
     nacos:
       username: ${FISH_NACOS_USERNAME:nacos}
       password: ${FISH_NACOS_PASSWORD:nacos}
+      server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
       config:
         enabled: true
-        server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
         file-extension: yaml
         namespace: ${FISH_NACOS_NAMESPACE}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
-        refresh-enabled: true
         shared-configs:
         - data-id: share-fish-config.yaml
           refresh: true
         - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
           refresh: true
       discovery:
-        enabled: true
-        server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
+        enabled: false
         namespace: ${FISH_NACOS_NAMESPACE}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
     inetutils:
@@ -72,7 +70,7 @@ eureka:
     # 默认值为主机名+服务名+端口
     instance-id: ${spring.application.name}:${server.port}
   client:
-    enabled: false
+    enabled: true
     service-url:
       defaultZone: http://${FISH_EUREKA_IP:localhost}:${FISH_EUREKA_PORT:8761}/eureka/
 
@@ -97,4 +95,10 @@ knife4j:
       enabled: true
       version: openapi3
 
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
 

@@ -1,12 +1,7 @@
-version: "3.8"
-
-networks:
-  gitea:
-    external: false
-
 services:
+
   gitea:
-    image: gitea/gitea:1.21.11
+    image: gitea/gitea:1.22.0
     container_name: gitea
     privileged: true
     restart: always
@@ -16,8 +11,6 @@ services:
     - USER_GID=1000
     - SSH_PORT=222
     - SSH_LISTEN_PORT=22
-    networks:
-    - gitea
     volumes:
     - ./giteaData:/data
     - /etc/timezone:/etc/timezone:ro

@@ -13,9 +13,9 @@ spring:
     nacos:
       username: @nacos.fish.username@
       password: @nacos.fish.password@
+      server-addr: @nacos.fish.ip@:@nacos.fish.port@
       config:
         enabled: true
-        server-addr: @nacos.fish.ip@:@nacos.fish.port@
         file-extension: yaml
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
@@ -28,7 +28,6 @@ spring:
           refresh: true
       discovery:
         enabled: true
-        server-addr: @nacos.fish.ip@:@nacos.fish.port@
         namespace: @nacos.fish.namespace@
         group: @nacos.fish.group@
 

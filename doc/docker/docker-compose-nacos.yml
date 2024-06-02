@@ -1,8 +1,7 @@
-version: '3.8'
-
 services:
+
   nacos:
-    image: nacos/nacos-server:v2.3.2-slim
+    image: nacos/nacos-server:v2.3.2
     restart: always
     privileged: true
     container_name: nacos
@@ -28,8 +27,4 @@ services:
     - NACOS_AUTH_CACHE_ENABLE=true
     - NACOS_AUTH_IDENTITY_KEY=serverIdentity
     - NACOS_AUTH_IDENTITY_VALUE=security
-    - NACOS_INETUTILS_IGNORED_INTERFACES[0]=VMware.*
-    - NACOS_INETUTILS_IGNORED_INTERFACES[1]=br-.*
-    - NACOS_INETUTILS_IGNORED_INTERFACES[2]=docker.*
-    - NACOS_INETUTILS_IGNORED_INTERFACES[3]=veth.*
     - TZ=Asia/Shanghai

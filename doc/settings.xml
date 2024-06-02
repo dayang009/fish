@@ -57,7 +57,6 @@
                 <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
                 <maven.compiler.source>8</maven.compiler.source>
                 <maven.compiler.target>8</maven.compiler.target>
-                <maven.compiler.compilerVersion>8</maven.compiler.compilerVersion>
 				<downloadSources>true</downloadSources>
 				<downloadJavadocs>true</downloadJavadocs>
             </properties>
