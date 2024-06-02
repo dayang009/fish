@@ -1,6 +1,7 @@
 package com.xxl.job.admin.service;
 
 import com.fish.common.core.entity.XxlJobInfo;
+import com.fish.common.core.entity.XxlJobUser;
 import com.fish.common.core.util.ReturnT;
 
 import java.util.Date;
@@ -61,6 +62,16 @@ public interface XxlJobService {
 	 * @return
 	 */
 	ReturnT<String> stop(int id);
+
+	/**
+	 * trigger
+	 * @param loginUser
+	 * @param jobId
+	 * @param executorParam
+	 * @param addressList
+	 * @return
+	 */
+	ReturnT<String> trigger(XxlJobUser loginUser, int jobId, String executorParam, String addressList);
 
 	/**
 	 * dashboard info

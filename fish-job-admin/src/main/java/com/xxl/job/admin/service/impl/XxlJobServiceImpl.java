@@ -1,14 +1,17 @@
 package com.xxl.job.admin.service.impl;
 
-import com.fish.common.core.util.ReturnT;
-import com.xxl.job.admin.core.cron.CronExpression;
 import com.fish.common.core.entity.XxlJobGroup;
 import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.entity.XxlJobLogReport;
+import com.fish.common.core.entity.XxlJobUser;
+import com.fish.common.core.util.ReturnT;
+import com.xxl.job.admin.core.cron.CronExpression;
 import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.xxl.job.admin.core.scheduler.MisfireStrategyEnum;
 import com.xxl.job.admin.core.scheduler.ScheduleTypeEnum;
 import com.xxl.job.admin.core.thread.JobScheduleHelper;
+import com.xxl.job.admin.core.thread.JobTriggerPoolHelper;
+import com.xxl.job.admin.core.trigger.TriggerTypeEnum;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.dao.*;
 import com.xxl.job.admin.service.XxlJobService;
@@ -396,6 +399,40 @@ public class XxlJobServiceImpl implements XxlJobService {
 		xxlJobInfo.setUpdateTime(new Date());
 		xxlJobInfoDao.update(xxlJobInfo);
 		return ReturnT.SUCCESS;
+	}
+
+	@Override
+	public ReturnT<String> trigger(XxlJobUser loginUser, int jobId, String executorParam, String addressList) {
+		// permission
+		if (loginUser == null) {
+			return new ReturnT<String>(ReturnT.FAIL.getCode(), I18nUtil.getString("system_permission_limit"));
+		}
+		XxlJobInfo xxlJobInfo = xxlJobInfoDao.loadById(jobId);
+		if (xxlJobInfo == null) {
+			return new ReturnT<String>(ReturnT.FAIL.getCode(), I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
+		}
+		if (!hasPermission(loginUser, xxlJobInfo.getJobGroup())) {
+			return new ReturnT<String>(ReturnT.FAIL.getCode(), I18nUtil.getString("system_permission_limit"));
+		}
+
+		// force cover job param
+		if (executorParam == null) {
+			executorParam = "";
+		}
+
+		JobTriggerPoolHelper.trigger(jobId, TriggerTypeEnum.MANUAL, -1, null, executorParam, addressList);
+		return ReturnT.SUCCESS;
+	}
+
+	private boolean hasPermission(XxlJobUser loginUser, int jobGroup) {
+		if (loginUser.getRole() == 1) {
+			return true;
+		}
+		List<String> groupIdStrs = new ArrayList<>();
+		if (loginUser.getPermission() != null && loginUser.getPermission().trim().length() > 0) {
+			groupIdStrs = Arrays.asList(loginUser.getPermission().trim().split(","));
+		}
+		return groupIdStrs.contains(String.valueOf(jobGroup));
 	}
 
 	@Override

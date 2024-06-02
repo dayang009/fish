@@ -1,4 +1,4 @@
--- XXL-JOB v2.4.0
+-- XXL-JOB v2.4.1
 -- Copyright (c) 2015-present, xuxueli.
 
 -- 信息表

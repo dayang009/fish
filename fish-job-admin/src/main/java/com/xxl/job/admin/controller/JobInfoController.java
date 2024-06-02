@@ -10,8 +10,6 @@ import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.xxl.job.admin.core.scheduler.MisfireStrategyEnum;
 import com.xxl.job.admin.core.scheduler.ScheduleTypeEnum;
 import com.xxl.job.admin.core.thread.JobScheduleHelper;
-import com.xxl.job.admin.core.thread.JobTriggerPoolHelper;
-import com.xxl.job.admin.core.trigger.TriggerTypeEnum;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.dao.XxlJobGroupDao;
 import com.xxl.job.admin.service.LoginService;
@@ -154,14 +152,12 @@ public class JobInfoController {
 	@PermissionLimit(limit = false)
 	@RequestMapping("/trigger")
 	@ResponseBody
-	public ReturnT<String> triggerJob(int id, String executorParam, String addressList) {
-		// force cover job param
-		if (executorParam == null) {
-			executorParam = "";
-		}
+	public ReturnT<String> triggerJob(HttpServletRequest request, int id, String executorParam, String addressList) {
 
-		JobTriggerPoolHelper.trigger(id, TriggerTypeEnum.MANUAL, -1, null, executorParam, addressList);
-		return ReturnT.SUCCESS;
+		// login user
+		XxlJobUser loginUser = (XxlJobUser) request.getAttribute(LoginService.LOGIN_IDENTITY_KEY);
+		// trigger
+		return xxlJobService.trigger(loginUser, id, executorParam, addressList);
 	}
 
 	@RequestMapping("/nextTriggerTime")

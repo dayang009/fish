@@ -8,23 +8,23 @@ Hello World!!!
 
 ### 后端
 
-- 更新日期：2024-04-11
+- 更新日期：2024-06-02
 
 | 依赖                           | 本项目版本  | 新版                                                         | 说明                                                         |
 | ------------------------------ | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | spring-boot                    | v2.7.18     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
 | spring-cloud                   | v2021.0.9   | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
 | spring-cloud-alibaba           | v2021.0.6.0 | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021.0&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x，[Spring Cloud Alibaba](https://github.com/alibaba/spring-cloud-alibaba/blob/2022.x/README-zh.md) |
-| spring-boot-admin              | v2.7.15     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
+| spring-boot-admin              | v2.7.16     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
 | mybatis                        | v2.3.2      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml) | 限制 Spring Boot 2.x，指 mybatis-spring-boot-starter         |
 | mybatis-plus                   | v3.5.6      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml) |                                                              |
 | pagehelper-spring-boot-starter | v2.1.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/pagehelper/pagehelper-spring-boot-starter/maven-metadata.xml) | MyBatis 推荐分页插件                                         |
 | dynamic-datasource             | v3.6.1      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml) | 指 dynamic-datasource-spring-boot-starter                    |
-| druid-spring-boot-starter      | v1.2.22     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/druid-spring-boot-starter/maven-metadata.xml) | 德鲁伊链接池                                                 |
+| druid-spring-boot-starter      | v1.2.23     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/druid-spring-boot-starter/maven-metadata.xml) | 德鲁伊链接池                                                 |
 | knife4j                        | v4.4.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/xiaoymin/knife4j-dependencies/maven-metadata.xml) | Knife4j是一个集Swagger2和OpenAPI3为一体的增强解决方案        |
 | springdoc                      | 1.7.0       | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml) | 用于生成 API doc，支持从 javadoc 中获取字段注释              |
 | guava                          | v32.1.3-jre | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml) |                                                              |
-| hutool                         | v5.8.27     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml) | Hutool 是一个小而全的 Java 工具类库                          |
+| hutool                         | v5.8.28     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml) | Hutool 是一个小而全的 Java 工具类库                          |
 
 
 
@@ -114,7 +114,7 @@ pause
 下载Jar包导入离线环境，在pom文件所在的路径执行下面命令
 
 ``` sh
-mvn -f pom.xml dependency:copy-dependencies
+mvn -f pom.xml dependency:copy-dependencies -s settings.xml
 ```
 
 pom.xml

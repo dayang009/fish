@@ -36,7 +36,7 @@ public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<Tex
 		switch (wsReqTypeEnum) {
 			case LOGIN:
 				this.webSocketService.handleLoginReq(ctx.channel());
-				log.info("请求二维码 = " + msg.text());
+				log.info("请求二维码 = {}", msg.text());
 				break;
 			case HEARTBEAT:
 				break;
