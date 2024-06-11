@@ -294,9 +294,9 @@ long total = PageHelper.count(new ISelect() {
 
 
 
-## Navicat16下载地址
+## Navicat17下载地址
 
-http://download.navicat.com/download/navicat161_premium_cs_x64.exe
+http://download.navicat.com/download/navicat170_premium_cs_x64.exe
 
 reset.bat
 
@@ -324,28 +324,20 @@ new.bat
 
 ``` bat
 @echo off
-set dn=Info
-set dn2=ShellFolder
-set rp=HKEY_CURRENT_USER\Software\Classes\CLSID
-:: reg delete HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium\Registration14XCS /f  %针对<strong><font color="#FF0000">navicat</font></strong>15%
-reg delete HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium\Registration16XCS /f
-reg delete HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium\Update /f
-echo finding.....
-for /f "tokens=*" %%a in ('reg query "%rp%"') do (
- echo %%a
-for /f "tokens=*" %%l in ('reg query "%%a" /f "%dn%" /s /e ^|findstr /i "%dn%"') do (
-  echo deleteing: %%a
-  reg delete %%a /f
+ 
+echo Delete HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium\Registration[version and language]
+for /f %%i in ('"REG QUERY "HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium" /s | findstr /L Registration"') do (
+    reg delete %%i /va /f
 )
-for /f "tokens=*" %%l in ('reg query "%%a" /f "%dn2%" /s /e ^|findstr /i "%dn2%"') do (
-  echo deleteing: %%a
-  reg delete %%a /f
+echo.
+ 
+echo Delete Info folder under HKEY_CURRENT_USER\Software\Classes\CLSID
+for /f %%i in ('"REG QUERY "HKEY_CURRENT_USER\Software\Classes\CLSID" /s | findstr /E Info"') do (
+    reg delete %%i /va /f
 )
-)
-echo re trial done!
-
-pause
-exit
+echo.
+ 
+echo Finish
 ```
 
 
@@ -356,11 +348,11 @@ exit
 
 官网网址：https://nodejs.org/zh-cn
 
-推荐使用16版本：https://nodejs.org/dist/latest-v16.x/
+推荐使用18版本：https://nodejs.org/dist/latest-v18.x/
 
-选择后缀为`-win-x64.zip`,例如：`/node-v16.xx.x-win-x64.zip`
+选择后缀为`-win-x64.zip`,例如：`/node-v18.xx.x-win-x64.zip`
 
-配置`Path`环境变量(根据实际情况选择安装位置的路径):`D:\Develop\node-v16.20.1-win-x64`
+配置`Path`环境变量(根据实际情况选择安装位置的路径):`D:\Develop\node-v18.20.3-win-x64`
 
 配置国内淘宝镜像源
 
@@ -502,7 +494,7 @@ docker run -itd \
   -e LANG=de_DE.utf8 \
 	-e PGDATA=/var/lib/postgresql/data/pgdata \
 	-v /docker/postgresql/data:/var/lib/postgresql/data \
-	postgres:14.9
+	postgres:15.7
 ```
 
 
@@ -512,7 +504,7 @@ docker run -itd \
 
 
 ``` bash
-docker pull redis:6.2
+docker pull redis:7.2.5
 
 # 下载对应版本配置文件
 https://redis.io/docs/management/config/
@@ -531,13 +523,13 @@ docker
 
 # 命令
 docker run -itd \
-    --name redis6.2 \
+    --name redis7.2.5 \
     --restart always \
     --privileged=true \
     -p "6379":"6379" \
     -v /docker/redis/redis.conf:/etc/redis/redis.conf \
     -v /docker/redis/data:/data \
-    redis:6.2 \
+    redis:7.2.5 \
     redis-server /etc/redis/redis.conf
 
 
@@ -549,7 +541,7 @@ docker run \
 -v /docker/redis/data:/data \  挂在redis的持久化数据
 --restart=always \  设置redis容器随docker启动而自启动
 -d \后台运行并返回容器id
-redis:7.0.4 \
+redis:7.2.5 \
 redis-server /etc/redis/redis.conf \  指定redis在docker中的配置文件路径，后台启动redis
 
 ```
