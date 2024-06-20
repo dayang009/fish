@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 餐厅表 {@link User}
@@ -34,6 +34,6 @@ public class Restaurant implements Serializable {
 	 */
 	private String address;
 
-	private Date date;
+	private LocalDateTime date;
 
 }

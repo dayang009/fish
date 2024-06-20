@@ -24,6 +24,7 @@ public class GsonConfig {
 		// 默认情况下，Gson转义HTML字符，如＜＞等。使用此选项可将Gson配置为按原样传递HTML字符。
 		gsonBuilder.disableHtmlEscaping();
 		gsonBuilder.setPrettyPrinting();
+		gsonBuilder.disableInnerClassSerialization();
 		gsonBuilder.setDateFormat(DatePattern.NORM_DATETIME_PATTERN);
 		customizers.forEach(gsonBuilderCustomizer -> gsonBuilderCustomizer.customize(gsonBuilder));
 		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());

@@ -24,8 +24,6 @@ public interface UserMapper {
 
 	/**
 	 * 插入数据集合
-	 * @param entityList
-	 * @return
 	 */
 	int insertBatchSomeColumn(List<User> entityList);
 
@@ -48,8 +46,6 @@ public interface UserMapper {
 
 	/**
 	 * 根据 entity 条件，查询一条记录
-	 * @param user
-	 * @return
 	 */
 	User selectOne(User user);
 

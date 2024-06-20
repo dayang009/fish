@@ -7,6 +7,7 @@ import com.fish.user.entity.Restaurant;
 import com.fish.user.entity.User;
 import com.fish.user.mapper.UserMapper;
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -37,6 +39,9 @@ public class TestController {
 
 	@Resource
 	private LoginGiteeConfig loginGiteeConfig;
+
+	@Resource
+	private Gson gson;
 
 	@PostMapping("/demo01")
 	public Integer demo01(@RequestBody String id) {
@@ -87,8 +92,8 @@ public class TestController {
 		user.setPhone("18855556666");
 		user.setEmail("123@qq.com");
 		user.setAdminFlag(0);
-		Restaurant restaurant1 = new Restaurant("666", "数字谷", "北京", new Date());
-		Restaurant restaurant2 = new Restaurant("888", "数字谷", "上海", new Date());
+		Restaurant restaurant1 = new Restaurant("666", "数字谷", "北京", LocalDateTime.now());
+		Restaurant restaurant2 = new Restaurant("888", "数字谷", "上海", LocalDateTime.now());
 		user.setRestaurant(Lists.newArrayList(restaurant1, restaurant2));
 		userMapper.insert(user);
 		return user;
@@ -111,6 +116,13 @@ public class TestController {
 
 		String s = HttpUtil.get("https://gitee.com/oauth/authorize", giteeReqMap);
 		return s;
+	}
+
+	@NotControllerResponseAdvice
+	@PostMapping("/demo05")
+	public User demo05(@RequestBody User user) {
+		System.out.println(gson.toJson(user));
+		return user;
 	}
 
 }

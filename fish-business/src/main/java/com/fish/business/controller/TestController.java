@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 @Tag(name = "测试控制参数")
 @RefreshScope
@@ -47,6 +49,9 @@ public class TestController {
 
 	@Resource
 	private Gson gson;
+
+	@Resource
+	private RedisTemplate redisTemplate;
 
 	@Operation(summary = "添加一个定时任务")
 	@GetMapping("/demo01")
@@ -178,6 +183,12 @@ public class TestController {
 		settingsRoot.setMirrorDTOList(new ArrayList<MirrorDTO>());
 		settingsRoot.setNowDate(new Date());
 		settingsRoot.setEndTime(LocalDateTime.now());
+
+	}
+
+	@GetMapping("/demo10")
+	public void demo10() {
+		redisTemplate.opsForValue().set("name名字", "zhangSan张三", 1, TimeUnit.HOURS);
 
 	}
 

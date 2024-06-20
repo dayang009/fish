@@ -3,7 +3,7 @@ services:
   #Service for nameserver
   namesrv:
     container_name: RocketMQ-namesrv
-    image: apache/rocketmq:4.9.7
+    image: apache/rocketmq:5.2.0
     command: sh mqnamesrv
     restart: always
     ports:
@@ -17,7 +17,7 @@ services:
     container_name: RocketMQ-broker
     links:
     - namesrv
-    image: apache/rocketmq:4.9.7
+    image: apache/rocketmq:5.2.0
     command: sh mqbroker --enable-proxy -c /opt/rocketmq/conf/broker.conf
     restart: always
     ports:
