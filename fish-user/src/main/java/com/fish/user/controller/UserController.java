@@ -1,12 +1,13 @@
 package com.fish.user.controller;
 
+import cn.hutool.extra.servlet.ServletUtil;
 import com.fish.common.core.exception.FishCloudException;
 import com.fish.common.core.util.RespResult;
 import com.fish.common.core.util.ResponseEnum;
 import com.fish.user.adapter.Login3rdAdapter;
-import com.fish.user.entity.User;
-import com.fish.user.mapper.UserMapper;
-import com.fish.user.service.UserService;
+import com.fish.user.entity.UserInfo;
+import com.fish.user.mapper.UserInfoMapper;
+import com.fish.user.service.UserInfoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -14,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author dayang
@@ -27,78 +26,27 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-	@Resource
-	private UserService userService;
+	// @Resource(name = "UserInfoServiceImpl")
+	private UserInfoService userInfoService;
 
 	@Resource
-	private UserMapper userMapper;
+	private UserInfoMapper userInfoMapper;
 
 	@Resource
 	private Login3rdAdapter login3rdAdapter;
 
-	@GetMapping("/user1")
-	public String demo01() {
-
-		User user = new User();
-		user.setNickName("zhangSan");
-		user.setUserAccount("qwer");
-		user.setUserPassword("123456");
-		user.setGender(0);
-		user.setAge(10);
-		user.setPhone("188555588");
-		user.setEmail("123@qq.com");
-		user.setAdminFlag(0);
-
-		int insert = userMapper.insert(user);
-		return String.valueOf(insert);
-	}
-
-	@PostMapping("/user")
-	public RespResult<String> addUser(@Validated @RequestBody List<@Valid User> users) {
-		userMapper.insertBatchSomeColumn(users);
-		return RespResult.success("批量数据插入成功");
-	}
-
-	@PostMapping("")
-	public RespResult<?> save(@RequestBody @Validated User user) {
-		userMapper.insert(user);
-		return RespResult.success(user);
-	}
-
-	@DeleteMapping("/{id}")
-	public RespResult<?> delete(@PathVariable Serializable id) {
-		userMapper.deleteById(id);
-		return RespResult.success("用户删除成功");
-	}
-
-	@PutMapping("/")
-	public RespResult<?> update(@RequestBody @Validated User user) {
-		int i = userMapper.updateById(user);
-		if (i == 0) {
-			throw new FishCloudException(ResponseEnum.USER_ERROR, "原用户不存在");
-		}
-		return RespResult.success("用户修改成功");
-	}
-
-	@GetMapping("/{id}")
-	public RespResult<User> getById(@PathVariable Serializable id) {
-		User user = userMapper.selectById(id);
-		if (user == null) {
-			throw new FishCloudException(ResponseEnum.USER_REQ_PARAS_ERROR, "无法通过此ID查到用户");
-		}
-		return RespResult.success(user);
-	}
-
 	@PostMapping("/login")
-	public RespResult<?> login(@RequestBody @Validated User user) {
-		String login = userService.login(user.getUserAccount(), user.getUserPassword());
-		return RespResult.success(login);
+	public RespResult<?> login(@RequestBody @Validated UserInfo user) {
+		// String login = userInfoService.login(user.getUserAccount(),
+		// user.getUserPassword());
+		return RespResult.success("login");
 	}
 
 	@PostMapping("/register")
-	public RespResult<?> register(@RequestBody @Validated User user) {
-		String register = userService.register(user);
-		return RespResult.success(register);
+	public RespResult<?> register(@RequestBody @Validated UserInfo user, HttpServletRequest request) {
+		log.info("注册接口被调用的IP: {}", ServletUtil.getClientIP(request));
+		// String register = userInfoService.register(user);
+		return RespResult.success("register");
 	}
 
 	/**
@@ -106,8 +54,51 @@ public class UserController {
 	 */
 	@GetMapping("/gitee")
 	public RespResult<?> gitee(String code, String state, HttpServletRequest servletRequest) {
+		log.info("Gitee平台回调接口IP ==> {}", ServletUtil.getClientIP(servletRequest));
 		String s = login3rdAdapter.loginByGitee(code, state);
 		return RespResult.success(s);
+	}
+
+	@GetMapping("/gitea")
+	public RespResult<?> gitea(Object object) {
+		System.out.println(object);
+		return RespResult.success();
+	}
+
+	@GetMapping("/github")
+	public RespResult<?> github(String code, String state, HttpServletRequest servletRequest) {
+		String s = login3rdAdapter.loginByGitee(code, state);
+		return RespResult.success(s);
+	}
+
+	@PostMapping("")
+	public RespResult<?> save(@RequestBody @Validated UserInfo user) {
+		userInfoMapper.insert(user);
+		return RespResult.success(user);
+	}
+
+	@DeleteMapping("/{id}")
+	public RespResult<?> delete(@PathVariable Serializable id) {
+		userInfoMapper.deleteById(id);
+		return RespResult.success("用户删除成功");
+	}
+
+	@PutMapping("/")
+	public RespResult<?> update(@RequestBody @Validated UserInfo user) {
+		int i = userInfoMapper.updateById(user);
+		if (i == 0) {
+			throw new FishCloudException(ResponseEnum.USER_ERROR, "原用户不存在");
+		}
+		return RespResult.success("用户修改成功");
+	}
+
+	@GetMapping("/{id}")
+	public RespResult<UserInfo> getById(@PathVariable Serializable id) {
+		UserInfo user = userInfoMapper.selectById(id);
+		if (user == null) {
+			throw new FishCloudException(ResponseEnum.USER_REQ_PARAS_ERROR, "无法通过此ID查到用户");
+		}
+		return RespResult.success(user);
 	}
 
 }

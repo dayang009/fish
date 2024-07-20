@@ -8,6 +8,7 @@ spring:
     inetutils:
       ignored-interfaces:
       - VMware.*
+      - VirtualBox.*
     nacos:
       username: ${FISH_NACOS_USERNAME:nacos}
       password: ${FISH_NACOS_PASSWORD:nacos}
@@ -15,7 +16,7 @@ spring:
       config:
         enabled: true
         file-extension: yaml
-        namespace: ${FISH_NACOS_NAMESPACE}
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
         # 用于共享的配置文件
         shared-configs:

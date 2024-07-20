@@ -96,10 +96,10 @@ comment on column "xxl_job_log"."alarm_status" is '告警状态：0-默认、1-�
 
 comment on table "xxl_job_log" is '存储任务执行日志的表';
 
-create index I_handle_code
-    on xxl_job_log (handle_code);
-create index I_trigger_time
-    on xxl_job_log (trigger_time);
+create index idx_handle_code
+    on xxl_job_log using btree (handle_code);
+create index idx_trigger_time
+    on xxl_job_log using btree (trigger_time);
 
 
 -- xxl_job_log_report
@@ -111,7 +111,7 @@ create table if not exists "xxl_job_log_report"
     "suc_count"     int2    not null default 0,
     "fail_count"    int2    not null default 0,
     "update_time"   timestamp(3),
-    constraint i_trigger_day unique (trigger_day)
+    constraint uni_trigger_day unique (trigger_day)
 
 )
 ;
@@ -156,7 +156,7 @@ create table if not exists "xxl_job_registry"
 )
 ;
 
-create index i_g_k_v
+create index idx_g_k_v
     on xxl_job_registry (registry_group, registry_key, registry_value);
 
 comment on column "xxl_job_registry".id is '自增ID';
@@ -203,7 +203,7 @@ create table if not exists "xxl_job_user"
     "password"   varchar(50)  not null,
     "role"       int2         not null,
     "permission" varchar(255) null,
-    constraint i_username unique (username)
+    constraint uni_username unique (username)
 
 )
 ;

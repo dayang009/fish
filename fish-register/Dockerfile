@@ -6,8 +6,8 @@ ARG JAR_FILE=target/fish-register.jar
 
 COPY ${JAR_FILE} app.jar
 
-EXPOSE 36900
+EXPOSE 8761
 
-ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms128m -Xmx256m"
+ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms256m -Xmx512m"
 
-CMD sleep 3; java $JAVA_OPTS -jar app.jar
+CMD sleep 5; java $JAVA_OPTS -jar app.jar

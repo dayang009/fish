@@ -11,7 +11,7 @@ public class XxlConfigProperty {
 	/**
 	 * 注册地址
 	 */
-	private String adminAddresses = "http://127.0.0.1:8083/xxl-job-admin";
+	private String adminAddresses = "http://127.0.0.1:8080/xxl-job-admin";
 
 	/**
 	 * 通信使用的Token

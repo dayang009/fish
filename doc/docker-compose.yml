@@ -1,4 +1,4 @@
-version: "3"
+
 services:
   #Service for nameserver
   namesrv:

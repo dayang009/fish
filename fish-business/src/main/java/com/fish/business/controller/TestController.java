@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -189,6 +190,7 @@ public class TestController {
 	@GetMapping("/demo10")
 	public void demo10() {
 		redisTemplate.opsForValue().set("name名字", "zhangSan张三", 1, TimeUnit.HOURS);
+		ListOperations listOperations = redisTemplate.opsForList();
 
 	}
 

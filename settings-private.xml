@@ -21,22 +21,22 @@
 		<server>
 			<id>maven-releases</id>
 			<username>admin</username>
-			<password>admin321</password>
+			<password>admin123</password>
 		</server>
 		<server>
 			<id>maven-snapshots</id>
 			<username>admin</username>
-			<password>admin321</password>
+			<password>admin123</password>
 		</server>
 	</servers>
 
 	<mirrors>
 
 		<mirror>
-			<id>public</id>
-			<mirrorOf>releases,snapshots,central</mirrorOf>
-			<name>自建镜像仓库</name>
-			<url>https://maven.dayang.com:8443/repository/maven-public/</url>
+			<id>aliyunmaven</id>
+			<mirrorOf>central,jcenter</mirrorOf>
+			<name>阿里云公共仓库</name>
+			<url>https://maven.aliyun.com/repository/public/</url>
 		</mirror>
 
 

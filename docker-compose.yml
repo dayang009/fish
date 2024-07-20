@@ -6,7 +6,7 @@ services:
       context: ./fish-register
     restart: always
     ports:
-    - "36900:36900"
+    - "8761:8761"
     container_name: fish-register
     hostname: fish-register
     image: dayang/fish-register
@@ -39,18 +39,15 @@ services:
     networks:
     - spring_cloud_default
 
-  fish-executor:
+  fish-business:
     build:
-      context: ./fish-executor
+      context: ./fish-business
     restart: always
     ports:
-    - "36905:36905"
-    container_name: fish-executor
-    hostname: fish-executor
-    image: dayang/fish-executor
-    depends_on:
-    - fish-gateway
-    - fish-job-admin
+    - "36907:36907"
+    container_name: fish-business
+    hostname: fish-business
+    image: dayang/fish-business
     networks:
     - spring_cloud_default
 

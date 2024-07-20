@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+*-local.yml
+*-local.yaml
+*-local.properties
+
 logs
 transaction-logs/
 *.class

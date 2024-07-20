@@ -1,0 +1,13 @@
+spring:
+  gson:
+    generate-non-executable-json: false
+    exclude-fields-without-expose-annotation: false
+    serialize-nulls: true
+    enable-complex-map-key-serialization: true
+    disable-inner-class-serialization: true
+    long-serialization-policy: default
+    field-naming-policy: identity
+    pretty-printing: false
+    disable-html-escaping: true
+    date-format: "yyyy-MM-dd HH:mm:ss"
+

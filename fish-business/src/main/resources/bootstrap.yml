@@ -12,7 +12,7 @@ spring:
       config:
         enabled: true
         file-extension: yaml
-        namespace: ${FISH_NACOS_NAMESPACE}
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
         shared-configs:
         - data-id: share-fish-config.yaml
@@ -20,12 +20,13 @@ spring:
         - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
           refresh: true
       discovery:
-        enabled: true
-        namespace: ${FISH_NACOS_NAMESPACE}
+        enabled: false
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
     inetutils:
       ignored-interfaces:
       - VMware.*
+      - VirtualBox.*
 
 eureka:
   instance:
@@ -39,6 +40,11 @@ eureka:
     enabled: false
     service-url:
       defaultZone: http://${FISH_EUREKA_IP:localhost}:${FISH_EUREKA_PORT:8761}/eureka/
+
+xxljob:
+  admin-addresses: http://${artifactId:localhost}:36903/xxl-job-admin
+  appname: default-executor
+  port: 9898
 
 monitor:
   file-path: D:/temp

@@ -20,7 +20,7 @@ spring:
       config:
         enabled: true
         file-extension: yaml
-        namespace: ${FISH_NACOS_NAMESPACE}
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
         # 用于共享的配置文件
         shared-configs:
@@ -29,12 +29,13 @@ spring:
         - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
           refresh: true
       discovery:
-        enabled: true
-        namespace: ${FISH_NACOS_NAMESPACE}
+        enabled: false
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
     inetutils:
       ignored-interfaces:
       - VMware.*
+      - VirtualBox.*
   freemarker:
     suffix: ".ftl"
     charset: UTF-8
@@ -83,7 +84,7 @@ eureka:
     # 默认值为主机名+服务名+端口
     instance-id: ${spring.application.name}:${server.port}
   client:
-    enabled: false
+    enabled: true
     service-url:
       defaultZone: http://${FISH_EUREKA_IP:localhost}:${FISH_EUREKA_PORT:8761}/eureka/
 

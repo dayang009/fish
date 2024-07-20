@@ -1,10 +1,11 @@
 services:
 
   nacos:
-    image: nacos/nacos-server:v2.3.2
+    image: nacos/nacos-server:v2.4.0
     restart: always
     privileged: true
     container_name: nacos
+    network_mode: host
     ports:
     - "7848:7848"
     - "8848:8848"

@@ -1,42 +1,21 @@
 spring:
   datasource:
-    druid:
-      initial-size: 5
-      max-active: 30
-      min-idle: 10
-      max-wait: 60000
-      time-between-eviction-runs-millis: 100000
-    dynamic:
-      primary: master
-      strict: false
-      datasource:
-        master:
-          driver-class-name: org.postgresql.Driver
-          url: jdbc:postgresql://192.168.18.99:5432/postgres?currentSchema=public&stringtype=unspecified
-          username: postgres
-          password: postgres
-          type: com.alibaba.druid.pool.DruidDataSource
-          druid:
-            initial-size: 5
-            validation-query: SELECT 1
-        mysql:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.18.99:3306/fish?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&allowMultiQueries=true
-          username: root
-          password: root
-          type: com.alibaba.druid.pool.DruidDataSource
-        oracle:
-          driver-class-name: oracle.jdbc.OracleDriver
-          url: jdbc:oracle:thin:@127.0.0.1:1521/dbname
-          username: oracle
-          password: oracle
-          type: com.alibaba.druid.pool.DruidDataSource
-          druid:
-            initial-size: 5
-            validation-query: SELECT 1 FROM DUAL
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public&stringtype=unspecified
+    username: postgres
+    password: postgres
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      # 获取客户端等待池中连接的最大毫秒数
+      connection-timeout: 3000
+      # 允许连接在池中处于空闲状态的最长时间（以毫秒为单位）
+      idle-timeout: 30000
+
 
   redis:
-    host: 192.168.18.99
+    host: 127.0.0.1
     port: 6379
     username:
     password:
