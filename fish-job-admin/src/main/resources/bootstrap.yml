@@ -5,11 +5,14 @@ server:
 
 
 spring:
+  web:
+    resources:
+      static-locations: classpath:/static/
   application:
-    name: ${artifactId}
+    name: fish-job-admin
   mvc:
     servlet:
-      load-on-startup: 6
+      load-on-startup: 0
     # 修改静态资源访问路径，默认是：/**
     static-path-pattern: /static/**
   cloud:
@@ -29,7 +32,7 @@ spring:
         - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
           refresh: true
       discovery:
-        enabled: false
+        enabled: true
         namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
     inetutils:
@@ -37,6 +40,7 @@ spring:
       - VMware.*
       - VirtualBox.*
   freemarker:
+    template-loader-path: classpath:/templates/
     suffix: ".ftl"
     charset: UTF-8
     request-context-attribute: request
@@ -84,11 +88,28 @@ eureka:
     # 默认值为主机名+服务名+端口
     instance-id: ${spring.application.name}:${server.port}
   client:
-    enabled: true
+    enabled: false
     service-url:
       defaultZone: http://${FISH_EUREKA_IP:localhost}:${FISH_EUREKA_PORT:8761}/eureka/
 
+
+logging:
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            view:
+              freemarker: info
+
+
+
+# actuator
 management:
+  server:
+    base-path: /actuator
   endpoints:
     web:
       exposure:

@@ -9,9 +9,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.annotation.Resource;
 
 @Slf4j
 @ChannelHandler.Sharable

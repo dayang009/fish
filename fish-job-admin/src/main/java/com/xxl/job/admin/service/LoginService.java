@@ -1,17 +1,17 @@
 package com.xxl.job.admin.service;
 
 import com.fish.common.core.entity.XxlJobUser;
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.core.util.CookieUtil;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.core.util.JacksonUtil;
 import com.xxl.job.admin.dao.XxlJobUserDao;
-import com.fish.common.core.util.ReturnT;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.DigestUtils;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 
 /**
@@ -47,17 +47,17 @@ public class LoginService {
 
 		// param
 		if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-			return new ReturnT<>(500, I18nUtil.getString("login_param_empty"));
+			return ReturnT.instance(500, I18nUtil.getString("login_param_empty"));
 		}
 
 		// valid passowrd
 		XxlJobUser xxlJobUser = xxlJobUserDao.loadByUserName(username);
 		if (xxlJobUser == null) {
-			return new ReturnT<>(500, I18nUtil.getString("login_param_unvalid"));
+			return ReturnT.instance(500, I18nUtil.getString("login_param_unvalid"));
 		}
 		String passwordMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
 		if (!passwordMd5.equals(xxlJobUser.getPassword())) {
-			return new ReturnT<>(500, I18nUtil.getString("login_param_unvalid"));
+			return ReturnT.instance(500, I18nUtil.getString("login_param_unvalid"));
 		}
 
 		String loginToken = makeToken(xxlJobUser);

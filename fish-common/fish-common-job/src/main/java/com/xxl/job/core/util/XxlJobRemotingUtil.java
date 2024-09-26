@@ -119,7 +119,7 @@ public class XxlJobRemotingUtil {
 			// valid StatusCode
 			int statusCode = connection.getResponseCode();
 			if (statusCode != 200) {
-				return new ReturnT<String>(ReturnT.FAIL_CODE,
+				return ReturnT.instance(ReturnT.FAIL_CODE,
 						"xxl-job remoting fail, StatusCode(" + statusCode + ") invalid. for url : " + url);
 			}
 
@@ -139,15 +139,15 @@ public class XxlJobRemotingUtil {
 				return returnT;
 			}
 			catch (Exception e) {
-				logger.error("xxl-job remoting (url=" + url + ") response content invalid(" + resultJson + ").", e);
-				return new ReturnT<String>(ReturnT.FAIL_CODE,
+				logger.error("xxl-job remoting (url={}) response content invalid({}).", url, resultJson, e);
+				return ReturnT.instance(ReturnT.FAIL_CODE,
 						"xxl-job remoting (url=" + url + ") response content invalid(" + resultJson + ").");
 			}
 
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			return new ReturnT<String>(ReturnT.FAIL_CODE,
+			return ReturnT.instance(ReturnT.FAIL_CODE,
 					"xxl-job remoting error(" + e.getMessage() + "), for url : " + url);
 		}
 		finally {

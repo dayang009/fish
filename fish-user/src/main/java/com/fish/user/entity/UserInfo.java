@@ -1,14 +1,17 @@
 package com.fish.user.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.GsonTypeHandler;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,6 +28,7 @@ public class UserInfo implements Serializable {
 	 * 主键
 	 */
 	@Schema(description = "主键、自增")
+	@TableId(type = IdType.AUTO)
 	private String id;
 
 	/**
@@ -34,10 +38,9 @@ public class UserInfo implements Serializable {
 	private String nickName;
 
 	/**
-	 * 账户
+	 * 用户名
 	 */
-	@Schema(description = "账户", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotEmpty(message = "账户不能为空")
+	@Schema(description = "用户名")
 	private String userAccount;
 
 	/**
@@ -80,14 +83,19 @@ public class UserInfo implements Serializable {
 	 */
 	@Schema(description = "邮箱", requiredMode = Schema.RequiredMode.REQUIRED, example = "demo@163.com")
 	@Email
-	@NotEmpty(message = "邮箱信息不能为空")
 	private String email;
 
 	/**
-	 * 0-普通用户，1-管理员
+	 * 当前用户角色
 	 */
-	@Schema(description = "0-普通用户，1-管理员", hidden = true)
-	private Integer adminFlag = 0;
+	@TableField(typeHandler = GsonTypeHandler.class)
+	private Object roles;
+
+	/**
+	 * 有哪些权限
+	 */
+	@TableField(typeHandler = GsonTypeHandler.class)
+	private Object permissions;
 
 	/**
 	 * 用户状态；0-正常
@@ -105,8 +113,10 @@ public class UserInfo implements Serializable {
 	@TableField(typeHandler = GsonTypeHandler.class)
 	private Object tags;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
 	private Date createTime;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
 	private Date updateTime;
 
 	/**

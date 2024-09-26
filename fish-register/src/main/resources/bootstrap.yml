@@ -66,5 +66,7 @@ management:
         include: "*"
 
 logging:
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
   level:
     com.netflix.eureka.registry: warn

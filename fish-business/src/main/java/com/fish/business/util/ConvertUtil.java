@@ -2,16 +2,17 @@ package com.fish.business.util;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import org.apache.commons.lang.CharEncoding;
 import org.dom4j.Element;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ConvertUtil {
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		// 构建输出环境，使用标准输出
 		PrintStream out = new PrintStream(Files.newOutputStream(Paths.get(localFilePath + fileName)), true,
-				CharEncoding.UTF_8);
+				StandardCharsets.UTF_8);
 		// 将所需对象序列化，该方法没有返回值
 		marshaller.marshal(object, out);
 		return localFilePath + fileName;

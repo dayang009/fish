@@ -20,7 +20,7 @@ spring:
         - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
           refresh: true
       discovery:
-        enabled: false
+        enabled: true
         namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
     inetutils:

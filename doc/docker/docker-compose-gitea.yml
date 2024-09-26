@@ -1,7 +1,7 @@
 services:
 
   gitea:
-    image: gitea/gitea:1.22.0
+    image: gitea/gitea:1.22.2
     container_name: gitea
     privileged: true
     restart: always

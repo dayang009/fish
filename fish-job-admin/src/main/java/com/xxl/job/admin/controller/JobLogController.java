@@ -1,10 +1,11 @@
 package com.xxl.job.admin.controller;
 
-import com.xxl.job.admin.core.complete.XxlJobCompleter;
-import com.xxl.job.admin.core.exception.XxlJobException;
 import com.fish.common.core.entity.XxlJobGroup;
 import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.entity.XxlJobLog;
+import com.fish.common.core.util.ReturnT;
+import com.xxl.job.admin.core.complete.XxlJobCompleter;
+import com.xxl.job.admin.core.exception.XxlJobException;
 import com.xxl.job.admin.core.scheduler.XxlJobScheduler;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.dao.XxlJobGroupDao;
@@ -14,8 +15,9 @@ import com.xxl.job.core.biz.ExecutorBiz;
 import com.xxl.job.core.biz.model.KillParam;
 import com.xxl.job.core.biz.model.LogParam;
 import com.xxl.job.core.biz.model.LogResult;
-import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.util.DateUtil;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -26,8 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -90,7 +90,7 @@ public class JobLogController {
 	@ResponseBody
 	public ReturnT<List<XxlJobInfo>> getJobsByGroup(int jobGroup) {
 		List<XxlJobInfo> list = xxlJobInfoDao.getJobsByGroup(jobGroup);
-		return new ReturnT<>(list);
+		return ReturnT.instance(list);
 	}
 
 	@RequestMapping("/pageList")
@@ -153,7 +153,7 @@ public class JobLogController {
 			XxlJobLog jobLog = xxlJobLogDao.load(logId);
 
 			if (jobLog == null) {
-				return new ReturnT<>(ReturnT.FAIL_CODE, I18nUtil.getString("joblog_logid_unvalid"));
+				return ReturnT.instance(ReturnT.FAIL_CODE, I18nUtil.getString("joblog_logid_unvalid"));
 			}
 
 			// log cat
@@ -180,7 +180,7 @@ public class JobLogController {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			return new ReturnT<>(ReturnT.FAIL_CODE, e.getMessage());
+			return ReturnT.instance(ReturnT.FAIL_CODE, e.getMessage());
 		}
 	}
 
@@ -191,10 +191,10 @@ public class JobLogController {
 		XxlJobLog log = xxlJobLogDao.load(id);
 		XxlJobInfo jobInfo = xxlJobInfoDao.loadById(log.getJobId());
 		if (jobInfo == null) {
-			return new ReturnT<>(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
+			return ReturnT.instance(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
 		}
 		if (ReturnT.SUCCESS_CODE != log.getTriggerCode()) {
-			return new ReturnT<>(500, I18nUtil.getString("joblog_kill_log_limit"));
+			return ReturnT.instance(500, I18nUtil.getString("joblog_kill_log_limit"));
 		}
 
 		// request of kill
@@ -214,10 +214,10 @@ public class JobLogController {
 					+ (runResult.getMsg() != null ? runResult.getMsg() : ""));
 			log.setHandleTime(new Date());
 			XxlJobCompleter.updateHandleInfoAndFinish(log);
-			return new ReturnT<>(runResult.getMsg());
+			return ReturnT.instance(runResult.getMsg());
 		}
 		else {
-			return new ReturnT<>(500, runResult.getMsg());
+			return ReturnT.instance(500, runResult.getMsg());
 		}
 	}
 
@@ -255,7 +255,7 @@ public class JobLogController {
 			clearBeforeNum = 0; // 清理所有日志数据
 		}
 		else {
-			return new ReturnT<>(ReturnT.FAIL_CODE, I18nUtil.getString("joblog_clean_type_unvalid"));
+			return ReturnT.instance(ReturnT.FAIL_CODE, I18nUtil.getString("joblog_clean_type_unvalid"));
 		}
 
 		List<Long> logIds = null;

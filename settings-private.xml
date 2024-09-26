@@ -39,6 +39,12 @@
 			<url>https://maven.aliyun.com/repository/public/</url>
 		</mirror>
 
+		<mirror>
+			<id>tsinghua</id>
+			<mirrorOf>central</mirrorOf>
+			<name>清华大学镜像仓库</name>
+			<url>https://repo.maven.apache.org/maven2/</url>
+		</mirror>
 
 	</mirrors>
 

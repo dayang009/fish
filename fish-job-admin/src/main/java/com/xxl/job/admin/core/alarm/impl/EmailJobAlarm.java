@@ -1,17 +1,17 @@
 package com.xxl.job.admin.core.alarm.impl;
 
-import com.xxl.job.admin.core.alarm.JobAlarm;
-import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.fish.common.core.entity.XxlJobGroup;
 import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.entity.XxlJobLog;
-import com.xxl.job.admin.core.util.I18nUtil;
 import com.fish.common.core.util.ReturnT;
+import com.xxl.job.admin.core.alarm.JobAlarm;
+import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
+import com.xxl.job.admin.core.util.I18nUtil;
+import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
-import javax.mail.internet.MimeMessage;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashSet;

@@ -8,12 +8,11 @@ import com.fish.common.core.util.ResponseEnum;
 import com.fish.user.entity.UserInfo;
 import com.fish.user.mapper.UserInfoMapper;
 import com.fish.user.service.UserInfoService;
-import com.fish.user.util.YangUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -75,7 +74,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 		if (CollUtil.isEmpty(tags)) {
 			throw new FishCloudException(ResponseEnum.APP_ERROR, "标签不能为空");
 		}
-		Gson gson = YangUtil.getGson();
+		Gson gson = new Gson();
 		List<UserInfo> users = this.list();
 		return users.stream().filter(userInfo -> {
 			TypeToken<Set<String>> tagType = new TypeToken<>() {

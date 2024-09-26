@@ -17,9 +17,9 @@ public class ReturnT<T> implements Serializable {
 
 	public static final int FAIL_CODE = 500;
 
-	public static final ReturnT<String> SUCCESS = new ReturnT<>(null);
+	public static final ReturnT<String> SUCCESS = ReturnT.instance(null);
 
-	public static final ReturnT<String> FAIL = new ReturnT<>(FAIL_CODE, null);
+	public static final ReturnT<String> FAIL = ReturnT.instance(FAIL_CODE, null);
 
 	private int code;
 
@@ -38,6 +38,14 @@ public class ReturnT<T> implements Serializable {
 	public ReturnT(T content) {
 		this.code = SUCCESS_CODE;
 		this.content = content;
+	}
+
+	public static <T> ReturnT<T> instance(int code, String msg) {
+		return new ReturnT<>(code, msg);
+	}
+
+	public static <T> ReturnT<T> instance(T content) {
+		return new ReturnT<>(content);
 	}
 
 	public int getCode() {

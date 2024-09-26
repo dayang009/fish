@@ -2,8 +2,8 @@ package com.fish.business.mvnentity;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.Date;
 
 /**

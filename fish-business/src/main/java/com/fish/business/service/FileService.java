@@ -7,6 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fish.business.mvnentity.SettingsRoot;
 import com.google.gson.Gson;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -16,7 +17,6 @@ import org.dom4j.io.SAXReader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.util.List;
 

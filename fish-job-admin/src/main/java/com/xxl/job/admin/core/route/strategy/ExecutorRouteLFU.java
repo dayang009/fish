@@ -69,7 +69,7 @@ public class ExecutorRouteLFU extends ExecutorRouter {
 	@Override
 	public ReturnT<String> route(TriggerParam triggerParam, List<String> addressList) {
 		String address = route(triggerParam.getJobId(), addressList);
-		return new ReturnT<>(address);
+		return ReturnT.instance(address);
 	}
 
 }

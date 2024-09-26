@@ -1,16 +1,20 @@
 package com.xxl.job.admin.controller.interceptor;
 
-import com.xxl.job.admin.controller.annotation.PermissionLimit;
 import com.fish.common.core.entity.XxlJobUser;
+import com.xxl.job.admin.controller.annotation.PermissionLimit;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.service.LoginService;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 权限拦截
@@ -55,6 +59,34 @@ public class PermissionInterceptor implements AsyncHandlerInterceptor {
 		}
 
 		return true; // proceed with the next interceptor
+	}
+
+	/**
+	 * 升级springboot3 jdk 17 spring6移除了对freemarker的jsp支持，
+	 * 所以导致了内置的Request对象用不了，可以在PermissionInterceptor下添加以下代码
+	 * <p>
+	 * 来自issues: <a href="https://github.com/xuxueli/xxl-job/issues/3338">
+	 * https://github.com/xuxueli/xxl-job/issues/3338</a> 感谢
+	 * <a href="https://github.com/zuihou"> @zuihou </a>
+	 * </p>
+	 * @param request 请求
+	 * @param response 响应
+	 * @param handler 处理对象
+	 * @param modelAndView 视图
+	 * @throws Exception 异常
+	 */
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) {
+		if (modelAndView != null) {
+			Map<String, Object> attributes = new HashMap<>();
+			Enumeration<String> enumeration = request.getAttributeNames();
+			while (enumeration.hasMoreElements()) {
+				String key = enumeration.nextElement();
+				attributes.put(key, request.getAttribute(key));
+			}
+			modelAndView.addObject("Request", attributes);
+		}
 	}
 
 }

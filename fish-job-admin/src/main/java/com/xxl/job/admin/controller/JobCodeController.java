@@ -2,18 +2,18 @@ package com.xxl.job.admin.controller;
 
 import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.entity.XxlJobLogGlue;
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.dao.XxlJobInfoDao;
 import com.xxl.job.admin.dao.XxlJobLogGlueDao;
-import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.glue.GlueTypeEnum;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -61,15 +61,15 @@ public class JobCodeController {
 	public ReturnT<String> save(Model model, int id, String glueSource, String glueRemark) {
 		// valid
 		if (glueRemark == null) {
-			return new ReturnT<>(500,
+			return ReturnT.instance(500,
 					(I18nUtil.getString("system_please_input") + I18nUtil.getString("jobinfo_glue_remark")));
 		}
 		if (glueRemark.length() < 4 || glueRemark.length() > 100) {
-			return new ReturnT<>(500, I18nUtil.getString("jobinfo_glue_remark_limit"));
+			return ReturnT.instance(500, I18nUtil.getString("jobinfo_glue_remark_limit"));
 		}
 		XxlJobInfo exists_jobInfo = xxlJobInfoDao.loadById(id);
 		if (exists_jobInfo == null) {
-			return new ReturnT<>(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
+			return ReturnT.instance(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
 		}
 
 		// update new code

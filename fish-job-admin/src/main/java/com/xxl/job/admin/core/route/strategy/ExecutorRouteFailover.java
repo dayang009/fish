@@ -47,7 +47,7 @@ public class ExecutorRouteFailover extends ExecutorRouter {
 				return beatResult;
 			}
 		}
-		return new ReturnT<>(ReturnT.FAIL_CODE, beatResultSB.toString());
+		return ReturnT.instance(ReturnT.FAIL_CODE, beatResultSB.toString());
 
 	}
 

@@ -22,7 +22,7 @@ public class RespResult<T> implements Serializable {
 	/**
 	 * 提示信息
 	 */
-	private String msg;
+	private String message;
 
 	/**
 	 * 传输的数据
@@ -38,12 +38,12 @@ public class RespResult<T> implements Serializable {
 	/**
 	 * 全参构造器，手动设置返回 VO
 	 * @param code 状态码
-	 * @param msg 消息
+	 * @param message 消息
 	 * @param data 数据
 	 */
-	public RespResult(String code, String msg, T data) {
+	public RespResult(String code, String message, T data) {
 		this.code = code;
-		this.msg = msg;
+		this.message = message;
 		this.data = data;
 	}
 
@@ -53,7 +53,7 @@ public class RespResult<T> implements Serializable {
 	 */
 	public RespResult(T data) {
 		this.code = ResponseEnum.SUCCESS.getCode();
-		this.msg = ResponseEnum.SUCCESS.getMsg();
+		this.message = ResponseEnum.SUCCESS.getMsg();
 		this.data = data;
 	}
 
@@ -64,7 +64,7 @@ public class RespResult<T> implements Serializable {
 	 */
 	public RespResult(ResponseEnum responseEnum, T data) {
 		this.code = responseEnum.getCode();
-		this.msg = responseEnum.getMsg();
+		this.message = responseEnum.getMsg();
 		this.data = data;
 	}
 
@@ -74,40 +74,36 @@ public class RespResult<T> implements Serializable {
 	 */
 	public RespResult(ResponseEnum responseEnum) {
 		this.code = responseEnum.getCode();
-		this.msg = responseEnum.getMsg();
+		this.message = responseEnum.getMsg();
 		this.data = null;
 	}
 
 	public static <T> RespResult<T> instance(String code, String msg, T data) {
-		return new RespResult<T>().setCode(code).setMsg(msg).setData(data);
+		return new RespResult<T>().setCode(code).setMessage(msg).setData(data);
 	}
 
 	public static <T> RespResult<T> success() {
-		return new RespResult<T>().setCode(ResponseEnum.SUCCESS.getCode()).setMsg(ResponseEnum.SUCCESS.getMsg());
+		return instance(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getMsg(), null);
 	}
 
 	public static <T> RespResult<T> success(T data) {
-		return new RespResult<T>().setCode(ResponseEnum.SUCCESS.getCode())
-			.setMsg(ResponseEnum.SUCCESS.getMsg())
-			.setData(data);
+		return instance(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getMsg(), data);
 	}
 
 	public static <T> RespResult<T> success(String msg, T data) {
-		return new RespResult<T>().setCode(ResponseEnum.SUCCESS.getCode()).setMsg(msg).setData(data);
+		return instance(ResponseEnum.SUCCESS.getCode(), msg, data);
 	}
 
 	public static <T> RespResult<T> fail() {
-		return new RespResult<T>().setCode(ResponseEnum.FAIL.getCode()).setMsg(ResponseEnum.FAIL.getMsg());
+		return instance(ResponseEnum.FAIL.getCode(), ResponseEnum.FAIL.getMsg(), null);
 	}
 
 	public static <T> RespResult<T> fail(T data) {
-		return new RespResult<T>().setCode(ResponseEnum.FAIL.getCode())
-			.setMsg(ResponseEnum.FAIL.getMsg())
-			.setData(data);
+		return instance(ResponseEnum.FAIL.getCode(), ResponseEnum.FAIL.getMsg(), data);
 	}
 
 	public static <T> RespResult<T> fail(ResponseEnum responseEnum, T data) {
-		return new RespResult<T>().setCode(responseEnum.getCode()).setMsg(responseEnum.getMsg()).setData(data);
+		return instance(responseEnum.getCode(), responseEnum.getMsg(), data);
 	}
 
 }

@@ -43,7 +43,7 @@ public class ExecutorRouteRound extends ExecutorRouter {
 	@Override
 	public ReturnT<String> route(TriggerParam triggerParam, List<String> addressList) {
 		String address = addressList.get(count(triggerParam.getJobId()) % addressList.size());
-		return new ReturnT<>(address);
+		return ReturnT.instance(address);
 	}
 
 }

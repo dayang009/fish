@@ -161,11 +161,11 @@ public class JobCompleteHelper {
 		// valid log item
 		XxlJobLog log = XxlJobAdminConfig.getAdminConfig().getXxlJobLogDao().load(handleCallbackParam.getLogId());
 		if (log == null) {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "log item not found.");
+			return ReturnT.instance(ReturnT.FAIL_CODE, "log item not found.");
 		}
 		// avoid repeat callback, trigger child job etc
 		if (log.getHandleCode() > 0) {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "log repeate callback.");
+			return ReturnT.instance(ReturnT.FAIL_CODE, "log repeate callback.");
 		}
 
 		// handle msg

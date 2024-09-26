@@ -22,7 +22,8 @@ create table if not exists user_info
     "phone"         varchar(20),
     "email"         varchar(50)
         constraint "uni_email" unique,
-    "admin_flag"    int2 not null default 0,
+    "roles"         jsonb,
+    "permissions"   jsonb,
     "user_status"   int2 not null default 0,
     "planet_code"   varchar(20),
     "tags"          json,
@@ -41,7 +42,8 @@ comment on column user_info."gender" is '性别：0---女，1---男';
 comment on column user_info."age" is '年龄';
 comment on column user_info."phone" is '手机号';
 comment on column user_info."email" is '邮箱';
-comment on column user_info."admin_flag" is '0-普通用户，1-管理员';
+comment on column user_info."roles" is '当前用户角色';
+comment on column user_info."permissions" is '权限';
 comment on column user_info."user_status" is '用户状态: 0-正常';
 comment on column user_info."tags" is '标签Json列表';
 comment on column user_info."create_time" is '创建时间';
@@ -50,7 +52,16 @@ comment on column user_info."delete_flag" is '是否逻辑删除';
 comment on table user_info is '用户表';
 
 -- ----------------------------
--- Records of t_user
+-- Records of user_info
 -- ----------------------------
-insert into user_info(nick_name, user_account, user_password, gender, age, phone, email)
-values ('zhangSan', '1954254125', '123456', 0, 18, '18855558888', 'demo@qq.com');
+insert into user_info(nick_name, user_account, user_password, gender, age, phone, email, roles, permissions)
+values ('zhangSan', '1954254125', '123456', 0, 18, '18855558888', 'demo@qq.com', '["admin"]',
+        '[
+          "dashboard",
+          "user",
+          "user:list",
+          "user:roles",
+          "user:roles:create",
+          "user:roles:edit",
+          "user:roles:delete"
+        ]');

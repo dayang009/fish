@@ -11,3 +11,9 @@ spring:
     disable-html-escaping: true
     date-format: "yyyy-MM-dd HH:mm:ss"
 
+logging:
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
+  charset:
+    console: UTF-8
+    file: UTF-8

@@ -1,21 +1,21 @@
 package com.xxl.job.admin.controller;
 
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.controller.annotation.PermissionLimit;
 import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.xxl.job.core.biz.AdminBiz;
 import com.xxl.job.core.biz.model.HandleCallbackParam;
 import com.xxl.job.core.biz.model.RegistryParam;
-import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.util.GsonTool;
 import com.xxl.job.core.util.XxlJobRemotingUtil;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -44,17 +44,17 @@ public class JobApiController {
 
 		// valid
 		if (!"POST".equalsIgnoreCase(request.getMethod())) {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "invalid request, HttpMethod not support.");
+			return ReturnT.instance(ReturnT.FAIL_CODE, "invalid request, HttpMethod not support.");
 		}
 		if (uri == null || uri.trim().isEmpty()) {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "invalid request, uri-mapping empty.");
+			return ReturnT.instance(ReturnT.FAIL_CODE, "invalid request, uri-mapping empty.");
 		}
 		if (XxlJobAdminConfig.getAdminConfig().getAccessToken() != null
 				&& !XxlJobAdminConfig.getAdminConfig().getAccessToken().trim().isEmpty()
 				&& !XxlJobAdminConfig.getAdminConfig()
 					.getAccessToken()
 					.equals(request.getHeader(XxlJobRemotingUtil.XXL_JOB_ACCESS_TOKEN))) {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "The access token is wrong.");
+			return ReturnT.instance(ReturnT.FAIL_CODE, "The access token is wrong.");
 		}
 
 		// services mapping
@@ -72,7 +72,7 @@ public class JobApiController {
 			return adminBiz.registryRemove(registryParam);
 		}
 		else {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "invalid request, uri-mapping(" + uri + ") not found.");
+			return ReturnT.instance(ReturnT.FAIL_CODE, "invalid request, uri-mapping(" + uri + ") not found.");
 		}
 
 	}

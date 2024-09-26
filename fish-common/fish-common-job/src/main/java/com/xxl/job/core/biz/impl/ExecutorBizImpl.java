@@ -41,7 +41,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 		}
 
 		if (isRunningOrHasQueue) {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "job thread is running or has trigger queue.");
+			return ReturnT.instance(ReturnT.FAIL_CODE, "job thread is running or has trigger queue.");
 		}
 		return ReturnT.SUCCESS;
 	}
@@ -73,7 +73,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 			if (jobHandler == null) {
 				jobHandler = newJobHandler;
 				if (jobHandler == null) {
-					return new ReturnT<>(ReturnT.FAIL_CODE,
+					return ReturnT.instance(ReturnT.FAIL_CODE,
 							"job handler [" + triggerParam.getExecutorHandler() + "] not found.");
 				}
 			}
@@ -101,7 +101,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 				}
 				catch (Exception e) {
 					logger.error(e.getMessage(), e);
-					return new ReturnT<>(ReturnT.FAIL_CODE, e.getMessage());
+					return ReturnT.instance(ReturnT.FAIL_CODE, e.getMessage());
 				}
 			}
 		}
@@ -125,7 +125,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 			}
 		}
 		else {
-			return new ReturnT<>(ReturnT.FAIL_CODE, "glueType[" + triggerParam.getGlueType() + "] is not valid.");
+			return ReturnT.instance(ReturnT.FAIL_CODE, "glueType[" + triggerParam.getGlueType() + "] is not valid.");
 		}
 
 		// executor block strategy
@@ -135,7 +135,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 			if (ExecutorBlockStrategyEnum.DISCARD_LATER == blockStrategy) {
 				// discard when running
 				if (jobThread.isRunningOrHasQueue()) {
-					return new ReturnT<String>(ReturnT.FAIL_CODE,
+					return ReturnT.instance(ReturnT.FAIL_CODE,
 							"block strategy effect：" + ExecutorBlockStrategyEnum.DISCARD_LATER.getTitle());
 				}
 			}
@@ -171,7 +171,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 			return ReturnT.SUCCESS;
 		}
 
-		return new ReturnT<>(ReturnT.SUCCESS_CODE, "job thread already killed.");
+		return ReturnT.instance(ReturnT.SUCCESS_CODE, "job thread already killed.");
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 				logParam.getLogId());
 
 		LogResult logResult = XxlJobFileAppender.readLog(logFileName, logParam.getFromLineNum());
-		return new ReturnT<>(logResult);
+		return ReturnT.instance(logResult);
 	}
 
 }

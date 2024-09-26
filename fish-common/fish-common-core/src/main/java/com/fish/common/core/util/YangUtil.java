@@ -1,14 +1,11 @@
 package com.fish.common.core.util;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.ServletUtil;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
@@ -35,16 +32,6 @@ public class YangUtil {
 		str.append(DateUtil.year(date));
 
 		return StrUtil.str(str);
-	}
-
-	public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
-		String[] headers = { "X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP",
-				"HTTP_X_FORWARDED_FOR" };
-		if (ArrayUtil.isNotEmpty(otherHeaderNames)) {
-			headers = ArrayUtil.addAll(headers, otherHeaderNames);
-		}
-
-		return ServletUtil.getClientIPByHeader(request, headers);
 	}
 
 	/**
