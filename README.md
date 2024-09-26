@@ -8,23 +8,26 @@ Hello World!!!
 
 ### 后端
 
-- 更新日期：2024-06-02
+- 更新日期：2024-09-26
 
 | 依赖                           | 本项目版本  | 新版                                                         | 说明                                                         |
 | ------------------------------ | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| spring-boot                    | v2.7.18     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
-| spring-cloud                   | v2021.0.9   | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
-| spring-cloud-alibaba           | v2021.0.6.1 | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021.0&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x，[Spring Cloud Alibaba](https://github.com/alibaba/spring-cloud-alibaba/blob/2022.x/README-zh.md) |
-| spring-boot-admin              | v2.7.16     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml) | 限制 Spring Boot 2.x                                         |
-| mybatis                        | v2.3.2      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml) | 限制 Spring Boot 2.x，指 mybatis-spring-boot-starter         |
-| mybatis-plus                   | v3.5.7      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml) |                                                              |
+| spring-boot                    | v3.2.10     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml) | V3.2.X                                                       |
+| spring-cloud                   | v2023.0.3   | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2023&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml) |                                                              |
+| spring-cloud-alibaba           | v2023.0.1.2 | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2023.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml) | [Spring Cloud Alibaba](https://github.com/alibaba/spring-cloud-alibaba/blob/2022.x/README-zh.md) |
+| spring-boot-admin              | v3.2.3      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml) | V3.2.X                                                       |
+| mybatis                        | v3.0.3      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml) | mybatis-spring-boot-starter                                  |
+| mybatis-plus                   | v3.5.8      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml) |                                                              |
 | pagehelper-spring-boot-starter | v2.1.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/pagehelper/pagehelper-spring-boot-starter/maven-metadata.xml) | MyBatis 推荐分页插件                                         |
 | dynamic-datasource             | v3.6.1      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml) | 指 dynamic-datasource-spring-boot-starter                    |
 | druid-spring-boot-starter      | v1.2.23     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/druid-spring-boot-starter/maven-metadata.xml) | 德鲁伊链接池                                                 |
-| knife4j                        | v4.4.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/xiaoymin/knife4j-dependencies/maven-metadata.xml) | Knife4j是一个集Swagger2和OpenAPI3为一体的增强解决方案        |
+| knife4j                        | v4.5.0      | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/github/xiaoymin/knife4j-dependencies/maven-metadata.xml) | Knife4j是一个集Swagger2和OpenAPI3为一体的增强解决方案        |
 | springdoc                      | 1.7.0       | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml) | 用于生成 API doc，支持从 javadoc 中获取字段注释              |
-| guava                          | v32.1.3-jre | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml) |                                                              |
-| hutool                         | v5.8.29     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml) | Hutool 是一个小而全的 Java 工具类库                          |
+| guava                          | v33.3.1-jre | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml) |                                                              |
+| hutool                         | v5.8.32     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml) | Hutool 是一个小而全的 Java 工具类库                          |
+| vertx                          | v4.5.10     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/io/vertx/vertx-dependencies/maven-metadata.xml) |                                                              |
+| redisson                       | v3.36.0     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/redisson/redisson/maven-metadata.xml) |                                                              |
+| gson                           | v2.11.0     | ![img](https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/code/gson/gson/maven-metadata.xml) |                                                              |
 
 
 
@@ -620,8 +623,6 @@ git rebase --abort
 
 
 ```
-
-
 
 
 
