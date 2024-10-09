@@ -53,7 +53,7 @@ public class EmailJobAlarm implements JobAlarm {
 			String content = MessageFormat.format(loadEmailJobAlarmTemplate(),
 					group != null ? group.getTitle() : "null", info.getId(), info.getJobDesc(), alarmContent);
 
-			Set<String> emailSet = new HashSet<String>(Arrays.asList(info.getAlarmEmail().split(",")));
+			Set<String> emailSet = new HashSet<>(Arrays.asList(info.getAlarmEmail().split(",")));
 			for (String email : emailSet) {
 
 				// make mail

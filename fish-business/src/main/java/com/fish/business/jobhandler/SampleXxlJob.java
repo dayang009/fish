@@ -195,7 +195,7 @@ public class SampleXxlJob {
 			connection.connect();
 
 			// data
-			if (isPostMethod && data != null && data.trim().length() > 0) {
+			if (isPostMethod && data != null && !data.trim().isEmpty()) {
 				DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
 				dataOutputStream.write(data.getBytes(StandardCharsets.UTF_8));
 				dataOutputStream.flush();

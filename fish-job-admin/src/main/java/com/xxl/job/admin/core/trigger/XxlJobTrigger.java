@@ -1,14 +1,14 @@
 package com.xxl.job.admin.core.trigger;
 
-import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.fish.common.core.entity.XxlJobGroup;
 import com.fish.common.core.entity.XxlJobInfo;
 import com.fish.common.core.entity.XxlJobLog;
+import com.fish.common.core.util.ReturnT;
+import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.xxl.job.admin.core.scheduler.XxlJobScheduler;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.core.biz.ExecutorBiz;
-import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
 import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.util.IpUtil;
@@ -168,7 +168,7 @@ public class XxlJobTrigger {
 			triggerResult = runExecutor(triggerParam, address);
 		}
 		else {
-			triggerResult = new ReturnT<String>(ReturnT.FAIL_CODE, null);
+			triggerResult = new ReturnT<>(ReturnT.FAIL_CODE, null);
 		}
 
 		// 5、collection trigger info
@@ -245,12 +245,10 @@ public class XxlJobTrigger {
 			runResult = new ReturnT<>(ReturnT.FAIL_CODE, ThrowableUtil.toString(e));
 		}
 
-		StringBuffer runResultSB = new StringBuffer(I18nUtil.getString("jobconf_trigger_run") + "：");
-		runResultSB.append("<br>address：").append(address);
-		runResultSB.append("<br>code：").append(runResult.getCode());
-		runResultSB.append("<br>msg：").append(runResult.getMsg());
+		String runResultSB = I18nUtil.getString("jobconf_trigger_run") + "：" + "<br>address：" + address + "<br>code："
+				+ runResult.getCode() + "<br>msg：" + runResult.getMsg();
 
-		runResult.setMsg(runResultSB.toString());
+		runResult.setMsg(runResultSB);
 		return runResult;
 	}
 

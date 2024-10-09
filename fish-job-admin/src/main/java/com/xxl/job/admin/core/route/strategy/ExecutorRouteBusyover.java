@@ -1,11 +1,11 @@
 package com.xxl.job.admin.core.route.strategy;
 
-import com.xxl.job.admin.core.scheduler.XxlJobScheduler;
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.core.route.ExecutorRouter;
+import com.xxl.job.admin.core.scheduler.XxlJobScheduler;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.core.biz.ExecutorBiz;
 import com.xxl.job.core.biz.model.IdleBeatParam;
-import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class ExecutorRouteBusyover extends ExecutorRouter {
 
 	@Override
 	public ReturnT<String> route(TriggerParam triggerParam, List<String> addressList) {
-		StringBuffer idleBeatResultSB = new StringBuffer();
+		StringBuilder idleBeatResultSB = new StringBuilder();
 		for (String address : addressList) {
 			// beat
 			ReturnT<String> idleBeatResult = null;
@@ -28,10 +28,11 @@ public class ExecutorRouteBusyover extends ExecutorRouter {
 			}
 			catch (Exception e) {
 				logger.error(e.getMessage(), e);
-				idleBeatResult = new ReturnT<String>(ReturnT.FAIL_CODE, "" + e);
+				idleBeatResult = new ReturnT<>(ReturnT.FAIL_CODE, "" + e);
 			}
-			idleBeatResultSB.append((idleBeatResultSB.length() > 0) ? "<br><br>" : "")
-				.append(I18nUtil.getString("jobconf_idleBeat") + "：")
+			idleBeatResultSB.append((!idleBeatResultSB.isEmpty()) ? "<br><br>" : "")
+				.append(I18nUtil.getString("jobconf_idleBeat"))
+				.append("：")
 				.append("<br>address：")
 				.append(address)
 				.append("<br>code：")

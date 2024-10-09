@@ -28,7 +28,7 @@ public class JobTriggerPoolHelper {
 
 	public void start() {
 		fastTriggerPool = new ThreadPoolExecutor(10, XxlJobAdminConfig.getAdminConfig().getTriggerPoolFastMax(), 60L,
-				TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(1000), new ThreadFactory() {
+				TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000), new ThreadFactory() {
 					@Override
 					public Thread newThread(Runnable r) {
 						return new Thread(r, "xxl-job, admin JobTriggerPoolHelper-fastTriggerPool-" + r.hashCode());

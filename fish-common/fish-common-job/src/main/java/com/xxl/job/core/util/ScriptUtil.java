@@ -29,19 +29,8 @@ public class ScriptUtil {
 	 */
 	public static void markScriptFile(String scriptFileName, String content) throws IOException {
 		// make file, filePath/gluesource/666-123456789.py
-		FileOutputStream fileOutputStream = null;
-		try {
-			fileOutputStream = new FileOutputStream(scriptFileName);
+		try (FileOutputStream fileOutputStream = new FileOutputStream(scriptFileName)) {
 			fileOutputStream.write(content.getBytes(StandardCharsets.UTF_8));
-			fileOutputStream.close();
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (fileOutputStream != null) {
-				fileOutputStream.close();
-			}
 		}
 	}
 
@@ -69,7 +58,7 @@ public class ScriptUtil {
 			if (params != null) {
 				cmdarray.addAll(Arrays.asList(params));
 			}
-			String[] cmdarrayFinal = cmdarray.toArray(new String[cmdarray.size()]);
+			String[] cmdarrayFinal = cmdarray.toArray(new String[0]);
 
 			// process-exec
 			final Process process = Runtime.getRuntime().exec(cmdarrayFinal);

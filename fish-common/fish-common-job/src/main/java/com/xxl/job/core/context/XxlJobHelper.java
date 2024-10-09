@@ -2,13 +2,12 @@ package com.xxl.job.core.context;
 
 import com.xxl.job.core.log.XxlJobFileAppender;
 import com.xxl.job.core.util.DateUtil;
+import com.xxl.job.core.util.ThrowableUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Date;
 
 /**
@@ -92,7 +91,7 @@ public class XxlJobHelper {
 
 	// ---------------------- tool for log ----------------------
 
-	private static Logger logger = LoggerFactory.getLogger("xxl-job logger");
+	private static final Logger logger = LoggerFactory.getLogger("xxl-job logger");
 
 	/**
 	 * append log with pattern
@@ -120,9 +119,7 @@ public class XxlJobHelper {
 	 */
 	public static boolean log(Throwable e) {
 
-		StringWriter stringWriter = new StringWriter();
-		e.printStackTrace(new PrintWriter(stringWriter));
-		String appendLog = stringWriter.toString();
+		String appendLog = ThrowableUtil.toString(e);
 
 		StackTraceElement callInfo = new Throwable().getStackTrace()[1];
 		return logDetail(callInfo, appendLog);
@@ -146,22 +143,14 @@ public class XxlJobHelper {
 		 * StackTraceElement callInfo = stackTraceElements[1];
 		 */
 
-		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(DateUtil.formatDateTime(new Date()))
-			.append(" ")
-			.append("[" + callInfo.getClassName() + "#" + callInfo.getMethodName() + "]")
-			.append("-")
-			.append("[" + callInfo.getLineNumber() + "]")
-			.append("-")
-			.append("[" + Thread.currentThread().getName() + "]")
-			.append(" ")
-			.append(appendLog != null ? appendLog : "");
-		String formatAppendLog = stringBuffer.toString();
+		String formatAppendLog = DateUtil.formatDateTime(new Date()) + " " + "[" + callInfo.getClassName() + "#"
+				+ callInfo.getMethodName() + "]" + "-" + "[" + callInfo.getLineNumber() + "]" + "-" + "["
+				+ Thread.currentThread().getName() + "]" + " " + (appendLog != null ? appendLog : "");
 
 		// appendlog
 		String logFileName = xxlJobContext.getJobLogFileName();
 
-		if (logFileName != null && logFileName.trim().length() > 0) {
+		if (logFileName != null && !logFileName.trim().isEmpty()) {
 			XxlJobFileAppender.appendLog(logFileName, formatAppendLog);
 			return true;
 		}

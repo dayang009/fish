@@ -19,16 +19,7 @@ package com.xxl.job.admin.core.cron;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.StringTokenizer;
-import java.util.TimeZone;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Provides a parser and evaluator for unix-like cron expressions. Cron expressions
@@ -524,7 +515,7 @@ public final class CronExpression implements Serializable, Cloneable {
 			throw pe;
 		}
 		catch (Exception e) {
-			throw new ParseException("Illegal cron expression format (" + e.toString() + ")", 0);
+			throw new ParseException("Illegal cron expression format (" + e + ")", 0);
 		}
 	}
 
@@ -1223,7 +1214,7 @@ public final class CronExpression implements Serializable, Cloneable {
 
 			// get second.................................................
 			st = seconds.tailSet(sec);
-			if (st != null && st.size() != 0) {
+			if (st != null && !st.isEmpty()) {
 				sec = st.first();
 			}
 			else {
@@ -1239,7 +1230,7 @@ public final class CronExpression implements Serializable, Cloneable {
 
 			// get minute.................................................
 			st = minutes.tailSet(min);
-			if (st != null && st.size() != 0) {
+			if (st != null && !st.isEmpty()) {
 				t = min;
 				min = st.first();
 			}
@@ -1261,7 +1252,7 @@ public final class CronExpression implements Serializable, Cloneable {
 
 			// get hour...................................................
 			st = hours.tailSet(hr);
-			if (st != null && st.size() != 0) {
+			if (st != null && !st.isEmpty()) {
 				t = hr;
 				hr = st.first();
 			}
@@ -1386,7 +1377,7 @@ public final class CronExpression implements Serializable, Cloneable {
 						mon++;
 					}
 				}
-				else if (st != null && st.size() != 0) {
+				else if (st != null && !st.isEmpty()) {
 					t = day;
 					day = st.first();
 					// make sure we don't over-run a short month, such as february
@@ -1507,7 +1498,7 @@ public final class CronExpression implements Serializable, Cloneable {
 					int dow = daysOfWeek.first(); // desired
 					// d-o-w
 					st = daysOfWeek.tailSet(cDow);
-					if (st != null && st.size() > 0) {
+					if (st != null && !st.isEmpty()) {
 						dow = st.first();
 					}
 
@@ -1563,7 +1554,7 @@ public final class CronExpression implements Serializable, Cloneable {
 
 			// get month...................................................
 			st = months.tailSet(mon);
-			if (st != null && st.size() != 0) {
+			if (st != null && !st.isEmpty()) {
 				t = mon;
 				mon = st.first();
 			}
@@ -1591,7 +1582,7 @@ public final class CronExpression implements Serializable, Cloneable {
 
 			// get year...................................................
 			st = years.tailSet(year);
-			if (st != null && st.size() != 0) {
+			if (st != null && !st.isEmpty()) {
 				t = year;
 				year = st.first();
 			}

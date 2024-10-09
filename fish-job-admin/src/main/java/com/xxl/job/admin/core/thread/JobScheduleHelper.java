@@ -1,9 +1,9 @@
 package com.xxl.job.admin.core.thread;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.fish.common.core.entity.XxlJobInfo;
 import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.xxl.job.admin.core.cron.CronExpression;
-import com.fish.common.core.entity.XxlJobInfo;
 import com.xxl.job.admin.core.scheduler.MisfireStrategyEnum;
 import com.xxl.job.admin.core.scheduler.ScheduleTypeEnum;
 import com.xxl.job.admin.core.trigger.TriggerTypeEnum;
@@ -53,8 +53,7 @@ public class JobScheduleHelper {
 	public static Date generateNextValidTime(XxlJobInfo jobInfo, Date fromTime) throws Exception {
 		ScheduleTypeEnum scheduleTypeEnum = ScheduleTypeEnum.match(jobInfo.getScheduleType(), null);
 		if (ScheduleTypeEnum.CRON == scheduleTypeEnum) {
-			Date nextValidTime = new CronExpression(jobInfo.getScheduleConf()).getNextValidTimeAfter(fromTime);
-			return nextValidTime;
+			return new CronExpression(jobInfo.getScheduleConf()).getNextValidTimeAfter(fromTime);
 		}
 		/*
 		 * || ScheduleTypeEnum. FIX_DELAY == scheduleTypeEnum
@@ -119,7 +118,7 @@ public class JobScheduleHelper {
 							if (nowTime > jobInfo.getTriggerNextTime() + PRE_READ_MS) {
 								// 2.1、trigger-expire > 5s：pass && make
 								// next-trigger-time
-								logger.warn(">>>>>>>>>>> xxl-job, schedule misfire, jobId = " + jobInfo.getId());
+								logger.warn(">>>>>>>>>>> xxl-job, schedule misfire, jobId = {}", jobInfo.getId());
 
 								// 1、misfire match
 								MisfireStrategyEnum misfireStrategyEnum = MisfireStrategyEnum
@@ -128,7 +127,7 @@ public class JobScheduleHelper {
 									// FIRE_ONCE_NOW 》 trigger
 									JobTriggerPoolHelper.trigger(jobInfo.getId(), TriggerTypeEnum.MISFIRE, -1, null,
 											null, null);
-									logger.debug(">>>>> xxl-job, schedule push trigger : jobId = " + jobInfo.getId());
+									logger.debug(">>>>> xxl-job, schedule push trigger : jobId = {}", jobInfo.getId());
 								}
 
 								// 2、fresh next
@@ -142,7 +141,7 @@ public class JobScheduleHelper {
 								// 1、trigger
 								JobTriggerPoolHelper.trigger(jobInfo.getId(), TriggerTypeEnum.CRON, -1, null, null,
 										null);
-								logger.debug(">>>>>>>> xxl-job, schedule push trigger : jobId = " + jobInfo.getId());
+								logger.debug(">>>>>>>> xxl-job, schedule push trigger : jobId = {}", jobInfo.getId());
 
 								// 2、fresh next
 								refreshNextValidTime(jobInfo, new Date());
@@ -296,8 +295,8 @@ public class JobScheduleHelper {
 					}
 
 					// ring trigger
-					logger.debug(">>>>>>>>>>> xxl-job, time-ring beat : " + nowSecond + " = "
-							+ Collections.singletonList(ringItemData));
+					logger.debug(">>>>>>>>>>> xxl-job, time-ring beat : {} = {}", nowSecond,
+							Collections.singletonList(ringItemData));
 					if (CollectionUtil.isNotEmpty(ringItemData)) {
 						// do trigger
 						for (int jobId : ringItemData) {
@@ -344,15 +343,11 @@ public class JobScheduleHelper {
 	 */
 	private void pushTimeRing(int ringSecond, int jobId) {
 		// push async ring
-		List<Integer> ringItemData = ringData.get(ringSecond);
-		if (ringItemData == null) {
-			ringItemData = new ArrayList<>();
-			ringData.put(ringSecond, ringItemData);
-		}
+		List<Integer> ringItemData = ringData.computeIfAbsent(ringSecond, k -> new ArrayList<>());
 		ringItemData.add(jobId);
 
-		logger.debug(">>>>>>>>>>> xxl-job, schedule push time-ring : " + ringSecond + " = "
-				+ Collections.singletonList(ringItemData));
+		logger.debug(">>>>>>>>>>> xxl-job, schedule push time-ring : {} = {}", ringSecond,
+				Collections.singletonList(ringItemData));
 	}
 
 	public void toStop() {

@@ -8,6 +8,7 @@ import jakarta.xml.bind.Marshaller;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -54,7 +55,8 @@ public class YangUtil {
 		// 设置转换参数，告诉序列化器是否格式化输出
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		// 构建输出环境，使用标准输出
-		PrintStream out = new PrintStream(Files.newOutputStream(Paths.get(localFilePath + fileName)), true, "UTF-8");
+		PrintStream out = new PrintStream(Files.newOutputStream(Paths.get(localFilePath + fileName)), true,
+				StandardCharsets.UTF_8);
 		// 将所需对象序列化，该方法没有返回值
 		marshaller.marshal(object, out);
 		return localFilePath + fileName;

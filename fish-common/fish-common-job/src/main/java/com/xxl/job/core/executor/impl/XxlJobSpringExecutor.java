@@ -87,7 +87,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor
 							.findMergedAnnotation(method, XxlJob.class));
 			}
 			catch (Throwable ex) {
-				logger.error("xxl-job method-jobhandler resolve error for bean[" + beanDefinitionName + "].", ex);
+				logger.error("xxl-job method-jobhandler resolve error for bean[{}].", beanDefinitionName, ex);
 			}
 			if (annotatedMethods == null || annotatedMethods.isEmpty()) {
 				continue;

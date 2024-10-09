@@ -404,9 +404,10 @@ public class XxlJobServiceImpl implements XxlJobService {
 	@Override
 	public ReturnT<String> trigger(XxlJobUser loginUser, int jobId, String executorParam, String addressList) {
 		// permission
-		if (loginUser == null) {
-			return ReturnT.instance(ReturnT.FAIL.getCode(), I18nUtil.getString("system_permission_limit"));
-		}
+		// if (loginUser == null) {
+		// return ReturnT.instance(ReturnT.FAIL.getCode(),
+		// I18nUtil.getString("system_permission_limit"));
+		// }
 		XxlJobInfo xxlJobInfo = xxlJobInfoDao.loadById(jobId);
 		if (xxlJobInfo == null) {
 			return ReturnT.instance(ReturnT.FAIL.getCode(), I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
@@ -425,11 +426,19 @@ public class XxlJobServiceImpl implements XxlJobService {
 	}
 
 	private boolean hasPermission(XxlJobUser loginUser, int jobGroup) {
+
+		// 跳过鉴权
+		loginUser = Optional.ofNullable(loginUser).orElseGet(() -> {
+			XxlJobUser xxlJobUser = new XxlJobUser();
+			xxlJobUser.setRole(1);
+			return xxlJobUser;
+		});
+
 		if (loginUser.getRole() == 1) {
 			return true;
 		}
 		List<String> groupIdStrs = new ArrayList<>();
-		if (loginUser.getPermission() != null && loginUser.getPermission().trim().length() > 0) {
+		if (loginUser.getPermission() != null && !loginUser.getPermission().trim().isEmpty()) {
 			groupIdStrs = Arrays.asList(loginUser.getPermission().trim().split(","));
 		}
 		return groupIdStrs.contains(String.valueOf(jobGroup));

@@ -138,7 +138,7 @@ public class XxlJobExecutor {
 					AdminBiz adminBiz = new AdminBizClient(address.trim(), accessToken);
 
 					if (adminBizList == null) {
-						adminBizList = new ArrayList<AdminBiz>();
+						adminBizList = new ArrayList<>();
 					}
 					adminBizList.add(adminBiz);
 				}

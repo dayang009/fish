@@ -13,16 +13,14 @@ spring:
       # 允许连接在池中处于空闲状态的最长时间（以毫秒为单位）
       idle-timeout: 30000
 
-
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    username:
-    password:
-    database: 10
-    ssl: false
-    timeout: 1s
-    connect-timeout: 3s
+  data:
+    redis:
+      host: 192.168.18.99
+      port: 6379
+      password: 123456
+      database: 1
+      timeout: 1s
+      connect-timeout: 3s
 
 logging:
   level:

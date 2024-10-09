@@ -1,11 +1,11 @@
 package com.xxl.job.admin.core.thread;
 
+import com.fish.common.core.entity.XxlJobLog;
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.core.complete.XxlJobCompleter;
 import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
-import com.fish.common.core.entity.XxlJobLog;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.core.biz.model.HandleCallbackParam;
-import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +81,7 @@ public class JobCompleteHelper {
 							.getXxlJobLogDao()
 							.findLostJobIds(losedTime);
 
-						if (losedJobIds != null && losedJobIds.size() > 0) {
+						if (losedJobIds != null && !losedJobIds.isEmpty()) {
 							for (Long logId : losedJobIds) {
 
 								XxlJobLog jobLog = new XxlJobLog();
@@ -169,7 +169,7 @@ public class JobCompleteHelper {
 		}
 
 		// handle msg
-		StringBuffer handleMsg = new StringBuffer();
+		StringBuilder handleMsg = new StringBuilder();
 		if (log.getHandleMsg() != null) {
 			handleMsg.append(log.getHandleMsg()).append("<br>");
 		}

@@ -1,10 +1,10 @@
 package com.xxl.job.admin.core.route.strategy;
 
-import com.xxl.job.admin.core.scheduler.XxlJobScheduler;
+import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.core.route.ExecutorRouter;
+import com.xxl.job.admin.core.scheduler.XxlJobScheduler;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.core.biz.ExecutorBiz;
-import com.fish.common.core.util.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class ExecutorRouteFailover extends ExecutorRouter {
 	@Override
 	public ReturnT<String> route(TriggerParam triggerParam, List<String> addressList) {
 
-		StringBuffer beatResultSB = new StringBuffer();
+		StringBuilder beatResultSB = new StringBuilder();
 		for (String address : addressList) {
 			// beat
 			ReturnT<String> beatResult = null;
@@ -30,8 +30,9 @@ public class ExecutorRouteFailover extends ExecutorRouter {
 				logger.error(e.getMessage(), e);
 				beatResult = new ReturnT<>(ReturnT.FAIL_CODE, "" + e);
 			}
-			beatResultSB.append((beatResultSB.length() > 0) ? "<br><br>" : "")
-				.append(I18nUtil.getString("jobconf_beat") + "：")
+			beatResultSB.append((!beatResultSB.isEmpty()) ? "<br><br>" : "")
+				.append(I18nUtil.getString("jobconf_beat"))
+				.append("：")
 				.append("<br>address：")
 				.append(address)
 				.append("<br>code：")

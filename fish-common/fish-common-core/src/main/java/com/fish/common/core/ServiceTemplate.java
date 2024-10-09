@@ -22,7 +22,7 @@ public abstract class ServiceTemplate<T, R> {
 	 */
 	public R process(T request) {
 		// 1.打印入口日志
-		log.info("start invoke, request is:" + request);
+		log.info("start invoke, request is:{}", request);
 		// 开始计时，用于日志记录耗时
 		Stopwatch stopwatch = Stopwatch.createStarted();
 
@@ -33,12 +33,12 @@ public abstract class ServiceTemplate<T, R> {
 			R response = doProcess(request);
 			// 4.打印出口日志
 			long timeCost = stopwatch.elapsed(TimeUnit.MILLISECONDS);
-			log.info("end invoke, response is:" + response + " costTime:" + timeCost);
+			log.info("end invoke, response is:{} costTime:{}", response, timeCost);
 			return response;
 		}
 		catch (FishCloudException e) {
 			// 打印异常日志
-			log.error("error invoke, exception:" + Arrays.toString(e.getStackTrace()));
+			log.error("error invoke, exception:{}", Arrays.toString(e.getStackTrace()));
 			return null;
 		}
 	}
