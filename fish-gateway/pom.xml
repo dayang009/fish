@@ -21,11 +21,6 @@
 
     <dependencies>
 
-        <!-- bootstrap 文件支持依赖 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
         <!-- SpringBoot 测试依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

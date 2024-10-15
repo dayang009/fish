@@ -4,11 +4,11 @@ server:
 spring:
   application:
     name: ${artifactId}
+  config:
+    import:
+      - optional:nacos:share-fish-config.yaml?refreshEnabled=true
+      - optional:nacos:share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml?refreshEnabled=true
   cloud:
-    inetutils:
-      ignored-interfaces:
-      - VMware.*
-      - VirtualBox.*
     nacos:
       username: ${FISH_NACOS_USERNAME:nacos}
       password: ${FISH_NACOS_PASSWORD:nacos}
@@ -18,12 +18,10 @@ spring:
         file-extension: yaml
         namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
-        # 用于共享的配置文件
-        shared-configs:
-        - data-id: share-fish-config.yaml
-          refresh: true
-        - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
-          refresh: true
+    inetutils:
+      ignored-interfaces:
+        - VMware.*
+        - VirtualBox.*
 
 eureka:
   instance:
@@ -56,7 +54,7 @@ eureka:
     # 从 Eureka 服务上获取注册的服务信息列表的间隔时间
     registry-fetch-interval-seconds: 30
     service-url:
-      #单机
+      # 单机
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
 management:

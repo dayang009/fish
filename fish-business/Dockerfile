@@ -1,4 +1,4 @@
-FROM alibabadragonwell/dragonwell:8-anolis
+FROM maven:3.9.9-amazoncorretto-17
 
 WORKDIR /fish-business
 

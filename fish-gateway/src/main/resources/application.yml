@@ -14,11 +14,6 @@ spring:
         file-extension: yaml
         namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
-        shared-configs:
-        - data-id: share-fish-config.yaml
-          refresh: true
-        - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
-          refresh: true
       discovery:
         enabled: true
         namespace: ${FISH_NACOS_NAMESPACE:dev}
@@ -32,12 +27,12 @@ spring:
           preserved.ip.delete.timeout: 3000
     inetutils:
       ignored-interfaces:
-      - VMware.*
-      - VirtualBox.*
-      - veth
-      - docker
-      - cali
-      - br
+        - VMware.*
+        - VirtualBox.*
+        - veth
+        - docker
+        - cali
+        - br
     gateway:
       enabled: true
       discovery:
@@ -55,18 +50,24 @@ spring:
             max-age: 86400
             exposedHeaders: "Content-Disposition,Content-Type,Cache-Control"
       routes:
-      - id: fish-driver-user
-        uri: lb://fish-driver-user
-        predicates:
-        - Path=/drivers/**
-        - Method=GET,POST
-      - id: oauth2-service-routes
-        uri: lb://oauth2-service
-        predicates:
-        - Path=/**
-        filters:
-        - PrefixPath=0
-
+        - id: fish-driver-user
+          uri: lb://fish-driver-user
+          predicates:
+            - Path=/drivers/**
+            - Method=GET,POST
+        - id: oauth2-service-routes
+          uri: lb://oauth2-service
+          predicates:
+            - Path=/**
+          filters:
+            - PrefixPath=0
+    loadbalancer:
+      nacos:
+        enabled: true
+  config:
+    import:
+      - optional:nacos:share-fish-config.DEFAULT_GROUP.yaml?refreshEnabled=true
+      - optional:nacos:share-fish-config-${FISH_PROFILES_ACTIVE:dev}.DEFAULT_GROUP.yaml?refreshEnabled=true
 
 eureka:
   instance:

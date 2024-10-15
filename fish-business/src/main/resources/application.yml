@@ -1,30 +1,31 @@
+server:
+  port: 36907
+
 spring:
   application:
     name: ${artifactId}
   cloud:
-    inetutils:
-      ignored-interfaces:
-      - VMware.*
-      - VirtualBox.*
     nacos:
       username: ${FISH_NACOS_USERNAME:nacos}
       password: ${FISH_NACOS_PASSWORD:nacos}
       server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
       config:
-        enabled: false
+        enabled: true
         file-extension: yaml
         namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
-        # 用于共享的配置文件
-        shared-configs:
-        - data-id: share-fish-config.yaml
-          refresh: true
-        - data-id: share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml
-          refresh: true
       discovery:
-        enabled: false
+        enabled: true
         namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
+    inetutils:
+      ignored-interfaces:
+        - VMware.*
+        - VirtualBox.*
+  config:
+    import:
+    - optional:nacos:share-fish-config.yaml?refreshEnabled=true
+    - optional:nacos:share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml?refreshEnabled=true
 
 eureka:
   instance:
@@ -39,3 +40,30 @@ eureka:
     service-url:
       defaultZone: http://${FISH_EUREKA_IP:localhost}:${FISH_EUREKA_PORT:8761}/eureka/
 
+xxljob:
+  appname: default-executor
+  port: 9898
+
+monitor:
+  file-path: D:/temp
+
+rocketmq:
+  name-server: "localhost:8888"
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"

@@ -17,6 +17,7 @@
     <modules>
         <module>fish-business</module>
         <module>fish-common</module>
+        <module>fish-flowable</module>
         <module>fish-gateway</module>
         <module>fish-job-admin</module>
         <module>fish-register</module>
@@ -34,7 +35,6 @@
         <mybatis-plus.version>3.5.8</mybatis-plus.version>
         <redisson.version>3.36.0</redisson.version>
         <oracle-database.version>23.5.0.24.07</oracle-database.version>
-        <flowable.version>6.8.1</flowable.version>
         <docker.host>127.0.0.1</docker.host>
         <docker.registry>127.0.0.1</docker.registry>
     </properties>
@@ -111,23 +111,17 @@
                 <version>2.1.0</version>
             </dependency>
 
-            <!-- flowable工作流依赖 -->
+            <!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring-boot-starter -->
             <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-spring-boot-starter</artifactId>
-                <version>${flowable.version}</version>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter</artifactId>
+                <version>7.1.0.M6</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.flowable/flowable-ui-modeler-rest -->
+            <!-- https://mvnrepository.com/artifact/org.activiti/activiti-engine -->
             <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-ui-modeler-rest</artifactId>
-                <version>${flowable.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.flowable/flowable-ui-modeler-conf -->
-            <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-ui-modeler-conf</artifactId>
-                <version>${flowable.version}</version>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-engine</artifactId>
+                <version>7.1.0.M6</version>
             </dependency>
 
             <dependency>
@@ -376,6 +370,16 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.flowable/flowable-bom -->
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-bom</artifactId>
+                <version>7.1.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

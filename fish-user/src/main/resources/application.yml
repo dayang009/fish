@@ -2,6 +2,8 @@ server:
   port: 36909
 
 spring:
+  application:
+    name: ${artifactId}
   profiles:
     active: local
   jackson:
@@ -38,6 +40,30 @@ spring:
       database: 1
       timeout: 1s
       connect-timeout: 3s
+
+
+  cloud:
+    nacos:
+      username: ${FISH_NACOS_USERNAME:nacos}
+      password: ${FISH_NACOS_PASSWORD:nacos}
+      server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
+      config:
+        enabled: false
+        file-extension: yaml
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
+        group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
+      discovery:
+        enabled: false
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
+        group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
+    inetutils:
+      ignored-interfaces:
+        - VMware.*
+        - VirtualBox.*
+  config:
+    import:
+    - optional:nacos:share-fish-config.yaml?refreshEnabled=true
+    - optional:nacos:share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml?refreshEnabled=true
 
 
 mybatis:
@@ -84,6 +110,19 @@ logging:
     console: UTF-8
     file: UTF-8
 
+
+eureka:
+  instance:
+    # 默认为电脑名
+    hostname: ${FISH_EUREKA_IP:localhost}
+    # 测主机名为IP形式
+    prefer-ip-address: true
+    # 默认值为主机名+服务名+端口
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    enabled: false
+    service-url:
+      defaultZone: http://${FISH_EUREKA_IP:localhost}:${FISH_EUREKA_PORT:8761}/eureka/
 
 pagehelper:
   helper-dialect: postgresql

@@ -1,0 +1,34 @@
+server:
+  port: 36911
+spring:
+  application:
+    name: ${artifactId}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://dayang.com:5432/postgres?currentSchema=public&stringtype=unspecified
+    username: postgres
+    password: postgres
+    type: com.zaxxer.hikari.HikariDataSource
+  config:
+    import:
+    - optional:nacos:share-fish-config.yaml?refreshEnabled=true
+    - optional:nacos:share-fish-config-${FISH_PROFILES_ACTIVE:dev}.yaml?refreshEnabled=true
+  cloud:
+    nacos:
+      username: ${FISH_NACOS_USERNAME:nacos}
+      password: ${FISH_NACOS_PASSWORD:nacos}
+      server-addr: ${FISH_NACOS_IP:localhost}:${FISH_NACOS_PORT:8848}
+      config:
+        enabled: true
+        file-extension: yaml
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
+        group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
+      discovery:
+        enabled: true
+        namespace: ${FISH_NACOS_NAMESPACE:dev}
+        group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
+
+
+logging:
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
