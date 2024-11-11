@@ -11,7 +11,7 @@
 -- 创建用户表
 create table if not exists user_info
 (
-    "id"            serial4 primary key,
+    "id"            serial primary key,
     "nick_name"     varchar(50),
     "user_account"  varchar(50)
         constraint "uni_user_account" unique,
@@ -24,12 +24,15 @@ create table if not exists user_info
         constraint "uni_email" unique,
     "roles"         jsonb,
     "permissions"   jsonb,
-    "user_status"   int2 not null default 0,
+    "user_status"   int2    not null default 0,
     "planet_code"   varchar(20),
     "tags"          json,
-    "create_time"   timestamp(0)  default current_timestamp,
+    "create_time"   timestamp(0)     default current_timestamp,
+    "create_by"     varchar(50),
     "update_time"   timestamp(0),
-    "delete_flag"   bool not null default false
+    "update_by"     varchar(50),
+    "remark"        varchar(100),
+    "delete_flag"   boolean not null default false
 )
 ;
 
@@ -47,7 +50,10 @@ comment on column user_info."permissions" is '权限';
 comment on column user_info."user_status" is '用户状态: 0-正常';
 comment on column user_info."tags" is '标签Json列表';
 comment on column user_info."create_time" is '创建时间';
+comment on column user_info."create_by" is '创建者';
 comment on column user_info."update_time" is '更新时间';
+comment on column user_info."update_by" is '更新者';
+comment on column user_info."remark" is '备注';
 comment on column user_info."delete_flag" is '是否逻辑删除';
 comment on table user_info is '用户表';
 
@@ -55,12 +61,16 @@ comment on table user_info is '用户表';
 -- Records of user_info
 -- ----------------------------
 insert into user_info(nick_name, user_account, user_password, gender, age, phone, email, roles, permissions)
-values ('zhangSan', '1954254125', '123456', 0, 18, '18855558888', 'demo@qq.com', '["admin"]',
+values ('大洋', 'dayang', '123456', 0, 18, '18888888888', 'demo@qq.com', '[
+  "admin"
+]',
         '[
           "dashboard",
           "user",
           "user:list",
-          "user:roles",
+          "user:list:create",
+          "user:list:edit",
+          "user:list:delete",
           "user:roles:create",
           "user:roles:edit",
           "user:roles:delete"

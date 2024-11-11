@@ -8,12 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student implements Serializable {
+public class Student extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = -4012301048914576672L;
 
@@ -71,23 +70,6 @@ public class Student implements Serializable {
 	 * 0-普通用户，1-管理员
 	 */
 	private Integer adminFlag = 0;
-
-	/**
-	 * 创建时间 前端上送 2020年10月10日11时17分31秒
-	 */
-	// @DateTimeFormat(pattern = "yyyy年MM月dd日HH时mm分ss秒")
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新时间 个性化输出，返回给前端
-	 */
-	// @JsonFormat(pattern = "yyyy年MM月dd日HH时mm分ss秒")
-	private LocalDateTime updateTime;
-
-	/**
-	 * 是否逻辑删除
-	 */
-	private Boolean deleteFlag = Boolean.FALSE;
 
 	public Student(String nickName, String userAccount, String userPwd, Integer gender, Integer age) {
 		this.nickName = nickName;

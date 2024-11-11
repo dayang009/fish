@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: ${artifactId}
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 1GB
   cloud:
     nacos:
       username: ${FISH_NACOS_USERNAME:nacos}
@@ -67,3 +71,7 @@ management:
 logging:
   pattern:
     dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
+minio:
+  endpoint: http://192.168.18.99:9000
+  access-key: dayang
+  secret-key: 123456789

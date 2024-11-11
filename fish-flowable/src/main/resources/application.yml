@@ -3,12 +3,6 @@ server:
 spring:
   application:
     name: ${artifactId}
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://dayang.com:5432/postgres?currentSchema=public&stringtype=unspecified
-    username: postgres
-    password: postgres
-    type: com.zaxxer.hikari.HikariDataSource
   config:
     import:
     - optional:nacos:share-fish-config.yaml?refreshEnabled=true
@@ -27,6 +21,11 @@ spring:
         enabled: true
         namespace: ${FISH_NACOS_NAMESPACE:dev}
         group: ${FISH_NACOS_GROUP:DEFAULT_GROUP}
+
+flowable:
+  async-executor-activate: true
+  database-schema-update: true
+
 
 
 logging:

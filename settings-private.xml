@@ -62,6 +62,19 @@
 				<downloadSources>true</downloadSources>
 				<downloadJavadocs>true</downloadJavadocs>
 			</properties>
+			<repositories>
+				<repository>
+					<id>osgeo</id>
+					<name>osgeo</name>
+					<url>https://repo.osgeo.org/repository/release/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
 
 		</profile>
 	</profiles>

@@ -116,16 +116,6 @@
 	</select>
 
 
-	<select id="selectByIds" resultType="com.fish.user.entity.UserInfo">
-		select
-		<include refid="Base_Column_List"/>
-		from user_info
-		where id in
-		<foreach item="id" index="" collection="list" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-	</select>
-
 	<select id="userLogin" resultType="com.fish.user.entity.UserInfo">
 		select
 		<include refid="Base_Column_List"/>

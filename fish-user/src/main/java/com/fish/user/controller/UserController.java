@@ -55,7 +55,7 @@ public class UserController {
 
 	@PostMapping("/login")
 	public RespResult<?> login(@RequestBody @Validated UserInfo user) {
-		log.info("入参 ==> {}", gson.toJson(user));
+		log.info("input account: {}, password: {}", user.getUserAccount(), user.getUserPassword());
 
 		LambdaQueryWrapper<UserInfo> userInfoWrapper = new LambdaQueryWrapper<>();
 		userInfoWrapper.eq(UserInfo::getUserAccount, user.getUserAccount());
@@ -114,6 +114,7 @@ public class UserController {
 		if (StrUtil.isAllEmpty(user.getEmail(), user.getPhone())) {
 			throw new FishCloudException(ResponseEnum.USER_NULL_PARAS_ERROR, "注册请输入邮箱或者手机号");
 		}
+		user.setId(null);
 		user.setUserAccount(RandomUtil.randomString(6));
 		try {
 			userInfoService.save(user);

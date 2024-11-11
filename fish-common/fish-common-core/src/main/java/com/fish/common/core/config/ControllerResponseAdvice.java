@@ -1,6 +1,8 @@
 package com.fish.common.core.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fish.common.core.util.RespResult;
+import lombok.SneakyThrows;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -29,10 +31,15 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
 		return isAdvice;
 	}
 
+	@SneakyThrows
 	@Override
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-		return new RespResult<>(body);
+		if (body instanceof String) {
+			ObjectMapper objectMapper = new ObjectMapper();
+			return objectMapper.writeValueAsString(RespResult.success(body));
+		}
+		return RespResult.success(body);
 	}
 
 }

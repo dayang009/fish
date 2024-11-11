@@ -93,13 +93,13 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(RuntimeException.class)
 	public RespResult<?> runtimeExceptionHandler(RuntimeException e, HttpServletRequest request) {
 		log.error("发生未知运行异常，地址：{} >>> ", request.getRequestURI(), e);
-		return RespResult.fail(ResponseEnum.SYSTEM_ERROR, "发生未知运行异常");
+		return RespResult.fail(ResponseEnum.SYSTEM_ERROR, e.getMessage());
 	}
 
 	@ExceptionHandler(Exception.class)
 	public RespResult<?> exceptionHandler(Exception e, HttpServletRequest request) {
 		log.error("系统异常，请求地址：{} >>> ", request.getRequestURI(), e);
-		return RespResult.fail(ResponseEnum.SYSTEM_ERROR, "系统运行异常，请联系管理员");
+		return RespResult.fail(ResponseEnum.SYSTEM_ERROR, e.getMessage());
 	}
 
 }

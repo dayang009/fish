@@ -2,8 +2,6 @@ package com.fish.business.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.fish.business.config.SchedulerConfig;
-import com.fish.business.mvnentity.MirrorDTO;
-import com.fish.business.mvnentity.ServerDTO;
 import com.fish.business.mvnentity.SettingsRoot;
 import com.fish.common.core.config.NotControllerResponseAdvice;
 import com.fish.common.core.entity.Student;
@@ -179,9 +177,9 @@ public class TestController {
 		settingsRoot.setLocalRepository("");
 		settingsRoot.setInteractiveMode("");
 		settingsRoot.setOffline("");
-		settingsRoot.setPluginGroup(new ArrayList<String>());
-		settingsRoot.setServerDTOList(new ArrayList<ServerDTO>());
-		settingsRoot.setMirrorDTOList(new ArrayList<MirrorDTO>());
+		settingsRoot.setPluginGroup(new ArrayList<>());
+		settingsRoot.setServerDTOList(new ArrayList<>());
+		settingsRoot.setMirrorDTOList(new ArrayList<>());
 		settingsRoot.setNowDate(new Date());
 		settingsRoot.setEndTime(LocalDateTime.now());
 
@@ -192,6 +190,18 @@ public class TestController {
 		redisTemplate.opsForValue().set("name名字", "zhangSan张三", 1, TimeUnit.HOURS);
 		ListOperations listOperations = redisTemplate.opsForList();
 
+	}
+
+	@GetMapping("/demo11")
+	public String demo11() {
+		System.out.println("Hello World");
+		return "Hello World";
+	}
+
+	@GetMapping("/demo12")
+	public Map demo12() {
+		System.out.println("Hello World");
+		return Collections.singletonMap("name", "zhangSan");
 	}
 
 	private List<Student> getTestList() {
@@ -205,8 +215,6 @@ public class TestController {
 		s1.setPhone("18855554444");
 		s1.setEmail("123@qq.com");
 		s1.setAdminFlag(0);
-		s1.setCreateTime(LocalDateTime.now());
-		s1.setUpdateTime(LocalDateTime.now());
 		s1.setDeleteFlag(false);
 
 		Student s2 = new Student();
@@ -219,8 +227,6 @@ public class TestController {
 		s2.setPhone("19955557741");
 		s2.setEmail("147258@qq.com");
 		s2.setAdminFlag(1);
-		s2.setCreateTime(LocalDateTime.now());
-		s2.setUpdateTime(LocalDateTime.now());
 		s2.setDeleteFlag(false);
 
 		Student s3 = new Student();
@@ -233,8 +239,6 @@ public class TestController {
 		s3.setPhone("19955552222");
 		s3.setEmail("hahah@163.com");
 		s3.setAdminFlag(0);
-		s3.setCreateTime(LocalDateTime.now());
-		s3.setUpdateTime(LocalDateTime.now());
 		s3.setDeleteFlag(true);
 
 		List<Student> students = new ArrayList<>();
