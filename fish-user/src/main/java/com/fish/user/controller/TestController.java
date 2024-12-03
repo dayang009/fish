@@ -4,11 +4,11 @@ import com.fish.user.entity.UserInfo;
 import com.fish.user.mapper.UserInfoMapper;
 import com.google.gson.Gson;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.redisson.api.RedissonClient;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

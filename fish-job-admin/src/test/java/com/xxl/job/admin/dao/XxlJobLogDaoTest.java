@@ -1,7 +1,7 @@
 package com.xxl.job.admin.dao;
 
 import com.fish.common.core.entity.XxlJobLog;
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

@@ -10,9 +10,9 @@ import com.fish.user.mapper.UserInfoMapper;
 import com.fish.user.service.UserInfoService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -77,7 +77,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 		Gson gson = new Gson();
 		List<UserInfo> users = this.list();
 		return users.stream().filter(userInfo -> {
-			TypeToken<Set<String>> tagType = new TypeToken<>() {
+			TypeToken<Set<String>> tagType = new TypeToken<Set<String>>() {
 			};
 			Set<String> tagNameSet = gson.fromJson(gson.toJson(userInfo.getTags()), tagType.getType());
 			tagNameSet = Optional.ofNullable(tagNameSet).orElse(new HashSet<>());

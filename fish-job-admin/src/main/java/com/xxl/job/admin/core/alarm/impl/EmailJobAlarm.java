@@ -7,7 +7,7 @@ import com.fish.common.core.util.ReturnT;
 import com.xxl.job.admin.core.alarm.JobAlarm;
 import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.xxl.job.admin.core.util.I18nUtil;
-import jakarta.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.MimeMessageHelper;

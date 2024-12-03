@@ -13,7 +13,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.release>${java.version}</maven.compiler.release>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -51,16 +52,16 @@
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter-test</artifactId>
+            <artifactId>mybatis-plus-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-jsqlparser</artifactId>
+            <artifactId>mybatis-plus-jsqlparser-4.9</artifactId>
         </dependency>
 
         <!-- 参数校验 -->
@@ -133,12 +134,7 @@
 		<!-- 生成接口文档 -->
 		<dependency>
 			<groupId>com.github.xiaoymin</groupId>
-			<artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-		</dependency>
-		<!-- 糊涂工具包 -->
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-http</artifactId>
+			<artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
 		</dependency>
 
 		<dependency>

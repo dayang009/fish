@@ -6,9 +6,9 @@ import com.xxl.job.admin.core.util.CookieUtil;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.core.util.JacksonUtil;
 import com.xxl.job.admin.dao.XxlJobUserDao;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.DigestUtils;
 

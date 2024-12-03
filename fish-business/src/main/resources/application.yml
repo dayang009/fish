@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: ${artifactId}
+  rabbitmq:
+    host: dayang.com
+    port: 5672
+    username: admin
+    password: admin
+    ssl:
+      enabled: false
+    virtual-host: /
   servlet:
     multipart:
       max-file-size: 500MB

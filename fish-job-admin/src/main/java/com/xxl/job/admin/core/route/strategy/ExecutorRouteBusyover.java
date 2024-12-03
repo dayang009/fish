@@ -30,7 +30,7 @@ public class ExecutorRouteBusyover extends ExecutorRouter {
 				logger.error(e.getMessage(), e);
 				idleBeatResult = new ReturnT<>(ReturnT.FAIL_CODE, "" + e);
 			}
-			idleBeatResultSB.append((!idleBeatResultSB.isEmpty()) ? "<br><br>" : "")
+			idleBeatResultSB.append((idleBeatResultSB.length() > 0) ? "<br><br>" : "")
 				.append(I18nUtil.getString("jobconf_idleBeat"))
 				.append("：")
 				.append("<br>address：")

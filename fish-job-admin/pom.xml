@@ -15,7 +15,8 @@
 	<description>xxl-job服务端，基于xxl-job-admin</description>
 
     <properties>
-        <maven.compiler.release>${java.version}</maven.compiler.release>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -71,14 +72,14 @@
 
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
         </dependency>
 
 
         <!-- 糊涂工具包 -->
 		<dependency>
 			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-core</artifactId>
+			<artifactId>hutool-all</artifactId>
 		</dependency>
 
         <!-- 基于 xxl-job-core 封装 -->

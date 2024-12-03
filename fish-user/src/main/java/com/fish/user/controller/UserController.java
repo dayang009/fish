@@ -3,7 +3,7 @@ package com.fish.user.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.JakartaServletUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -22,13 +22,13 @@ import com.fish.user.mapper.UserInfoMapper;
 import com.fish.user.service.UserInfoService;
 import com.google.gson.Gson;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
@@ -110,7 +110,7 @@ public class UserController {
 
 	@PostMapping("/register")
 	public RespResult<?> register(@RequestBody @Validated UserInfo user, HttpServletRequest request) {
-		log.info("注册接口被调用的IP: {}", JakartaServletUtil.getClientIP(request));
+		log.info("注册接口被调用的IP: {}", ServletUtil.getClientIP(request));
 		if (StrUtil.isAllEmpty(user.getEmail(), user.getPhone())) {
 			throw new FishCloudException(ResponseEnum.USER_NULL_PARAS_ERROR, "注册请输入邮箱或者手机号");
 		}

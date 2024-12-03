@@ -1,0 +1,17 @@
+services:
+
+  dm8_01:
+    image: dm8_single:dm8_20241022_rev244896_x86_rh6_64
+    container_name: dm8_01
+    privileged: true
+    restart: always
+    environment:
+    - PAGE_SIZE=16
+    - LD_LIBRARY_PATH=/opt/dmdbms/bin
+    - INSTANCE_NAME=dm8_01
+    volumes:
+    - ./dmdata/dm8_01:/opt/dmdbms/data
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro
+    ports:
+    - "5236:5236"

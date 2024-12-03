@@ -1,7 +1,6 @@
 package com.fish.common.core.entity;
 
-import jakarta.validation.constraints.Email;
-
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
 

@@ -2,8 +2,8 @@ package com.fish.business.controller;
 
 import com.fish.business.util.MinioUtil;
 import io.minio.MinioClient;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

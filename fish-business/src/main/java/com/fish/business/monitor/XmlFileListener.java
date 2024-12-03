@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import java.io.File;
 
 /**

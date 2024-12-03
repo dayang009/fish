@@ -30,7 +30,7 @@ public class ExecutorRouteFailover extends ExecutorRouter {
 				logger.error(e.getMessage(), e);
 				beatResult = new ReturnT<>(ReturnT.FAIL_CODE, "" + e);
 			}
-			beatResultSB.append((!beatResultSB.isEmpty()) ? "<br><br>" : "")
+			beatResultSB.append((beatResultSB.length() > 0) ? "<br><br>" : "")
 				.append(I18nUtil.getString("jobconf_beat"))
 				.append("：")
 				.append("<br>address：")

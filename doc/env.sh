@@ -5,3 +5,9 @@ export FISH_NACOS_IP=
 export FISH_NACOS_NAMESPACE=
 export FISH_EUREKA_IP=
 export FISH_EUREKA_PORT=
+
+
+sqlplus sys@localhost:1521/FREE as sysdba
+
+
+alter user SYS identified by Dayang1234;
